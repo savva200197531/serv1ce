@@ -18,7 +18,7 @@ type Card = {
   right: CardInfo
 }
 
-const Schedule = () => {
+const Schedule: React.FC = () => {
   const cards: Card[] = [
     {
       age: {

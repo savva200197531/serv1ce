@@ -7,7 +7,7 @@ import Contacts from './sections/Contacts/Contacts';
 import Footer from './sections/Footer/Footer';
 import './MainPage.scss'
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
   return (
     <>
       <Header />

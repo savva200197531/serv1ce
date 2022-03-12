@@ -1,7 +1,9 @@
 import React from 'react';
 import './Groups.scss'
+import Slider from '../../../../components/Slider/Slider';
+import Slide from './Slide';
 
-const Groups = () => {
+const Groups: React.FC = () => {
   return (
     <section className="groups-section">
       <div className="container">
@@ -14,9 +16,12 @@ const Groups = () => {
               ребёнка группу и записаться на пробное занятие
             </p>
           </div>
-          <div className="groups-slider slider">
-            слайдер
-          </div>
+          <Slider
+            className="groups-slider"
+            url="data/groups-slider.json"
+            Slide={Slide}
+            navigation
+          />
         </div>
       </div>
     </section>

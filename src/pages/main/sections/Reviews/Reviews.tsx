@@ -2,7 +2,7 @@ import React from 'react';
 import './Reviews.scss';
 import avatar from '../../../../assets/images/avatar.svg'
 
-const Reviews = () => {
+const Reviews: React.FC = () => {
   return (
     <section className="reviews-section">
       <div className="container">

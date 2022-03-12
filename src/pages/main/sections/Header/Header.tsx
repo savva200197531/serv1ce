@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.scss'
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <footer className="header">
       <div className="container">

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Contacts.scss'
 
-const Contacts = () => {
+const Contacts: React.FC = () => {
   return (
     <section className="contacts-section">
       <div className="container">
@@ -21,8 +21,8 @@ const Contacts = () => {
             <input type="text" className="form-input" placeholder="Имя" />
               <input type="text" className="form-input" placeholder="Телефон" />
                 <div className="select">
-                  <select name="slct" id="slct">
-                    <option selected disabled>Возраст ребёнка</option>
+                  <select defaultValue={0} name="slct" id="slct">
+                    <option value="0" disabled>Возраст ребёнка</option>
                     <option value="1">4 - 6 лет</option>
                     <option value="2">7 - 9 лет</option>
                     <option value="3">10 - 12 лет</option>
