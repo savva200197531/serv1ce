@@ -1,0 +1,48 @@
+@import '../../../../variables';
+
+.contacts {
+  position: relative;
+}
+
+.contacts-data {
+  font-size: 18px;
+}
+
+.contacts-address {
+  margin-top: 31px;
+  margin-bottom: 16px;
+}
+
+.contacts-data__bottom {
+  max-width: 340px;
+}
+
+.contacts-form {
+  padding: 70px 50px;
+  background: white;
+  box-shadow: $form-shadow;
+  height: 583px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: -70px;
+  //min-width: 521px;
+  width: 100%;
+}
+
+.form-title {
+  font-size: 35px;
+  text-align: center;
+}
+
+.form-input {
+  border: none;
+  border-bottom: 1px solid $opacity-03-black-color;
+  padding: 13px 3px;
+  font-size: 14px;
+  color: $opacity-06-black-color;
+
+  &::placeholder {
+    color: $opacity-06-black-color;
+  }
+}

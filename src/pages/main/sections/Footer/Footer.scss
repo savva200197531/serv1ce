@@ -1,0 +1,25 @@
+@import '../../../../variables';
+
+.footer {
+  background: $red-color;
+}
+
+.copyright {
+  font-size: 13px;
+}
+
+.footer-content, .socials-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.socials-list {
+  max-width: 200px;
+  width: 100%;
+}
+
+.socials-link {
+  color: white;
+  font-size: 22px;
+}
