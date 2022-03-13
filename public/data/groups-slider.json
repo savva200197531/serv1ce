@@ -1,65 +1,65 @@
 [
   {
-    "slide-bg": "assets/images/slider-groups-img1.svg",
-    "slide-title": "Дошкольная группа",
-    "slide-age-start": 4,
-    "slide-age-end": 6,
-    "slide-description": [
+    "slideBg": "assets/images/slider-groups-img1.svg",
+    "slideTitle": "Дошкольная группа",
+    "slideAgeStart": 4,
+    "slideAgeEnd": 6,
+    "slideDescription": [
       "Обучаем основам футбола",
       "Развиваем координацию",
       "Укрепляем здоровье ребёнка"
     ]
   },
   {
-    "slide-bg": "assets/images/slider-groups-img2.svg",
-    "slide-title": "Младшая группа",
-    "slide-age-start": 7,
-    "slide-age-end": 9,
-    "slide-description": [
+    "slideBg": "assets/images/slider-groups-img2.svg",
+    "slideTitle": "Младшая группа",
+    "slideAgeStart": 7,
+    "slideAgeEnd": 9,
+    "slideDescription": [
       "Укрепляем здоровье ребёнка",
       "Развиваем координацию",
       "Обучаем основам футбола"
     ]
   },
   {
-    "slide-bg": "assets/images/slider-groups-img3.svg",
-    "slide-title": "Средняя группа",
-    "slide-age-start": 10,
-    "slide-age-end": 12,
-    "slide-description": [
+    "slideBg": "assets/images/slider-groups-img3.svg",
+    "slideTitle": "Средняя группа",
+    "slideAgeStart": 10,
+    "slideAgeEnd": 12,
+    "slideDescription": [
       "Обучаем основам футбола",
       "Укрепляем здоровье ребёнка",
       "Развиваем координацию"
     ]
   },
   {
-    "slide-bg": "assets/images/slider-groups-img3.svg",
-    "slide-title": "Средняя группа",
-    "slide-age-start": 10,
-    "slide-age-end": 12,
-    "slide-description": [
+    "slideBg": "assets/images/slider-groups-img3.svg",
+    "slideTitle": "Средняя группа",
+    "slideAgeStart": 10,
+    "slideAgeEnd": 12,
+    "slideDescription": [
       "Обучаем основам футбола",
       "Укрепляем здоровье ребёнка",
       "Развиваем координацию"
     ]
   },
   {
-    "slide-bg": "assets/images/slider-groups-img3.svg",
-    "slide-title": "Средняя группа",
-    "slide-age-start": 10,
-    "slide-age-end": 12,
-    "slide-description": [
+    "slideBg": "assets/images/slider-groups-img3.svg",
+    "slideTitle": "Средняя группа",
+    "slideAgeStart": 10,
+    "slideAgeEnd": 12,
+    "slideDescription": [
       "Обучаем основам футбола",
       "Укрепляем здоровье ребёнка",
       "Развиваем координацию"
     ]
   },
   {
-    "slide-bg": "assets/images/slider-groups-img3.svg",
-    "slide-title": "Средняя группа",
-    "slide-age-start": 10,
-    "slide-age-end": 12,
-    "slide-description": [
+    "slideBg": "assets/images/slider-groups-img3.svg",
+    "slideTitle": "Средняя группа",
+    "slideAgeStart": 10,
+    "slideAgeEnd": 12,
+    "slideDescription": [
       "Обучаем основам футбола",
       "Укрепляем здоровье ребёнка",
       "Развиваем координацию"

@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Slider.scss'
 import axios from 'axios';
 import classNames from 'classnames';
@@ -7,6 +7,9 @@ import arrowRight from '../../assets/images/arrow-right.svg'
 
 export type SlideProps = {
   slide: any
+  className: string
+  setCounter: (value: number) => void
+  index: number
 }
 
 type Props = {
@@ -31,7 +34,6 @@ const Slider: React.FC<Props> = ({
     axios.get(url).then(res => {
       if (!res) return
       setSlides(res.data)
-      // drawSlider();
     }).finally(() => {
       setIsLoading(false)
     }).catch(error => {
@@ -53,13 +55,13 @@ const Slider: React.FC<Props> = ({
     }
   }
 
+  const isPrev = (index: number) => counter === 0 ? index === slides.length - 1 : index === counter - 1
+
+  const isNext = (index: number) => counter === slides.length - 1 ? index === 0 : index === counter + 1
+
   useEffect(() => {
     getSlides()
   }, [])
-
-  useEffect(() => {
-    console.log(counter)
-  }, [counter])
 
   if (isLoading) {
     return <div>loading</div>
@@ -79,20 +81,18 @@ const Slider: React.FC<Props> = ({
       </div>
       <div className="slides-container">
         {slides.map((slide, index: number) => (
-          <div
-            className={
-              classNames(
-                'slide',
-                { 'active': index === counter },
-                { 'prev': index === counter - 1 },
-                { 'next': index === counter + 1 }
-              )
-            }
+          <Slide
             key={index}
-            onClick={() => setCounter(index)}
-          >
-            <Slide slide={slide}/>
-          </div>
+            setCounter={setCounter}
+            index={index}
+            className={classNames(
+              'slide',
+              { 'active': index === counter },
+              { 'prev': isPrev(index) },
+              { 'next': isNext(index) }
+            )}
+            slide={slide}
+          />
         ))}
       </div>
     </div>

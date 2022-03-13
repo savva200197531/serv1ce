@@ -20,7 +20,6 @@ const Groups: React.FC = () => {
             className="groups-slider"
             url="data/groups-slider.json"
             Slide={Slide}
-            navigation
           />
         </div>
       </div>

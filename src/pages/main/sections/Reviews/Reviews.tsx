@@ -1,6 +1,8 @@
 import React from 'react';
 import './Reviews.scss';
 import avatar from '../../../../assets/images/avatar.svg'
+import Slider from '../../../../components/Slider/Slider';
+import Slide from './Slide';
 
 const Reviews: React.FC = () => {
   return (
@@ -16,20 +18,22 @@ const Reviews: React.FC = () => {
               профессионально, эффективно и разнообразно.
             </p>
             <div className="account">
-              <img className="account-avatar" src={avatar} alt="avatar" />
-                <div className="account-description">
-                  <h5 className="account-name">Григорий Сергеев</h5>
-                  <div className="account-socials">
-                    <a href="#" className="account-social">Facebook</a>
-                    <a href="#" className="account-social">Вконтакте</a>
-                  </div>
+              <img className="account-avatar" src={avatar} alt="avatar"/>
+              <div className="account-description">
+                <h5 className="account-name">Григорий Сергеев</h5>
+                <div className="account-socials">
+                  <a href="#" className="account-social">Facebook</a>
+                  <a href="#" className="account-social">Вконтакте</a>
                 </div>
+              </div>
             </div>
           </div>
 
-          <div className="videos-slider slider">
-            слайдер
-          </div>
+          <Slider
+            className="videos-slider"
+            Slide={Slide} navigation
+            url="data/videos-slider.json"
+          />
 
         </div>
       </div>
