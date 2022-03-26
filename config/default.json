@@ -1,5 +1,0 @@
-{
-  "port": 5000,
-  "jwtSecret": "Savva diploma react",
-  "mongoUri": "mongodb+srv://Savva:32394834wWw1@cluster0.nr7ah.mongodb.net/app?retryWrites=true&w=majority"
-}
