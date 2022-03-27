@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
 
-const useValidateEmail = (email: string, formSubmit: boolean) => {
+type UseValidateEmail = (email: string, formSubmit: boolean) => ({
+  emailErrors: string[]
+})
+
+const useValidateEmail: UseValidateEmail = (email, formSubmit) => {
   const [emailErrors, setEmailErrors] = useState<string[]>([])
 
   useEffect(() => {

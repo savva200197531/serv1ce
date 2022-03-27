@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/authContext/AuthContext'
 import { Creds } from '../types/user'
 
-const useSignup = (creds: Creds, errors: boolean) => {
+type UseSignup = (creds: Creds, errors: boolean) => ({
+  signupErrors: string[]
+  loading: boolean
+})
+
+const useSignup: UseSignup = (creds, errors) => {
   // state
   const [signupErrors, setSignupErrors] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
@@ -11,21 +16,18 @@ const useSignup = (creds: Creds, errors: boolean) => {
 
   useEffect(() => {
     if (errors) return
-    setSignup().catch((error) => console.log(error))
-  }, [errors, creds])
-
-  const setSignup = async () => {
     setSignupErrors([])
-    try {
-      setLoading(true)
-      await signup(creds.login, creds.password)
-      setLoading(false)
-    } catch (error) {
-      setLoading(true)
-      setSignupErrors(['Не удалось создать аккаунт!'])
-      setLoading(false)
-    }
-  }
+    setLoading(true)
+    signup(creds.login, creds.password)
+        .finally(() => {
+          setLoading(false)
+        })
+        .catch((error) => {
+          console.log(error)
+          setSignupErrors(['Не удалось создать аккаунт!'])
+          setLoading(false)
+        })
+  }, [errors, creds])
 
   return { signupErrors, loading }
 }

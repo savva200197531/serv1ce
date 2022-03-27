@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .auth {
   max-width: 500px;
   margin: 200px auto 0 auto;
@@ -7,18 +9,25 @@
 .auth-form {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 10px;
+
+  > *:not(:first-child) {
+    margin-top: 20px;
+  }
 }
 
 .signup-form {
-  height: 300px;
+  //height: 300px;
 }
 
 .login-form {
-  height: 200px;
+  //height: 200px;
 }
 
 .auth-spinner {
   margin-top: 7px;
+}
+
+.auth-errors {
+  margin-top: 10px;
+  color: $red-color;
 }

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import './Header.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
+import { useAuth } from '../../contexts/authContext/AuthContext'
 
 type PageType = 'signup' | 'login' | 'other'
 
 const Header: React.FC = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
+
+  const { logout } = useAuth()
 
   const [pageType, setPageType] = useState<PageType>()
 
@@ -37,7 +40,7 @@ const Header: React.FC = () => {
             Войти
           </Button>}
 
-          {pageType === 'other' && <Button variant="outlined" color="inherit">
+          {pageType === 'other' && <Button variant="outlined" color="inherit" onClick={logout}>
             Выйти
           </Button>}
         </div>

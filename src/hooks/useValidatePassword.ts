@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Creds } from '../types/user'
 
-type UseValidatePassword = (creds: Creds, formSubmit: boolean) => ({
+type UseValidatePassword = (password: string, formSubmit: boolean) => ({
   passwordErrors: string[]
-  passwordConfirmErrors: string[]
 })
 
-const useValidatePassword: UseValidatePassword = ({ password, passwordConfirm }, formSubmit) => {
+const useValidatePassword: UseValidatePassword = (password, formSubmit) => {
   const [passwordErrors, setPasswordErrors] = useState<string[]>([])
-  const [passwordConfirmErrors, setPasswordConfirmErrors] = useState<string[]>([])
 
   useEffect(() => {
     if (!formSubmit) return
@@ -16,10 +13,8 @@ const useValidatePassword: UseValidatePassword = ({ password, passwordConfirm },
   }, [formSubmit])
 
   const setValidationErrors = () => {
-    setPasswordConfirmErrors([])
     setPasswordErrors([])
     const passwordMessages: string[] = []
-    const passwordConfirmMessages: string[] = []
 
     if (!password.length ||
       password.length < 6) {
@@ -27,13 +22,10 @@ const useValidatePassword: UseValidatePassword = ({ password, passwordConfirm },
       if (password.length < 6) passwordMessages.push('Минимальная длина пароля 6 символов!')
     }
 
-    if (password !== passwordConfirm) passwordConfirmMessages.push('Пароли не совпадают!')
-
-    setPasswordConfirmErrors(passwordConfirmMessages)
     setPasswordErrors(passwordMessages)
   }
 
-  return { passwordErrors, passwordConfirmErrors }
+  return { passwordErrors }
 }
 
 export default useValidatePassword

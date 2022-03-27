@@ -1,18 +1,18 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 import { Button, FormControl, FormHelperText, Input, InputLabel } from '@mui/material'
 import useSignup from '../../../hooks/useSignup'
-import { Creds, SignupField } from '../../../types/user'
+import { Creds, AuthField } from '../../../types/user'
 import useValidateEmail from '../../../hooks/useValidateEmail'
 import useValidatePassword from '../../../hooks/useValidatePassword'
 import Loader from 'react-ts-loaders'
+import useValidatePasswordConfirm from '../../../hooks/useValidatePasswordConfirm'
 
 const Signup: React.FC = () => {
   const [login, setLogin] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
-
-  const [fields, setFields] = useState<SignupField[]>([
+  const [fields, setFields] = useState<AuthField[]>([
     {
       id: 'login',
       name: 'Email',
@@ -34,12 +34,12 @@ const Signup: React.FC = () => {
   ])
   const [creds, setCreds] = useState<Creds>({} as Creds)
   const [formSubmit, setFormSubmit] = useState<boolean>(false)
-  const [errors, setErrors] = useState<string[]>([])
   const [hasErrors, setHasErrors] = useState<boolean>(true)
 
   const { signupErrors, loading } = useSignup(creds, hasErrors)
   const { emailErrors } = useValidateEmail(creds.login, formSubmit)
-  const { passwordErrors, passwordConfirmErrors } = useValidatePassword(creds, formSubmit)
+  const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
+  const { passwordConfirmErrors } = useValidatePasswordConfirm(creds, formSubmit)
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -53,12 +53,13 @@ const Signup: React.FC = () => {
 
   useEffect(() => {
     const messages: string[] = [...passwordErrors, ...passwordConfirmErrors, ...emailErrors]
+
+    console.log(messages)
     if (!messages.length && formSubmit) {
       setHasErrors(false)
-      setErrors(signupErrors)
     }
 
-    setFields(fields.map((field: SignupField) => {
+    setFields(fields.map((field: AuthField) => {
       switch (field.id) {
         case 'login':
           return {
@@ -81,7 +82,7 @@ const Signup: React.FC = () => {
     }))
 
     setFormSubmit(false)
-  }, [emailErrors, passwordErrors, signupErrors])
+  }, [emailErrors, passwordErrors, passwordConfirmErrors, signupErrors])
 
   useEffect(() => {
     setIsLoading(loading)
@@ -89,7 +90,7 @@ const Signup: React.FC = () => {
 
   return <>
     <form className="auth-form signup-form" onSubmit={handleSubmit}>
-      {fields.map((field: SignupField) => (
+      {fields.map((field: AuthField) => (
         <FormControl key={field.id}>
           <InputLabel color="error" htmlFor={field.id}>
             {field.name}
@@ -114,7 +115,7 @@ const Signup: React.FC = () => {
       <Button variant="contained" color="error" type="submit" disabled={isLoading}>
         {isLoading ? <Loader className="auth-spinner" type="spinner" size={50} /> : 'Зарегистрироваться'}
       </Button>
-      {errors.map((error) => error)}
+      <p className="auth-errors">{signupErrors.map((error) => error)}</p>
     </form>
   </>
 }
