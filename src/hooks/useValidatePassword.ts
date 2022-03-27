@@ -1,29 +1,39 @@
 import { useState, useEffect } from 'react'
 import { Creds } from '../types/user'
 
-const useValidatePassword = (creds: Creds, formSubmit: boolean) => {
+type UseValidatePassword = (creds: Creds, formSubmit: boolean) => ({
+  passwordErrors: string[]
+  passwordConfirmErrors: string[]
+})
+
+const useValidatePassword: UseValidatePassword = ({ password, passwordConfirm }, formSubmit) => {
   const [passwordErrors, setPasswordErrors] = useState<string[]>([])
+  const [passwordConfirmErrors, setPasswordConfirmErrors] = useState<string[]>([])
 
   useEffect(() => {
     if (!formSubmit) return
     setValidationErrors()
-  }, [formSubmit, creds])
+  }, [formSubmit])
 
   const setValidationErrors = () => {
+    setPasswordConfirmErrors([])
     setPasswordErrors([])
-    const messages = []
-    if (!creds.password.length ||
-      creds.password.length < 6) {
-      if (!creds.password.length) messages.push('Пароль указан не верно!')
-      if (creds.password.length < 6) messages.push('Минимальная длина пароля 6 символов!')
+    const passwordMessages: string[] = []
+    const passwordConfirmMessages: string[] = []
+
+    if (!password.length ||
+      password.length < 6) {
+      if (!password.length) passwordMessages.push('Пароль указан не верно!')
+      if (password.length < 6) passwordMessages.push('Минимальная длина пароля 6 символов!')
     }
-    if (creds.passwordConfirm) {
-      if (creds.password !== creds.passwordConfirm) messages.push('Пароли не совпадают!')
-    }
-    return setPasswordErrors(messages)
+
+    if (password !== passwordConfirm) passwordConfirmMessages.push('Пароли не совпадают!')
+
+    setPasswordConfirmErrors(passwordConfirmMessages)
+    setPasswordErrors(passwordMessages)
   }
 
-  return { passwordErrors }
+  return { passwordErrors, passwordConfirmErrors }
 }
 
 export default useValidatePassword

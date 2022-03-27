@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   const passwordRef = useRef(null)
 
   return <>
-    <form className="auth-form">
+    <form className="auth-form login-form">
       <FormControl>
         <InputLabel color="error" htmlFor="email" ref={loginRef}>
         Email

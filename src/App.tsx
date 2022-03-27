@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Header from './layout/Header/Header'
 import { AuthProvider } from './contexts/authContext/AuthContext'
 import Login from './pages/auth/sections/Login'
-import Register from './pages/auth/sections/Register'
+import Signup from './pages/auth/sections/Signup'
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="auth" element={<Auth />} >
             <Route path="login" element={<Login/>} />
-            <Route path="register" element={<Register/>} />
+            <Route path="signup" element={<Signup/>} />
           </Route>
         </Routes>
       </AuthProvider>
