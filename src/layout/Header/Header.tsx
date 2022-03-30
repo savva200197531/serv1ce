@@ -28,6 +28,12 @@ const Header: React.FC = () => {
     setPageType(checkPageType())
   }, [pathname])
 
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      navigate('/auth/login')
+    }
+  }, [])
+
   return (
     <footer className="header">
       <div className="container">

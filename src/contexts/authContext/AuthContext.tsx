@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
-import { AuthAction, TodoContextProps } from './types'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import React, { useContext, useEffect, useState } from 'react'
+import { AuthAction, TodoContextProps, User } from './types'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase-config'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,10 +11,12 @@ export const useAuth = () => useContext(AuthContext)
 export const AuthProvider: React.FC = ({ children }) => {
   const navigate = useNavigate()
 
+  const [user, setUser] = useState({} as User)
+  const [loading, setLoading] = useState<boolean>(true)
+
   const signup: AuthAction = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password)
         .then((value) => {
-          console.log(value)
           navigate('/')
         })
 
@@ -26,10 +28,28 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const logout = () => signOut(auth).then(() => navigate('/auth/login')).catch((error) => console.log(error))
 
+  useEffect(() => {
+    setLoading(true)
+    onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) {
+        localStorage.removeItem('token')
+        return
+      }
+      setUser({
+        email: currentUser.email,
+        uid: currentUser.uid,
+      })
+      localStorage.setItem('token', currentUser.uid)
+      setLoading(false)
+    })
+  }, [])
+
   const value = {
     signup,
     login,
     logout,
+    user,
+    loading,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

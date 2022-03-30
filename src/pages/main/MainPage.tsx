@@ -12,7 +12,7 @@ const MainPage: React.FC = () => {
       <Groups />
       <Schedule />
       <Reviews />
-      <Contacts />
+      {/* <Contacts />*/}
       <Footer />
     </>
   )

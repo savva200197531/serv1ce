@@ -32,20 +32,22 @@
     max-width: 435px;
   }
 
-  &:after {
-    content: '';
-    position: absolute;
-    width: 312px;
-    height: 253px;
-    background: url('../../../../' + $imagesPath + 'dots.svg');
-    right: -119px;
-    bottom: -65px;
-    z-index: -1;
+  padding-bottom: 100px;
 
-    @media screen and (max-width: 560px) {
-      display: none;
-    }
-  }
+  //&:after {
+  //  content: '';
+  //  position: absolute;
+  //  width: 312px;
+  //  height: 253px;
+  //  background: url('../../../../' + $imagesPath + 'dots.svg');
+  //  right: -119px;
+  //  bottom: -65px;
+  //  z-index: -1;
+  //
+  //  @media screen and (max-width: 560px) {
+  //    display: none;
+  //  }
+  //}
 }
 
 .reviews-title {
