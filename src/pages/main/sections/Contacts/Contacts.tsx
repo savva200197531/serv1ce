@@ -39,7 +39,7 @@ const Contacts: React.FC = () => {
                 </label>
               </div>
             </div>
-            <Button variant="contained" color="error">
+            <Button variant="contained" color="primary">
               Записаться на занятие
             </Button>
           </form>

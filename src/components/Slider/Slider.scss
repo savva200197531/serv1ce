@@ -74,7 +74,7 @@
   margin: 6px;
 
   &.active {
-    background: $red-color;
+    background: $primary-color;
   }
 }
 
@@ -108,7 +108,7 @@
           top: 0;
           right: 0;
           bottom: 0;
-          background: $red-color;
+          background: $primary-color;
           opacity: 0.90;
           z-index: -1;
         }

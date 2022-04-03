@@ -92,18 +92,18 @@ const Signup: React.FC = () => {
     <form className="auth-form signup-form" onSubmit={handleSubmit}>
       {fields.map((field: AuthField) => (
         <FormControl key={field.id}>
-          <InputLabel color="error" htmlFor={field.id}>
+          <InputLabel color="primary" htmlFor={field.id}>
             {field.name}
           </InputLabel>
           <Input
-            color="error"
+            color="primary"
             id="login"
             aria-describedby="login"
             onChange={(event) => field.setState(event.target.value)}
           />
           <FormHelperText
             id={field.id}
-            color="error"
+            color="primary"
           >
             {field.errors.map((error: string, index: number) =>
               <React.Fragment key={index}>{index !== 0 && ' '}{error}</React.Fragment>,
@@ -112,7 +112,7 @@ const Signup: React.FC = () => {
         </FormControl>
       ))}
 
-      <Button variant="contained" color="error" type="submit" disabled={isLoading}>
+      <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
         {isLoading ? <Loader className="auth-spinner" type="spinner" size={50} /> : 'Зарегистрироваться'}
       </Button>
       <p className="auth-errors">{signupErrors.map((error) => error)}</p>

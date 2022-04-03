@@ -29,10 +29,16 @@ const Header: React.FC = () => {
   }, [pathname])
 
   useEffect(() => {
-    if (!localStorage.getItem('token')) {
+    if (!localStorage.getItem('token') && (pageType !== 'signup' && pageType !== 'login')) {
       navigate('/auth/login')
     }
-  }, [])
+  }, [pageType])
+
+  useEffect(() => {
+    if (localStorage.getItem('token') && (pageType === 'signup' || pageType === 'login')) {
+      navigate('/')
+    }
+  }, [pageType])
 
   return (
     <footer className="header">

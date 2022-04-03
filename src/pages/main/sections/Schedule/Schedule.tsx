@@ -106,7 +106,7 @@ const Schedule: React.FC = () => {
                   <span className="card-title-suffix">лет</span>
                 </div>
                 <div className="card-right__top">
-                  <Button variant="contained" color="error">
+                  <Button variant="contained" color="primary">
                     Записаться
                   </Button>
                 </div>
