@@ -54,7 +54,6 @@ const Signup: React.FC = () => {
   useEffect(() => {
     const messages: string[] = [...passwordErrors, ...passwordConfirmErrors, ...emailErrors]
 
-    console.log(messages)
     if (!messages.length && formSubmit) {
       setHasErrors(false)
     }

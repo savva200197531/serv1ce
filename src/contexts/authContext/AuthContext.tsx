@@ -1,24 +1,55 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AuthAction, TodoContextProps, User } from './types'
+import { AuthAction, AuthContextProps, User } from './types'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../../firebase-config'
+import { ref, set, get, child } from 'firebase/database'
+import { auth, db } from '../../firebase-config'
 import { useNavigate } from 'react-router-dom'
 
-const AuthContext = React.createContext<TodoContextProps>({} as TodoContextProps)
+const AuthContext = React.createContext<AuthContextProps>({} as AuthContextProps)
 
 export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider: React.FC = ({ children }) => {
   const navigate = useNavigate()
 
+  const userRef = (id: string) => ref(db, `users/${id}`)
+
   const [user, setUser] = useState({} as User)
   const [loading, setLoading] = useState<boolean>(true)
+  const [isSignup, setIsSignup] = useState<boolean>(false)
 
-  const signup: AuthAction = (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((value) => {
+  const getUser = (uid: string, email: string | null) => {
+    get(userRef(uid)).then(snapshot => {
+      if (!snapshot.exists()) {
+        console.log('No user data available')
+        getUser(uid, email)
+        return
+      }
+      setUser({
+        uid,
+        email,
+        admin: !!snapshot.val().admin,
+      })
+      localStorage.setItem('token', uid)
+    }).finally(() => {
+      setLoading(false)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  const signup: AuthAction = (email, password) => {
+    setIsSignup(true)
+    return createUserWithEmailAndPassword(auth, email, password)
+        .then(value => {
+          set(userRef(value.user.uid), {
+            email,
+          }).catch(error => {
+            console.log(error)
+          })
           navigate('/')
         })
+  }
 
   const login: AuthAction = (login, password) =>
     signInWithEmailAndPassword(auth, login, password)
@@ -29,18 +60,15 @@ export const AuthProvider: React.FC = ({ children }) => {
   const logout = () => signOut(auth).then(() => navigate('/auth/login')).catch((error) => console.log(error))
 
   useEffect(() => {
-    setLoading(true)
     onAuthStateChanged(auth, (currentUser) => {
+      setLoading(true)
       if (!currentUser) {
         localStorage.removeItem('token')
+        setLoading(false)
         return
       }
-      setUser({
-        email: currentUser.email,
-        uid: currentUser.uid,
-      })
-      localStorage.setItem('token', currentUser.uid)
-      setLoading(false)
+
+      getUser(currentUser.uid, currentUser.email)
     })
   }, [])
 

@@ -34,6 +34,10 @@
     "object-curly-spacing": ["warn", "always"],
     "no-empty-function": "off",
     "@typescript-eslint/no-empty-function": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "arrow-parens": "off",
+    "spaced-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }

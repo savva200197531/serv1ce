@@ -4,7 +4,9 @@
   background: $primary-color;
 }
 
-.footer-content, .header-content {
+.header-content {
   height: 60px;
   color: white;
+  display: flex;
+  align-items: center;
 }

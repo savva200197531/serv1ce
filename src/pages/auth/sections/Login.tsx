@@ -89,7 +89,7 @@ const Login: React.FC = () => {
           />
           <FormHelperText
             id={field.id}
-            color="primary"
+            error
           >
             {field.errors.map((error: string, index: number) =>
               <React.Fragment key={index}>{index !== 0 && ' '}{error}</React.Fragment>,

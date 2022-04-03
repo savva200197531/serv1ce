@@ -1,6 +1,6 @@
-export type AuthAction = (login: string, password: string) => Promise<void>
+export type AuthAction = (login: string, password: string) => Promise<any>
 
-export type TodoContextProps = {
+export type AuthContextProps = {
   signup: AuthAction
   login: AuthAction
   logout: () => Promise<void>
@@ -8,9 +8,8 @@ export type TodoContextProps = {
   loading: boolean
 };
 
-export type AuthState = {};
-
 export type User = {
   email: string | null
   uid: string
+  admin: boolean
 }

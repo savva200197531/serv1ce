@@ -10,7 +10,7 @@ const Header: React.FC = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
-  const { logout } = useAuth()
+  const { logout, loading, user } = useAuth()
 
   const [pageType, setPageType] = useState<PageType>()
 
@@ -29,16 +29,18 @@ const Header: React.FC = () => {
   }, [pathname])
 
   useEffect(() => {
+    if (loading) return
     if (!localStorage.getItem('token') && (pageType !== 'signup' && pageType !== 'login')) {
       navigate('/auth/login')
     }
-  }, [pageType])
-
-  useEffect(() => {
     if (localStorage.getItem('token') && (pageType === 'signup' || pageType === 'login')) {
       navigate('/')
     }
-  }, [pageType])
+  }, [pageType, loading])
+
+  useEffect(() => {
+    console.log(user)
+  }, [user])
 
   return (
     <footer className="header">
@@ -52,9 +54,17 @@ const Header: React.FC = () => {
             Войти
           </Button>}
 
-          {pageType === 'other' && <Button variant="outlined" color="inherit" onClick={logout}>
-            Выйти
-          </Button>}
+          {pageType === 'other' && <>
+            <Button variant="outlined" color="inherit" onClick={() => navigate('/')}>
+              Главная
+            </Button>
+            {user.admin && <Button variant="outlined" color="inherit" onClick={() => navigate('/admin/products')}>
+              Редактор товаров
+            </Button>}
+            <Button variant="outlined" color="inherit" onClick={logout}>
+              Выйти
+            </Button>
+          </>}
         </div>
       </div>
     </footer>
