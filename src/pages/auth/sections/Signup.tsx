@@ -1,7 +1,8 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 import { Button, FormControl, FormHelperText, Input, InputLabel } from '@mui/material'
 import useSignup from '../../../hooks/useSignup'
-import { Creds, AuthField } from '../../../types/user'
+import { Creds } from '../../../types/user'
+import { FormField } from '../../../types/form'
 import useValidateEmail from '../../../hooks/useValidateEmail'
 import useValidatePassword from '../../../hooks/useValidatePassword'
 import Loader from 'react-ts-loaders'
@@ -12,7 +13,7 @@ const Signup: React.FC = () => {
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
-  const [fields, setFields] = useState<AuthField[]>([
+  const [fields, setFields] = useState<FormField[]>([
     {
       id: 'login',
       name: 'Email',
@@ -58,7 +59,7 @@ const Signup: React.FC = () => {
       setHasErrors(false)
     }
 
-    setFields(fields.map((field: AuthField) => {
+    setFields(fields.map((field: FormField) => {
       switch (field.id) {
         case 'login':
           return {
@@ -89,15 +90,15 @@ const Signup: React.FC = () => {
 
   return <>
     <form className="auth-form signup-form" onSubmit={handleSubmit}>
-      {fields.map((field: AuthField) => (
+      {fields.map((field: FormField) => (
         <FormControl key={field.id}>
           <InputLabel color="primary" htmlFor={field.id}>
             {field.name}
           </InputLabel>
           <Input
             color="primary"
-            id="login"
-            aria-describedby="login"
+            id={field.id}
+            aria-describedby={field.id}
             onChange={(event) => field.setState(event.target.value)}
           />
           <FormHelperText

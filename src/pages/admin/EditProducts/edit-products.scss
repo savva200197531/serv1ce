@@ -1,0 +1,17 @@
+@import '../../../variables';
+
+.edit-products-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+}
+
+.product-card-edit {
+  border: 1px solid $card-border-gray-color;
+}
+
+.edit-products-form {
+  max-width: 400px;
+  height: 400px;
+  background: white;
+  margin: 0 auto;
+}

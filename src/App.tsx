@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './App.scss'
 import MainPage from './pages/main/MainPage'
 import Auth from './pages/auth/Auth'
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Header from './layout/Header/Header'
 import { AuthProvider } from './contexts/authContext/AuthContext'
 import Login from './pages/auth/sections/Login'
 import Signup from './pages/auth/sections/Signup'
 import { CartProvider } from './contexts/cartContext/CartContext'
-import Products from './pages/admin/Products/Products'
+import EditProducts from './pages/admin/EditProducts/EditProducts'
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
               <Route path="login" element={<Login/>} />
               <Route path="signup" element={<Signup/>} />
             </Route>
-            <Route path="/admin/products" element={<Products />} />
+            <Route path="/admin/products" element={<EditProducts />} />
           </Routes>
         </CartProvider>
       </AuthProvider>
