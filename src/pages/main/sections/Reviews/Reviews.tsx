@@ -11,10 +11,9 @@ const Reviews: React.FC = () => {
         <div className="reviews">
           <div className="reviews-description">
             <h2 className="section-title">Отзывы</h2>
-            <h3 className="reviews-title">У моего ребёнка сразу появился результат</h3>
+            <h3 className="reviews-title">Отличное оборудование</h3>
             <p className="section-text">
-              Хочу поблагодарить нашего тренера Лаптева Сергея Николаевича. Его тренировки построены
-              очень профессионально, эффективно и разнообразно.
+              Хочу выразить благодарность вашей компании. Оборудование работает без перебоев.
             </p>
             <div className="account">
               <img className="account-avatar" src={avatar} alt="avatar" />

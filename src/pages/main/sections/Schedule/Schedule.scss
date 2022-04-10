@@ -1,0 +1,68 @@
+@import '../../../../variables';
+
+.schedule-section {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 171px;
+    height: 171px;
+    background: $primary-color;
+    border-radius: 50%;
+    top: 20px;
+    right: -44px;
+    z-index: -1;
+
+    @media screen and (max-width: 560px) {
+      display: none;
+    }
+  }
+}
+
+.schedule-cards {
+  margin-top: 42px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+}
+
+.schedule-card {
+  transition: 0.3s ease;
+  border: 1px solid $card-border-gray-color;
+  background: $card-pale-gray-color;
+  padding: 44px 30px 44px 36px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.04);
+    box-shadow: $card-shadow;
+    background: white;
+
+    .red-btn {
+      opacity: 1;
+    }
+  }
+}
+
+.card-title-separator {
+  font-size: 36px;
+}
+
+.cross {
+  background: $card-gray-color;
+}
+
+.card-left__top {
+  display: flex;
+  align-items: baseline;
+}
+
+.card-time {
+  font-size: 23px;
+  font-weight: 700;
+  margin-bottom: 13px;
+}
+
+.card-place {
+  font-size: 16px;
+}

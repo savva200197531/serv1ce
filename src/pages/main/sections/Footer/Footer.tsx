@@ -1,31 +1,32 @@
 import React from 'react'
 import './Footer.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInstagram, faFacebookF, faVk } from '@fortawesome/free-brands-svg-icons'
+import { faHouse, faSquarePhone } from '@fortawesome/free-solid-svg-icons'
+import sk from '../../../../assets/images/sk.png'
 
 const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-content">
-          <p className="copyright">Copyright © 2018 Футбольная Школа «Ва-Банк»</p>
-          <ul className="socials-list">
-            <li className="socials-item">
-              <a href="#" className="socials-link">
-                <FontAwesomeIcon icon={faVk as any as any} />
-              </a>
-            </li>
-            <li className="socials-item">
-              <a href="#" className="socials-link">
-                <FontAwesomeIcon icon={faFacebookF as any} />
-              </a>
-            </li>
-            <li className="socials-item">
-              <a href="#" className="socials-link">
-                <FontAwesomeIcon icon={faInstagram as any} />
-              </a>
-            </li>
-          </ul>
+          <div className="footer-info-wrapper">
+            <p className="copyright">ООО “РУСЬТЕЛЕТЕХ”, 2009-2021</p>
+            <div className="footer-info">
+              <FontAwesomeIcon icon={faHouse as any} size="lg" />
+              <div>
+                <p>Орджоникидзе, д.11, строение 40,</p>
+                <p>Москва, 115419</p>
+              </div>
+            </div>
+            <div className="footer-info">
+              <FontAwesomeIcon icon={faSquarePhone as any} size="lg" />
+              <div>
+                <p>Телефон: +7 (495) 234-9777</p>
+                <p>факс: +7 (495) 234-9777</p>
+              </div>
+            </div>
+          </div>
+          <img src={sk} alt="skolkovo"/>
         </div>
       </div>
     </footer>

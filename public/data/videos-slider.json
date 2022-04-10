@@ -1,11 +1,11 @@
 [
   {
-    "slide-img": "assets/images/slider-videos-img.svg"
+    "id": "1"
   },
   {
-    "slide-img": "assets/images/slider-videos-img.svg"
+    "id": "2"
   },
   {
-    "slide-img": "assets/images/slider-videos-img.svg"
+    "id": "3"
   }
 ]

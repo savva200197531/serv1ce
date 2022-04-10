@@ -5,12 +5,8 @@
 }
 
 .footer-content {
-  height: 60px;
+  padding: 15px 0;
   color: white;
-}
-
-.copyright {
-  font-size: 13px;
 }
 
 .footer-content, .socials-list {
@@ -19,12 +15,22 @@
   align-items: center;
 }
 
-.socials-list {
-  max-width: 200px;
-  width: 100%;
+.footer-info-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 120px;
 }
 
-.socials-link {
-  color: white;
-  font-size: 22px;
+.copyright {
+  font-size: 13px;
+}
+
+.footer-info {
+  display: flex;
+
+  div {
+    margin-left: 10px;
+    font-size: 12px;
+  }
 }
