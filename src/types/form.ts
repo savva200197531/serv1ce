@@ -5,6 +5,7 @@ export type FormField = {
   id: string
   name: string
   setState: (value: string) => void
+  defaultValue?: any
   errors: string[]
   inputComponent?: React.ElementType<InputBaseComponentProps>
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import './Schedule.scss'
+import './info.scss'
 import classNames from 'classnames'
 
 type Card = {
@@ -9,7 +9,7 @@ type Card = {
   onClick?: () => void
 };
 
-const Schedule: React.FC = () => {
+const Info: React.FC = () => {
   const cards: Card[] = [
     {
       title: 'А вы доверяете своей сети',
@@ -35,13 +35,13 @@ const Schedule: React.FC = () => {
   ]
 
   return (
-    <section className="schedule-section">
+    <section className="info-section">
       <div className="container">
-        <div className="schedule">
+        <div className="info">
           <h2 className="section-title">Разрабатываем и производим сетевые решения с уникальным уровнем доверия</h2>
-          <div className="schedule-cards">
+          <div className="info-cards">
             {cards.map((card: Card, index: number) => (
-              <div onClick={card.onClick} key={index} className={classNames('schedule-card', card.className)}>
+              <div onClick={card.onClick} key={index} className={classNames('info-card', card.className)}>
                 <h2 className="card-title">{card.title}</h2>
                 <p className="card-text">{card.text}</p>
               </div>
@@ -53,4 +53,4 @@ const Schedule: React.FC = () => {
   )
 }
 
-export default Schedule
+export default Info

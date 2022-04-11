@@ -1,6 +1,6 @@
 @import '../../../../variables';
 
-.schedule-section {
+.info-section {
   position: relative;
 
   &:after {
@@ -20,13 +20,13 @@
   }
 }
 
-.schedule-cards {
+.info-cards {
   margin-top: 42px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
 }
 
-.schedule-card {
+.info-card {
   transition: 0.3s ease;
   border: 1px solid $card-border-gray-color;
   background: $card-pale-gray-color;

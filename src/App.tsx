@@ -9,23 +9,26 @@ import Login from './pages/auth/sections/Login'
 import Signup from './pages/auth/sections/Signup'
 import { CartProvider } from './contexts/cartContext/CartContext'
 import EditProducts from './pages/admin/EditProducts/EditProducts'
+import { ProductsProvider } from './contexts/productsContext/ProductsContext'
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <CartProvider>
-          <Header />
+        <ProductsProvider>
+          <CartProvider>
+            <Header />
 
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="auth" element={<Auth />} >
-              <Route path="login" element={<Login/>} />
-              <Route path="signup" element={<Signup/>} />
-            </Route>
-            <Route path="/admin/products" element={<EditProducts />} />
-          </Routes>
-        </CartProvider>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="auth" element={<Auth />} >
+                <Route path="login" element={<Login/>} />
+                <Route path="signup" element={<Signup/>} />
+              </Route>
+              <Route path="/admin/products" element={<EditProducts />} />
+            </Routes>
+          </CartProvider>
+        </ProductsProvider>
       </AuthProvider>
     </BrowserRouter>
   )

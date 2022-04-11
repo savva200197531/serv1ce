@@ -1,7 +1,6 @@
-export interface Product {
-  id: number
+export interface ProductFields {
   name: string
   description: string
   cost: string
-  img: any
+  imgFile: File
 }

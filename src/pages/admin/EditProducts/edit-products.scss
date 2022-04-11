@@ -11,7 +11,28 @@
 
 .edit-products-form {
   max-width: 400px;
-  height: 400px;
   background: white;
   margin: 0 auto;
+  opacity: 0;
+  transition: 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  padding: 20px;
+  outline: none;
+
+  > *:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+
+.edit-products-img-label {}
+
+.edit-products-img-label__text {
+  margin-left: 8px;
+}
+
+.edit-products-img-preview {
+  max-width: 200px;
+  padding-bottom: 10px;
 }

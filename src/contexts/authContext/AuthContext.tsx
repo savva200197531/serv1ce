@@ -16,7 +16,6 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const [user, setUser] = useState({} as User)
   const [loading, setLoading] = useState<boolean>(true)
-  const [isSignup, setIsSignup] = useState<boolean>(false)
 
   const getUser = (uid: string, email: string | null) => {
     get(userRef(uid)).then(snapshot => {
@@ -39,7 +38,6 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   const signup: AuthAction = (email, password) => {
-    setIsSignup(true)
     return createUserWithEmailAndPassword(auth, email, password)
         .then(value => {
           set(userRef(value.user.uid), {
