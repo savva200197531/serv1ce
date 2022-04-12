@@ -4,6 +4,7 @@ type UseValidatePassword = (password: string, formSubmit: boolean) => ({
   passwordErrors: string[]
 })
 
+// валидация пароля
 const useValidatePassword: UseValidatePassword = (password, formSubmit) => {
   const [passwordErrors, setPasswordErrors] = useState<string[]>([])
 

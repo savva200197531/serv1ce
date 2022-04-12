@@ -8,6 +8,7 @@ import useLogin from '../../../hooks/useLogin'
 import { FormField } from '../../../types/form'
 
 const Login: React.FC = () => {
+  // состояние компонента
   const [login, setLogin] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
@@ -29,10 +30,12 @@ const Login: React.FC = () => {
   const [formSubmit, setFormSubmit] = useState<boolean>(false)
   const [hasErrors, setHasErrors] = useState<boolean>(true)
 
+  // валидации
   const { loginErrors, loading } = useLogin(creds, hasErrors)
   const { emailErrors } = useValidateEmail(creds.login, formSubmit)
   const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
 
+  // сабмит формы
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setCreds({
@@ -42,6 +45,7 @@ const Login: React.FC = () => {
     setFormSubmit(true)
   }
 
+  // расставляю ошибки, если они есть
   useEffect(() => {
     const messages: string[] = [...passwordErrors, ...emailErrors]
 
@@ -69,10 +73,12 @@ const Login: React.FC = () => {
     setFormSubmit(false)
   }, [emailErrors, passwordErrors, loginErrors])
 
+  // выставляю загрузку
   useEffect(() => {
     setIsLoading(loading)
   }, [loading])
 
+  // верстка
   return <>
     <form className="auth-form login-form" onSubmit={handleSubmit}>
       {fields.map((field: FormField) => (

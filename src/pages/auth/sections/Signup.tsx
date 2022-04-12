@@ -9,6 +9,7 @@ import Loader from 'react-ts-loaders'
 import useValidatePasswordConfirm from '../../../hooks/useValidatePasswordConfirm'
 
 const Signup: React.FC = () => {
+  // состояние компонента
   const [login, setLogin] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
@@ -37,11 +38,13 @@ const Signup: React.FC = () => {
   const [formSubmit, setFormSubmit] = useState<boolean>(false)
   const [hasErrors, setHasErrors] = useState<boolean>(true)
 
+  // валидации
   const { signupErrors, loading } = useSignup(creds, hasErrors)
   const { emailErrors } = useValidateEmail(creds.login, formSubmit)
   const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
   const { passwordConfirmErrors } = useValidatePasswordConfirm(creds, formSubmit)
 
+  // сабмит формы
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setCreds({
@@ -52,6 +55,7 @@ const Signup: React.FC = () => {
     setFormSubmit(true)
   }
 
+  // расставляю ошибки, если они есть
   useEffect(() => {
     const messages: string[] = [...passwordErrors, ...passwordConfirmErrors, ...emailErrors]
 
@@ -84,10 +88,12 @@ const Signup: React.FC = () => {
     setFormSubmit(false)
   }, [emailErrors, passwordErrors, passwordConfirmErrors, signupErrors])
 
+  // выставляю загрузку
   useEffect(() => {
     setIsLoading(loading)
   }, [loading])
 
+  // верстка
   return <>
     <form className="auth-form signup-form" onSubmit={handleSubmit}>
       {fields.map((field: FormField) => (

@@ -7,6 +7,7 @@ type UseLogin = (creds: Creds, errors: boolean) => ({
   loading: boolean
 })
 
+// отпрвляю данные в контекст и если есть ошибка, выставляю ее
 const useLogin: UseLogin = (creds, errors) => {
   // state
   const [loginErrors, setLoginErrors] = useState<string[]>([])
