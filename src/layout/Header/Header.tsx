@@ -6,6 +6,7 @@ import { useAuth } from '../../contexts/authContext/AuthContext'
 
 type PageType = 'signup' | 'login' | 'other'
 
+// шапка сайта
 const Header: React.FC = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
@@ -14,6 +15,7 @@ const Header: React.FC = () => {
 
   const [pageType, setPageType] = useState<PageType>()
 
+  // проверяю тип страницы
   const checkPageType = () => {
     if (pathname.includes('signup')) {
       return 'signup'
@@ -28,6 +30,8 @@ const Header: React.FC = () => {
     setPageType(checkPageType())
   }, [pathname])
 
+  // не даю пользователя перейти пользователю на главную страницу, если он не не вошел в аккаунт
+  // и не даю перейти на страницу аунтефикации, если он уже вошел на сайт
   useEffect(() => {
     if (loading) return
     if (!localStorage.getItem('token') && (pageType !== 'signup' && pageType !== 'login')) {
@@ -38,10 +42,7 @@ const Header: React.FC = () => {
     }
   }, [pageType, loading])
 
-  useEffect(() => {
-    console.log(user)
-  }, [user])
-
+  // верстка
   return (
     <footer className="header">
       <div className="container">

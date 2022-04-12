@@ -3,6 +3,7 @@ import { SlideProps } from '../../../../components/Slider/Slider'
 import { Button } from '@mui/material'
 import { useCart } from '../../../../contexts/cartContext/CartContext'
 
+// отдельный продукт (слайд)
 const Slide: React.FC<SlideProps> = ({ slide, className, setCounter, index, counter }) => {
   const { addProduct } = useCart()
 

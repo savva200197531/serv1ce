@@ -4,6 +4,7 @@ import avatar from '../../../../assets/images/avatar.svg'
 import Slider from '../../../../components/Slider/Slider'
 import Slide from './Slide'
 
+// отзывы
 const Reviews: React.FC = () => {
   return (
     <section className="reviews-section">

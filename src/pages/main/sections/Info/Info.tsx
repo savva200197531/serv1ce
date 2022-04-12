@@ -9,6 +9,7 @@ type Card = {
   onClick?: () => void
 };
 
+// информация о сайте
 const Info: React.FC = () => {
   const cards: Card[] = [
     {

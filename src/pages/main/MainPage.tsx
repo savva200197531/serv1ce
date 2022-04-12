@@ -5,6 +5,7 @@ import Reviews from './sections/Reviews/Reviews'
 import Footer from './sections/Footer/Footer'
 import './MainPage.scss'
 
+// главная страница
 const MainPage: React.FC = () => {
   return (
     <>

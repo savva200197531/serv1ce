@@ -9,6 +9,7 @@ type SlideImg = {
   id: string
 }
 
+// слайд с картинкой возле отзывов
 const Slide: React.FC<SlideProps> = ({ slide, className }) => {
   const slideImages: SlideImg[] = [
     {

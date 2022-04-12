@@ -3,6 +3,7 @@ import './products.scss'
 import Slider from '../../../../components/Slider/Slider'
 import Slide from './Slide'
 
+// компонент с продуктами сайта
 const Products: React.FC = () => {
   return (
     <section className="products-section">

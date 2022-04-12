@@ -11,6 +11,7 @@ import { CartProvider } from './contexts/cartContext/CartContext'
 import EditProducts from './pages/admin/EditProducts/EditProducts'
 import { ProductsProvider } from './contexts/productsContext/ProductsContext'
 
+// корень приложения с роутером для навигации по сайту и провайдерами, для управления логикой сайта
 function App() {
   return (
     <BrowserRouter>
