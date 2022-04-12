@@ -13,7 +13,7 @@ import useValidateRequired from '../../../hooks/useValidateRequired'
 
 type Props = {
   open: boolean
-  handleClose: (value: boolean) => void
+  handleClose: () => void
 }
 
 const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
@@ -28,7 +28,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
   const [hasErrors, setHasErrors] = useState<boolean>(true)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const { createProductErrors, loading } = useCreateProduct(values, hasErrors)
+  const { createProductErrors, loading } = useCreateProduct(values, hasErrors, handleClose)
   const { lengthErrors: nameErrors } = useValidateStringMinMax(name, { min: 3 }, formSubmit)
   const { lengthErrors: descriptionErrors } = useValidateStringMinMax(description, { min: 10, max: 100 }, formSubmit)
   const { numberErrors: costErrors } = useValidateNumberMinMax(Number(cost), { min: 10 }, formSubmit)
@@ -168,16 +168,18 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
           display: 'none',
         }}
       />
-      <label className="edit-products-img-label" htmlFor="icon-button-photo">
-        <Button color="primary" component="span">
-          <FontAwesomeIcon icon={faCamera as any} size="2x"/>
-          <span className="edit-products-img-label__text">Выберите изображение</span>
-        </Button>
-      </label>
-      {<p className="">{imgFileErrors.map((error) => error)}</p>}
+      <div>
+        <label className="edit-products-img-label" htmlFor="icon-button-photo">
+          <Button color="primary" component="span">
+            <FontAwesomeIcon icon={faCamera as any} size="2x"/>
+            <span className="edit-products-img-label__text">Выберите изображение</span>
+          </Button>
+        </label>
+        <p className="edit-products-form-errors">{imgFileErrors.map((error) => error)}</p>
+      </div>
       {img && <img className="edit-products-img-preview" src={img} alt="img"/>}
       <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
-        {isLoading ? <Loader className="auth-spinner" type="spinner" size={50} /> : 'Сохранить'}
+        {isLoading ? <Loader className="auth-spinner" type="spinner" size={20} /> : 'Сохранить'}
       </Button>
       <p className="form-submit-errors">{createProductErrors.map((error) => error)}</p>
     </form>

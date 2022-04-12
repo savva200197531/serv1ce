@@ -4,42 +4,42 @@ import axios from 'axios'
 import classNames from 'classnames'
 import arrowLeft from '../../assets/images/arrow-left.svg'
 import arrowRight from '../../assets/images/arrow-right.svg'
+import Loader from 'react-ts-loaders'
 
-export type SlideProps = {
+export interface SlideProps {
   slide: any;
   className: string;
   setCounter: (value: number) => void;
   index: number;
   counter: number;
-};
+}
 
 type Props = {
-  url: string;
+  slides: any[]
   navigation?: boolean;
   className?: string;
   Slide: React.FC<SlideProps>;
 };
 
-const Slider: React.FC<Props> = ({ url, navigation, className, Slide }) => {
+const Slider: React.FC<Props> = ({ slides, navigation, className, Slide }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [counter, setCounter] = useState<number>(0)
-  const [slides, setSlides] = useState<any[]>([])
 
-  const getSlides = () => {
-    setIsLoading(true)
-    axios
-        .get(url)
-        .then((res) => {
-          if (!res) return
-          setSlides(res.data)
-        })
-        .finally(() => {
-          setIsLoading(false)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-  }
+  // const getSlides = () => {
+  //   setIsLoading(true)
+  //   axios
+  //       .get(url)
+  //       .then((res) => {
+  //         if (!res) return
+  //         setSlides(res.data)
+  //       })
+  //       .finally(() => {
+  //         setIsLoading(false)
+  //       })
+  //       .catch((error) => {
+  //         console.log(error)
+  //       })
+  // }
 
   const nextSlide = () => {
     setCounter(counter + 1)
@@ -61,12 +61,12 @@ const Slider: React.FC<Props> = ({ url, navigation, className, Slide }) => {
   const isNext = (index: number) =>
     counter === slides.length - 1 ? index === 0 : index === counter + 1
 
-  useEffect(() => {
-    getSlides()
-  }, [])
+  // useEffect(() => {
+  //   getSlides()
+  // }, [])
 
   if (isLoading) {
-    return <div>loading</div>
+    return <Loader type="spinner" size={50} />
   }
 
   return (

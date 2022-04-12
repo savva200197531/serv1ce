@@ -32,12 +32,12 @@ const Reviews: React.FC = () => {
             </div>
           </div>
 
-          <Slider
-            className="videos-slider"
-            Slide={Slide}
-            navigation
-            url="data/videos-slider.json"
-          />
+          {/*<Slider*/}
+          {/*  className="videos-slider"*/}
+          {/*  Slide={Slide}*/}
+          {/*  navigation*/}
+          {/*  url="data/videos-slider.json"*/}
+          {/*/>*/}
         </div>
       </div>
     </section>

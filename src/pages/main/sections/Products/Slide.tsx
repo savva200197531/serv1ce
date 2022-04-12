@@ -2,27 +2,21 @@ import React from 'react'
 import { SlideProps } from '../../../../components/Slider/Slider'
 import { Button } from '@mui/material'
 import { useCart } from '../../../../contexts/cartContext/CartContext'
+import { Product } from '../../../../types/products'
+
+interface Props extends SlideProps {
+  slide: Product
+}
 
 // отдельный продукт (слайд)
-const Slide: React.FC<SlideProps> = ({ slide, className, setCounter, index, counter }) => {
+const Slide: React.FC<Props> = ({ slide, className, setCounter, index, counter }) => {
   const { addProduct } = useCart()
 
   return (
     <div className={className} onClick={() => setCounter(index)}>
-      {/*<h5 className="slide-title">{slide.slideTitle}</h5>*/}
-      {/*<div className="age">*/}
-      {/*  <h2 className="slide-age-start card-title">{slide.slideAgeStart}</h2>*/}
-      {/*  <span className="card-title-separator">-</span>*/}
-      {/*  <h2 className="slide-age-end card-title">{slide.slideAgeEnd}</h2>*/}
-      {/*  <span className="card-title-suffix">лет</span>*/}
-      {/*</div>*/}
-      {/*<ul className="slide-description">*/}
-      {/*  {slide.slideDescription.map((item: string, index: number) => (*/}
-      {/*    <li key={index} className="slide-description-item">*/}
-      {/*      {item}*/}
-      {/*    </li>*/}
-      {/*  ))}*/}
-      {/*</ul>*/}
+      <h5 className="slide-title">{slide.name}</h5>
+      <p className="">{slide.cost}</p>
+      <ul className="slide-description">{slide.description}</ul>
       {index === counter && (
         <Button onClick={() => addProduct(slide)} variant="outlined" color="inherit">
           Купить

@@ -4,3 +4,11 @@ export interface ProductFields {
   cost: string
   imgFile: File
 }
+
+export interface Product {
+  cost: string
+  description: string
+  id: string
+  name: string
+  url: string
+}

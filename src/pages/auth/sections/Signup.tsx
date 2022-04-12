@@ -120,7 +120,7 @@ const Signup: React.FC = () => {
       ))}
 
       <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
-        {isLoading ? <Loader className="auth-spinner" type="spinner" size={50} /> : 'Зарегистрироваться'}
+        {isLoading ? <Loader className="auth-spinner" type="spinner" size={20} /> : 'Зарегистрироваться'}
       </Button>
       <p className="form-submit-errors">{signupErrors.map((error) => error)}</p>
     </form>
