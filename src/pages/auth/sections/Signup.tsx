@@ -91,6 +91,7 @@ const Signup: React.FC = () => {
   // выставляю загрузку
   useEffect(() => {
     setIsLoading(loading)
+    setHasErrors(true)
   }, [loading])
 
   // верстка
@@ -121,7 +122,7 @@ const Signup: React.FC = () => {
       <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
         {isLoading ? <Loader className="auth-spinner" type="spinner" size={50} /> : 'Зарегистрироваться'}
       </Button>
-      <p className="auth-errors">{signupErrors.map((error) => error)}</p>
+      <p className="form-submit-errors">{signupErrors.map((error) => error)}</p>
     </form>
   </>
 }

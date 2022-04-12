@@ -42,6 +42,10 @@ const Header: React.FC = () => {
     }
   }, [pageType, loading])
 
+  useEffect(() => {
+    console.log(user)
+  }, [user])
+
   // верстка
   return (
     <footer className="header">

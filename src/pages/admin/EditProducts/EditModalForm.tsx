@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react'
-import { Button, FormControl, FormHelperText, Input, InputLabel } from '@mui/material'
+import { Button, FormControl, FormHelperText, Input, InputLabel, TextareaAutosize } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import Loader from 'react-ts-loaders'
@@ -7,6 +7,9 @@ import { FormField } from '../../../types/form'
 import { NumberFormatCustom } from './NumberFormatCustom'
 import { ProductFields } from '../../../types/products'
 import useCreateProduct from '../../../hooks/useCreateProduct'
+import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
+import useValidateNumberMinMax from '../../../hooks/useValidateNumberMinMax'
+import useValidateRequired from '../../../hooks/useValidateRequired'
 
 type Props = {
   open: boolean
@@ -18,6 +21,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
   const [description, setDescription] = useState<string>('')
   const [cost, setCost] = useState<string>('')
   const [imgFile, setImgFile] = useState<File>({} as File)
+  const [imgFileErrors, setImgFileErrors] = useState<string[]>([])
 
   const [values, setValues] = useState({} as ProductFields)
   const [formSubmit, setFormSubmit] = useState<boolean>(false)
@@ -25,6 +29,10 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { createProductErrors, loading } = useCreateProduct(values, hasErrors)
+  const { lengthErrors: nameErrors } = useValidateStringMinMax(name, { min: 3 }, formSubmit)
+  const { lengthErrors: descriptionErrors } = useValidateStringMinMax(description, { min: 10, max: 100 }, formSubmit)
+  const { numberErrors: costErrors } = useValidateNumberMinMax(Number(cost), { min: 10 }, formSubmit)
+  const { requiredErrors: fileErrors } = useValidateRequired(imgFile.name, formSubmit)
 
   const [img, setImg] = useState<string | null>()
 
@@ -39,6 +47,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
       id: 'description',
       name: 'Описание',
       setState: setDescription,
+      inputComponent: TextareaAutosize,
       errors: [],
     },
     {
@@ -61,14 +70,12 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
       imgFile,
     })
     setFormSubmit(true)
-    setHasErrors(false)
   }
 
   const handleCapture = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (!target.files) return
 
     const file = target.files[0]
-
     setImgFile(file)
 
     const fileReader = new FileReader()
@@ -78,6 +85,41 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
     }
   }
 
+  // расставляю ошибки, если они есть
+  useEffect(() => {
+    const messages: string[] = [...nameErrors, ...descriptionErrors, ...costErrors, ...fileErrors]
+
+    if (!messages.length && formSubmit) {
+      setHasErrors(false)
+    }
+
+    setFields(fields.map((field: FormField) => {
+      switch (field.id) {
+        case 'name':
+          return {
+            ...field,
+            errors: nameErrors,
+          }
+        case 'description':
+          return {
+            ...field,
+            errors: descriptionErrors,
+          }
+        case 'cost':
+          return {
+            ...field,
+            errors: costErrors,
+          }
+        default:
+          return field
+      }
+    }))
+
+    setImgFileErrors(fileErrors)
+
+    setFormSubmit(false)
+  }, [nameErrors, descriptionErrors, costErrors, fileErrors])
+
   useEffect(() => {
     setTimeout(() => {
       if (open && formRef.current) {
@@ -85,10 +127,11 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
         formRef.current.style.opacity = '1'
       }
     })
-  }, [open, formRef.current, img])
+  }, [open, formRef.current, img, description])
 
   useEffect(() => {
     setIsLoading(loading)
+    setHasErrors(true)
   }, [loading])
 
   return (
@@ -131,11 +174,12 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
           <span className="edit-products-img-label__text">Выберите изображение</span>
         </Button>
       </label>
+      {<p className="">{imgFileErrors.map((error) => error)}</p>}
       {img && <img className="edit-products-img-preview" src={img} alt="img"/>}
       <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
         {isLoading ? <Loader className="auth-spinner" type="spinner" size={50} /> : 'Сохранить'}
       </Button>
-      <p className="">{createProductErrors.map((error) => error)}</p>
+      <p className="form-submit-errors">{createProductErrors.map((error) => error)}</p>
     </form>
   )
 }

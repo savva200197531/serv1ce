@@ -77,118 +77,12 @@ section {
 }
 
 button {
-  border-radius: 50px;
-  height: 51px;
-  width: 100%;
-  border: none;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
+  height: 40px;
 }
 
-.red-btn {
-  //background: $red-button-color;
-  //color: white;
-}
-
-.white-btn {
-  //background: white;
-  //color: $red-button-color;
-}
-
-// checkbox
-
-.checkbox {
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  color: $opacity-06-black-color;
-
-  * {
-    cursor: pointer;
-  }
-
-  .checkbox-input {
-    margin: 0;
-    appearance: none;
-    display: block;
-    width: 18px;
-    height: 18px;
-    background-color: #fff;
-    border: 2px solid #aaa;
-    border-radius: 4px;
-    outline: none;
-
-    &:checked {
-      position: relative;
-      //background-color: $red-button-color;
-      border-color: transparent;
-
-      &::after {
-        box-sizing: border-box;
-        content: '';
-        position: absolute;
-        width: 6px;
-        height: 10px;
-        border: 2px solid #fff;
-        border-top: none;
-        border-left: none;
-        transform-origin: bottom right;
-        transform: translateX(0) translateY(1px) rotate(45deg);
-      }
-    }
-
-    &:focus {
-      box-shadow: 0 0 0 3px rgba(246, 39, 47, 0.4);
-    }
-  }
-}
-
-.checkbox-label {
-  padding-left: 15px;
-}
-
-// select
-
-select {
-  appearance: none;
-  outline: 0;
-  box-shadow: none;
-  border: 0;
-  background: transparent;
-}
-
-select {
-  flex: 1;
-  cursor: pointer;
-  padding: 13px 3px;
-  color: $opacity-06-black-color;
-}
-
-.select {
-  position: relative;
-  display: flex;
-  background: transparent;
-  overflow: hidden;
-
-  border-bottom: 1px solid $opacity-03-black-color;
-  font-size: 14px;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 15px;
-    right: 21px;
-    border: 1px solid #C4C4C4;
-    border-left: none;
-    border-top: none;
-    transform: rotate(45deg);
-    height: 8px;
-    width: 8px;
-    cursor: pointer;
-    transition: .25s all ease;
-  }
+.form-submit-errors {
+  margin-top: 10px;
+  color: $red-color;
 }
 
 // adaptive
