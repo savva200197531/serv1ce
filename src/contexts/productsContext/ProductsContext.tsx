@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react'
-import { ProductsContextProps, UploadImg, UploadProduct } from './types'
+import React, { useContext, useEffect, useState } from 'react'
+import { ProductsContextProps, UploadProduct } from './types'
 import { ref as storageRef, uploadBytes, listAll, getDownloadURL } from 'firebase/storage'
-import { ref as databaseRef, set, push, get } from 'firebase/database'
+import { ref as databaseRef, set, push, get, onChildAdded, onValue } from 'firebase/database'
 import { db, storage } from '../../firebase-config'
 import { Product } from '../../types/products'
+import { v4 } from 'uuid'
 
 const ProductsContext = React.createContext<ProductsContextProps>({} as ProductsContextProps)
 
@@ -16,49 +17,40 @@ export const ProductsProvider: React.FC = ({ children }) => {
   const imagesRef = (id = '') => storageRef(storage, `productImages/${id}`)
   const productsRef = databaseRef(db, 'products')
 
-  const uploadProduct: UploadProduct = (name, description, cost, id) => {
-    const ref = push(productsRef)
-    return set(ref, {
-      name,
-      description,
-      cost,
-      id,
-    })
+  const uploadProduct: UploadProduct = (value) => {
+    const id = v4()
+
+    return uploadBytes(imagesRef(id), value.imgFile)
+        .then(() => getDownloadURL(imagesRef(id)))
+        .then(url => set(push(productsRef), {
+          ...value,
+          url,
+        }))
   }
 
-  const uploadImg: UploadImg = (imgFile: File, id) => {
-    const ref = imagesRef(id)
-    return uploadBytes(ref, imgFile)
-  }
-
-  const loadProducts = () => {
+  const watchProducts = () => {
     setLoading(true)
-    setProducts([])
-    get(productsRef).then(snapshot => {
-      listAll(imagesRef()).then(res => {
-        res.items.forEach((item, index: number) => {
-          getDownloadURL(item).then((url) => {
-            setProducts(prev => [...prev, {
-              ...Object.values(snapshot.val())[index] as Product,
-              url,
-            }])
-          })
-        })
-      }).finally(() => {
-        setLoading(false)
-      }).catch(error => {
-        console.log(error)
-        setLoading(false)
-      })
-    }).catch(error => {
-      console.log(error)
+
+    onValue(productsRef, (snapshot) => {
+      if (!snapshot.exists()) {
+        return setLoading(false)
+      }
+      const value = snapshot.val()
+      setProducts(Object.keys(value).map(key => ({
+        ...value[key],
+        id: key,
+      })))
+      setLoading(false)
     })
   }
+
+  useEffect(() => {
+    watchProducts()
+  }, [])
+
 
   const value = {
     uploadProduct,
-    uploadImg,
-    loadProducts,
     loading,
     products,
   }

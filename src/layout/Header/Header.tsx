@@ -3,6 +3,7 @@ import './Header.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { useAuth } from '../../contexts/authContext/AuthContext'
+import CartIcon from '../CartIcon/CartIcon'
 
 type PageType = 'signup' | 'login' | 'other'
 
@@ -69,6 +70,7 @@ const Header: React.FC = () => {
             <Button variant="outlined" color="inherit" onClick={logout}>
               Выйти
             </Button>
+            <CartIcon />
           </>}
         </div>
       </div>

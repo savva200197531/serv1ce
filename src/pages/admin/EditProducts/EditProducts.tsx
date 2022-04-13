@@ -7,11 +7,7 @@ import Loader from 'react-ts-loaders'
 const EditProducts: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const { loadProducts, products, loading } = useProducts()
-
-  useEffect(() => {
-    loadProducts()
-  }, [])
+  const { products, loading } = useProducts()
 
   useEffect(() => {
     setIsLoading(loading)
@@ -23,7 +19,7 @@ const EditProducts: React.FC = () => {
         <div className="edit-products-content">
           <EditProductModal />
           {isLoading ? <Loader type="spinner" size={50} /> : products.map(product => (
-            <div key={product.id}>{product.name}</div>
+            <div className="product-card" key={product.id}>{product.name}</div>
           ))}
         </div>
       </div>

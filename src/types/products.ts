@@ -6,9 +6,9 @@ export interface ProductFields {
 }
 
 export interface Product {
-  cost: string
-  description: string
   id: string
   name: string
+  cost: string
+  description: string
   url: string
 }

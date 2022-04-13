@@ -13,13 +13,15 @@ const Slide: React.FC<Props> = ({ slide, className, setCounter, index, counter }
   const { addProduct } = useCart()
 
   return (
-    <div className={className} onClick={() => setCounter(index)}>
+    <div style={{
+      // background: `url(${slide.url}) no-repeat center center`,
+    }} className={className} onClick={() => setCounter(index)}>
       <h5 className="slide-title">{slide.name}</h5>
       <p className="">{slide.cost}</p>
       <ul className="slide-description">{slide.description}</ul>
       {index === counter && (
         <Button onClick={() => addProduct(slide)} variant="outlined" color="inherit">
-          Купить
+          Добавить в корзину
         </Button>
       )}
     </div>

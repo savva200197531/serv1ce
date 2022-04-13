@@ -3,10 +3,24 @@
 .edit-products-content {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+  justify-content: space-between;
+}
+
+.product-card-edit, .product-card {
+  border: 1px solid $card-border-gray-color;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 300px;
+  align-items: center;
 }
 
 .product-card-edit {
-  border: 1px solid $card-border-gray-color;
+
+}
+
+.product-card {
+
 }
 
 .edit-products-form {

@@ -9,11 +9,7 @@ import Loader from 'react-ts-loaders'
 const Products: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const { loadProducts, products, loading } = useProducts()
-
-  useEffect(() => {
-    loadProducts()
-  }, [])
+  const { products, loading } = useProducts()
 
   useEffect(() => {
     setIsLoading(loading)
