@@ -70,6 +70,10 @@ export const CartProvider: React.FC = ({ children }) => {
     })
   }, [])
 
+  useEffect(() => {
+    console.log(cartProducts)
+  }, [cartProducts])
+
   const value = {
     cartProducts,
     addProduct,
