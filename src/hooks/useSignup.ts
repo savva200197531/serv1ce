@@ -25,7 +25,6 @@ const useSignup: UseSignup = (creds, errors) => {
         .catch((error) => {
           console.log(error)
           setSignupErrors(['Не удалось создать аккаунт!'])
-          setLoading(false)
         })
   }, [errors, creds])
 

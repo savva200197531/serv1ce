@@ -1,11 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Reviews.scss'
 import avatar from '../../../../assets/images/avatar.svg'
 import Slider from '../../../../components/Slider/Slider'
 import Slide from './Slide'
+import { storage } from '../../../../firebase-config'
+import { ref, listAll, getDownloadURL } from 'firebase/storage'
+import Loader from 'react-ts-loaders'
 
 // отзывы
 const Reviews: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(true)
+  const [slides, setSlides] = useState<string[]>([])
+
+  const sliderRef = ref(storage, 'sliderImages')
+
+  useEffect(() => {
+    setLoading(true)
+    setSlides([])
+    listAll(sliderRef).then(res => {
+      res.items.forEach(item => {
+        getDownloadURL(item).then(url => setSlides(prev => [...prev, url]))
+      })
+    }).finally(() => {
+      setLoading(false)
+    })
+  }, [])
+
+
   return (
     <section className="reviews-section">
       <div className="container">
@@ -32,12 +53,12 @@ const Reviews: React.FC = () => {
             </div>
           </div>
 
-          {/*<Slider*/}
-          {/*  className="videos-slider"*/}
-          {/*  Slide={Slide}*/}
-          {/*  navigation*/}
-          {/*  url="data/videos-slider.json"*/}
-          {/*/>*/}
+          {loading ? <Loader type="spinner" size={50} /> : <Slider
+            className="videos-slider"
+            Slide={Slide}
+            navigation
+            slides={slides}
+          />}
         </div>
       </div>
     </section>

@@ -2,8 +2,9 @@
 
 .edit-products-content {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+  grid-template-columns: repeat(auto-fill, minmax(0, 300px));
   justify-content: space-between;
+  grid-gap: 30px;
 }
 
 .product-card-edit, .product-card {
@@ -16,7 +17,14 @@
 }
 
 .product-card-edit {
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
 
+  &:hover {
+    background: rgba(221,219,219, 0.4);
+    border-radius: 4px;
+  }
 }
 
 .product-card {

@@ -10,6 +10,8 @@ import Signup from './pages/auth/sections/Signup'
 import { CartProvider } from './contexts/cartContext/CartContext'
 import EditProducts from './pages/admin/EditProducts/EditProducts'
 import { ProductsProvider } from './contexts/productsContext/ProductsContext'
+import Cart from './pages/cart/Cart'
+import NotFound from './pages/NotFound/NotFound'
 
 // корень приложения с роутером для навигации по сайту и провайдерами, для управления логикой сайта
 function App() {
@@ -27,6 +29,8 @@ function App() {
                 <Route path="signup" element={<Signup/>} />
               </Route>
               <Route path="/admin/products" element={<EditProducts />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </CartProvider>
         </ProductsProvider>

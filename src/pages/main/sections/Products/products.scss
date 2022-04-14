@@ -12,3 +12,62 @@
 .products-description-text {
   margin-top: 30px;
 }
+
+//slider
+
+.products-slider {
+  .slides-container {
+    width: 100%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    overflow: visible;
+
+    .slide {
+      max-height: 323px;
+      max-width: 241px;
+      transform: translateX(365%);
+      padding: 7px 10px;
+      border: 1px solid $card-border-gray-color;
+
+      &.active {
+        transform: translateX(0);
+        max-height: 387px;
+        max-width: 293px;
+        top: -32px;
+        padding: 10px 12px;
+        background: rgb(25,118,210, 0.9);
+      }
+
+      &.next {
+        transform: translateX(135%);
+      }
+
+      &.prev {
+        transform: translateX(250%);
+      }
+
+      // slide content
+
+      .slide-title {
+        font-weight: 700;
+        font-size: 14px;
+        max-width: 100px;
+      }
+    }
+  }
+
+}
+
+.extended-button {
+  position: relative;
+  margin-left: auto;
+
+  button {
+    min-width: unset;
+  }
+
+  span {
+    padding: 0 5px;
+  }
+}

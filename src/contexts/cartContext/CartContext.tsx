@@ -12,9 +12,9 @@ export const useCart = () => useContext(CartContext)
 
 export const CartProvider: React.FC = ({ children }) => {
   const [cartProducts, setCartProducts] = useState<CartProduct[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
 
-  const { user } = useAuth()
+  const { loading: userLoading, user } = useAuth()
 
   const cartRef = (id = '') => ref(db, `cart/${user.uid}/${id}`)
 
@@ -42,7 +42,7 @@ export const CartProvider: React.FC = ({ children }) => {
 
   const decrementProduct: ChangeProduct = (product: CartProduct) => {
     if (product.quantity - 1 === 0) {
-      deleteProduct(product)
+      return deleteProduct(product)
     }
     update(cartRef(product.id), {
       quantity: product.quantity - 1,
@@ -58,17 +58,19 @@ export const CartProvider: React.FC = ({ children }) => {
   }
 
   useEffect(() => {
+    if (userLoading) return
     setLoading(true)
 
     onValue(cartRef(), (snapshot) => {
       if (!snapshot.exists()) {
+        setCartProducts([])
         return setLoading(false)
       }
       const value = snapshot.val()
       setCartProducts(Object.keys(value).map(key => value[key]))
       setLoading(false)
     })
-  }, [])
+  }, [userLoading])
 
   useEffect(() => {
     console.log(cartProducts)

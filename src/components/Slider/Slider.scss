@@ -28,12 +28,10 @@
     flex-direction: column;
     justify-content: space-between;
     transition: all .4s ease-in-out;
-    //color: black;
     z-index: 0;
 
     &.active {
       transform: translateX(0);
-      //filter: grayscale(100%) brightness(39%) sepia(100%) hue-rotate(-48deg) saturate(550%) contrast(0.8);
       color: white;
       z-index: 1;
     }
@@ -76,88 +74,6 @@
   &.active {
     background: $primary-color;
   }
-}
-
-// groups slider
-
-.products-slider {
-  .slides-container {
-    width: 100%;
-    display: flex;
-    position: relative;
-    align-items: center;
-    overflow: visible;
-
-    .slide {
-      max-height: 323px;
-      max-width: 241px;
-      transform: translateX(365%);
-      padding: 30px 34px;
-
-      &.active {
-        transform: translateX(0);
-        max-height: 387px;
-        max-width: 293px;
-        top: -32px;
-        padding: 36px 34px;
-
-        &:before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          background: $primary-color;
-          opacity: 0.90;
-          z-index: -1;
-        }
-
-        .slide-description-item {
-          font-size: 14px;
-          font-weight: normal;
-          margin: 5px 0;
-        }
-
-        .white-btn, .slide-description {
-          display: block;
-        }
-      }
-
-      &.next {
-        transform: translateX(135%);
-      }
-
-      &.prev {
-        transform: translateX(250%);
-      }
-
-      // slide content
-
-      .white-btn, .slide-description {
-        display: none;
-      }
-
-      .age {
-        display: flex;
-        align-items: center;
-        position: relative;
-
-        .card-title-suffix {
-          position: absolute;
-          left: 0;
-          bottom: -20px;
-        }
-      }
-
-      .slide-title {
-        font-weight: 700;
-        font-size: 14px;
-        max-width: 100px;
-      }
-    }
-  }
-
 }
 
 //  videos slider

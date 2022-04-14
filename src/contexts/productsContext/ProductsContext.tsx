@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ProductsContextProps, UploadProduct } from './types'
-import { ref as storageRef, uploadBytes, listAll, getDownloadURL } from 'firebase/storage'
-import { ref as databaseRef, set, push, get, onChildAdded, onValue } from 'firebase/database'
+import { DeleteProduct, ProductsContextProps, UploadProduct } from './types'
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { ref as databaseRef, set, push, onValue, remove } from 'firebase/database'
 import { db, storage } from '../../firebase-config'
 import { Product } from '../../types/products'
 import { v4 } from 'uuid'
@@ -12,27 +12,34 @@ export const useProducts = () => useContext(ProductsContext)
 
 export const ProductsProvider: React.FC = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
 
   const imagesRef = (id = '') => storageRef(storage, `productImages/${id}`)
-  const productsRef = databaseRef(db, 'products')
+  const productsRef = (id = '') => databaseRef(db, `products/${id}`)
 
   const uploadProduct: UploadProduct = (value) => {
     const id = v4()
 
     return uploadBytes(imagesRef(id), value.imgFile)
         .then(() => getDownloadURL(imagesRef(id)))
-        .then(url => set(push(productsRef), {
+        .then(url => set(push(productsRef()), {
           ...value,
           url,
         }))
   }
 
+  const deleteProduct: DeleteProduct = (product) => {
+    remove(productsRef(product.id)).catch(error => {
+      console.log(error)
+    })
+  }
+
   const watchProducts = () => {
     setLoading(true)
 
-    onValue(productsRef, (snapshot) => {
+    onValue(productsRef(), (snapshot) => {
       if (!snapshot.exists()) {
+        setProducts([])
         return setLoading(false)
       }
       const value = snapshot.val()
@@ -53,6 +60,7 @@ export const ProductsProvider: React.FC = ({ children }) => {
     uploadProduct,
     loading,
     products,
+    deleteProduct,
   }
 
   return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>

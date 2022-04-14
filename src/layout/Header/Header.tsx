@@ -3,7 +3,9 @@ import './Header.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { useAuth } from '../../contexts/authContext/AuthContext'
-import CartIcon from '../CartIcon/CartIcon'
+import logo from '../../assets/images/logo.png'
+import CartButton from './CartButton'
+import UserButton from './UserButton'
 
 type PageType = 'signup' | 'login' | 'other'
 
@@ -12,7 +14,7 @@ const Header: React.FC = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
-  const { logout, loading, user } = useAuth()
+  const { loading, user } = useAuth()
 
   const [pageType, setPageType] = useState<PageType>()
 
@@ -44,34 +46,35 @@ const Header: React.FC = () => {
   }, [pageType, loading])
 
   useEffect(() => {
-    console.log(user)
-  }, [user])
+    if (loading) return
+    if (pathname.includes('admin') && !user.admin) {
+      navigate(-1)
+    }
+  }, [loading, pathname])
+
 
   // верстка
   return (
     <footer className="header">
       <div className="container">
         <div className="header-content">
-          {pageType === 'login' && <Button variant="outlined" color="inherit" onClick={() => navigate('/auth/signup')}>
+          {pageType === 'login' && <Button className="auth-button" variant="outlined" color="inherit" onClick={() => navigate('/auth/signup')}>
             Зарегистрироваться
           </Button>}
 
-          {pageType === 'signup' && <Button variant="outlined" color="inherit" onClick={() => navigate('/auth/login')}>
+          {pageType === 'signup' && <Button className="auth-button" variant="outlined" color="inherit" onClick={() => navigate('/auth/login')}>
             Войти
           </Button>}
 
-          {pageType === 'other' && <>
-            <Button variant="outlined" color="inherit" onClick={() => navigate('/')}>
-              Главная
-            </Button>
-            {user.admin && <Button variant="outlined" color="inherit" onClick={() => navigate('/admin/products')}>
-              Редактор товаров
-            </Button>}
-            <Button variant="outlined" color="inherit" onClick={logout}>
-              Выйти
-            </Button>
-            <CartIcon />
-          </>}
+          {pageType === 'other' && (
+            <>
+              <Button color="inherit" onClick={() => navigate('/')}>
+                <img src={logo} alt="logo" className="logo"/>
+              </Button>
+              <UserButton />
+              <CartButton />
+            </>
+          )}
         </div>
       </div>
     </footer>

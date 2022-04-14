@@ -1,0 +1,13 @@
+.cart-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  align-items: center;
+  grid-gap: 15px;
+}
+
+.cart-item-count {
+
+  span {
+    padding: 0 5px;
+  }
+}

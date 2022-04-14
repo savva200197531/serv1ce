@@ -26,7 +26,6 @@ const useLogin: UseLogin = (creds, errors) => {
         .catch((error) => {
           console.log(error)
           setLoginErrors(['Не удалось войти в аккаунт!'])
-          setLoading(false)
         })
   }, [creds, errors])
 

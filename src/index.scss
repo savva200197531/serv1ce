@@ -85,6 +85,29 @@ button {
   color: $red-color;
 }
 
+.img-wrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding-bottom: 80%;
+}
+
+.img-wrapper > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.img-wrapper > div > img {
+  width: 100%;
+  height: 100%;
+}
+
 // adaptive
 
 @media screen and (max-width: 1390px) {
