@@ -72,10 +72,6 @@ export const CartProvider: React.FC = ({ children }) => {
     })
   }, [userLoading])
 
-  useEffect(() => {
-    console.log(cartProducts)
-  }, [cartProducts])
-
   const value = {
     cartProducts,
     addProduct,
