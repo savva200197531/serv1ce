@@ -66,7 +66,7 @@ const Slider: React.FC<Props> = ({ slides, navigation, className, Slide }) => {
   // }, [])
 
   if (isLoading) {
-    return <Loader type="spinner" size={50} />
+    return <Loader type="dualring" size={50} />
   }
 
   return (

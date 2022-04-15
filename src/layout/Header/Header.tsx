@@ -3,8 +3,6 @@ import './Header.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { useAuth } from '../../contexts/authContext/AuthContext'
-import logo from '../../assets/images/logo.png'
-import CartButton from './CartButton'
 import UserButton from './UserButton'
 
 type PageType = 'signup' | 'login' | 'other'
@@ -33,18 +31,6 @@ const Header: React.FC = () => {
     setPageType(checkPageType())
   }, [pathname])
 
-  // не даю пользователя перейти пользователю на главную страницу, если он не не вошел в аккаунт
-  // и не даю перейти на страницу аунтефикации, если он уже вошел на сайт
-  useEffect(() => {
-    if (loading) return
-    if (!localStorage.getItem('token') && (pageType !== 'signup' && pageType !== 'login')) {
-      navigate('/auth/login')
-    }
-    if (localStorage.getItem('token') && (pageType === 'signup' || pageType === 'login')) {
-      navigate('/')
-    }
-  }, [pageType, loading])
-
   useEffect(() => {
     if (loading) return
     if (pathname.includes('admin') && !user.admin) {
@@ -58,6 +44,10 @@ const Header: React.FC = () => {
     <footer className="header">
       <div className="container">
         <div className="header-content">
+          <Button color="inherit" onClick={() => navigate('/')}>
+            Serv1ce
+          </Button>
+
           {pageType === 'login' && <Button className="auth-button" variant="outlined" color="inherit" onClick={() => navigate('/auth/signup')}>
             Зарегистрироваться
           </Button>}
@@ -68,11 +58,20 @@ const Header: React.FC = () => {
 
           {pageType === 'other' && (
             <>
-              <Button color="inherit" onClick={() => navigate('/')}>
-                <img src={logo} alt="logo" className="logo"/>
+              <Button variant="outlined" color="inherit" onClick={() => navigate('/services')}>
+                Услуги
               </Button>
+
+              <Button variant="outlined" color="inherit" onClick={() => navigate('/about')}>
+                О нас
+              </Button>
+
+              <Button variant="outlined" color="inherit" onClick={() => navigate('/contacts')}>
+                Контакты
+              </Button>
+
               <UserButton />
-              <CartButton />
+              {/*<CartButton />*/}
             </>
           )}
         </div>

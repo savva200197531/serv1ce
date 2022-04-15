@@ -1,0 +1,32 @@
+@import "../../variables";
+
+.auth {
+  max-width: 500px;
+  margin: 200px auto 0 auto;
+  text-align: center;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+
+  > *:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+
+.signup-form {
+  //height: 300px;
+}
+
+.login-form {
+  //height: 200px;
+}
+
+.auth-spinner {
+  margin-top: 7px;
+}
+
+.auth-logo {
+  font-size: 30px;
+}
