@@ -1,14 +1,12 @@
-export interface ProductFields {
+export interface NewsFields {
   name: string
   description: string
-  cost: string
   imgFile: File
 }
 
-export interface Product {
+export interface News {
   id: string
   name: string
-  cost: string
   description: string
   url: string
 }

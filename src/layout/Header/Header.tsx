@@ -12,8 +12,6 @@ const Header: React.FC = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
-  const { loading, user } = useAuth()
-
   const [pageType, setPageType] = useState<PageType>()
 
   // проверяю тип страницы
@@ -31,49 +29,43 @@ const Header: React.FC = () => {
     setPageType(checkPageType())
   }, [pathname])
 
-  useEffect(() => {
-    if (loading) return
-    if (pathname.includes('admin') && !user.admin) {
-      navigate(-1)
-    }
-  }, [loading, pathname])
-
-
   // верстка
   return (
     <footer className="header">
       <div className="container">
         <div className="header-content">
-          <Button color="inherit" onClick={() => navigate('/')}>
+          <Button color="primary" onClick={() => navigate('/')}>
             Serv1ce
           </Button>
 
-          {pageType === 'login' && <Button className="auth-button" variant="outlined" color="inherit" onClick={() => navigate('/auth/signup')}>
-            Зарегистрироваться
-          </Button>}
+          <div className="header-right">
+            {pageType === 'login' && <Button className="auth-button" color="primary" onClick={() => navigate('/auth/signup')}>
+              Зарегистрироваться
+            </Button>}
 
-          {pageType === 'signup' && <Button className="auth-button" variant="outlined" color="inherit" onClick={() => navigate('/auth/login')}>
-            Войти
-          </Button>}
+            {pageType === 'signup' && <Button className="auth-button" color="primary" onClick={() => navigate('/auth/login')}>
+              Войти
+            </Button>}
 
-          {pageType === 'other' && (
-            <>
-              <Button variant="outlined" color="inherit" onClick={() => navigate('/services')}>
-                Услуги
-              </Button>
+            {pageType === 'other' && (
+              <>
+                <Button color="primary" onClick={() => navigate('/services')}>
+                  Услуги
+                </Button>
 
-              <Button variant="outlined" color="inherit" onClick={() => navigate('/about')}>
-                О нас
-              </Button>
+                <Button color="primary" onClick={() => navigate('/about')}>
+                  О нас
+                </Button>
 
-              <Button variant="outlined" color="inherit" onClick={() => navigate('/contacts')}>
-                Контакты
-              </Button>
+                <Button color="primary" onClick={() => navigate('/contacts')}>
+                  Контакты
+                </Button>
 
-              <UserButton />
-              {/*<CartButton />*/}
-            </>
-          )}
+                <UserButton />
+                {/*<CartButton />*/}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </footer>

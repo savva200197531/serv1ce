@@ -22,14 +22,6 @@ const UserButton = () => {
 
   const buttons = [
     {
-      text: 'Редактор новостей',
-      onClick: () => {
-        handleClose()
-        navigate('/admin/news')
-      },
-      isHidden: !user.admin,
-    },
-    {
       text: 'Личный кабинет',
       onClick: () => {
         handleClose()
@@ -48,7 +40,7 @@ const UserButton = () => {
       text: 'Войти',
       onClick: () => {
         handleClose()
-        logout().then(() => {})
+        navigate('/auth/login')
       },
       isHidden: !!user.uid,
     },
@@ -56,7 +48,7 @@ const UserButton = () => {
       text: 'Выйти',
       onClick: () => {
         handleClose()
-        navigate('/auth/login')
+        logout().then(() => {})
       },
       isHidden: !user.uid,
     },
@@ -66,7 +58,7 @@ const UserButton = () => {
     loading ?
         <Loader type="dualring" size={50} /> :
         <>
-          <Button variant="outlined" color="inherit" onClick={handleClick}>
+          <Button color="primary" variant="contained" onClick={handleClick}>
             <FontAwesomeIcon icon={faBars as any} size="lg"/>
           </Button>
           <Popover
@@ -76,16 +68,16 @@ const UserButton = () => {
             className="popover"
             anchorOrigin={{
               vertical: 'bottom',
-              horizontal: 'center',
+              horizontal: 'right',
             }}
             transformOrigin={{
               vertical: 'top',
-              horizontal: 'center',
+              horizontal: 'right',
             }}
           >
             <div className="popover-content">
               {buttons.map(({ text, onClick, isHidden = false }, index: number) => (
-                !isHidden && <Button key={index} variant="outlined" color="inherit" onClick={onClick}>
+                !isHidden && <Button key={index} variant="contained" color="primary" onClick={onClick}>
                   {text}
                 </Button>
               ))}

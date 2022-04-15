@@ -96,6 +96,7 @@ const Signup: React.FC = () => {
 
   // верстка
   return <>
+    <h2 className="auth-logo">Регистрация</h2>
     <form className="auth-form signup-form" onSubmit={handleSubmit}>
       {fields.map((field: FormField) => (
         <FormControl key={field.id}>
@@ -119,7 +120,7 @@ const Signup: React.FC = () => {
         </FormControl>
       ))}
 
-      <Button variant="outlined" color="inherit" type="submit" disabled={isLoading}>
+      <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
         {isLoading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Зарегистрироваться'}
       </Button>
       <p className="form-submit-errors">{signupErrors.map((error) => error)}</p>

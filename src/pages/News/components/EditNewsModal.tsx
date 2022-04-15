@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import EditModalForm from './EditModalForm'
-import { Modal } from '@mui/material'
+import { Button, Modal } from '@mui/material'
 
 const EditNewsModal: React.FC = ({}) => {
   const [open, setOpen] = useState<boolean>(false)
@@ -12,9 +12,9 @@ const EditNewsModal: React.FC = ({}) => {
 
   return (
     <>
-      <div className="product-card-edit" onClick={handleOpen}>
-        <FontAwesomeIcon icon={faPlus as any} size="2x"/>
-      </div>
+      <Button variant="contained" color="primary" className="news-card-edit" onClick={handleOpen}>
+        Добавить новость
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
