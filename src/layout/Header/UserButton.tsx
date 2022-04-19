@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Popover } from '@mui/material'
 import Loader from 'react-ts-loaders'
 import { useAuth } from '../../contexts/authContext/AuthContext'
@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const UserButton = () => {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const navigate = useNavigate()
 
   const { logout, loading, user } = useAuth()
@@ -58,7 +58,7 @@ const UserButton = () => {
     loading ?
         <Loader type="dualring" size={50} /> :
         <>
-          <Button color="primary" variant="contained" onClick={handleClick}>
+          <Button color="primary" onClick={handleClick}>
             <FontAwesomeIcon icon={faBars as any} size="lg"/>
           </Button>
           <Popover
@@ -75,9 +75,9 @@ const UserButton = () => {
               horizontal: 'right',
             }}
           >
-            <div className="popover-content">
+            <div className="list-popover-content">
               {buttons.map(({ text, onClick, isHidden = false }, index: number) => (
-                !isHidden && <Button key={index} variant="contained" color="primary" onClick={onClick}>
+                !isHidden && <Button key={index} color="primary" onClick={onClick}>
                   {text}
                 </Button>
               ))}

@@ -46,7 +46,7 @@ export const NewsProvider: React.FC = ({ children }) => {
       setNews(Object.keys(value).map(key => ({
         ...value[key],
         id: key,
-      })))
+      })).reverse())
       setLoading(false)
     })
   }

@@ -5,7 +5,6 @@
 }
 
 .header-content {
-  height: 60px;
   color: white;
   display: flex;
   align-items: center;
@@ -18,21 +17,6 @@
 
 .logo {
   max-width: 240px;
-}
-
-.popover {
-  //margin-top: 10px;
-}
-
-.popover-content {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  padding: 5px;
-
-  > *:not(:first-child) {
-    margin-top: 5px;
-  }
 }
 
 .header-right {

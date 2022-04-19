@@ -12,7 +12,7 @@ const EditNewsModal: React.FC = ({}) => {
 
   return (
     <>
-      <Button variant="contained" color="primary" className="news-card-edit" onClick={handleOpen}>
+      <Button variant="contained" color="primary" className="edit-news-btn" onClick={handleOpen}>
         Добавить новость
       </Button>
       <Modal

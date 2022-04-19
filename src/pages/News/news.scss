@@ -1,5 +1,14 @@
 @import '../../variables';
 
+.news {
+  padding-bottom: 50px;
+  min-height: calc(100vh - 90px);
+
+  .edit-news-btn {
+    margin-top: 20px;
+  }
+}
+
 .edit-news-form {
   max-width: 400px;
   background: white;
@@ -39,14 +48,64 @@
 
 .news-items {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 
 .news-item {
-
+  background: white;
+  margin-top: 20px;
+  border-radius: $border-radius;
+  box-shadow: $page-block-shadow;
+  padding: 15px 20px;
 }
 
-.news-title {
-  font-size: 20px;
+.news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.news-header__title {
+  font-size: 26px;
   font-weight: bold;
+}
+
+.news-header__time {
+  color: #818c99;
+  font-size: 12px;
+}
+
+.news-description {
+  margin-top: 15px;
+}
+
+.news-img__wrapper {
+  margin-top: 8px;
+  padding: 20px;
+  background: $background-color;
+  border-radius: $border-radius;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.news-img {
+  image-rendering: crisp-edges; /* Стандартное свойство */
+}
+
+.news-author {
+  margin-top: 5px;
+  margin-left: 8px;
+}
+
+.news-author__text {
+  margin-left: 8px;
+}
+
+.news-actions {
+  //margin-top: 10px;
+  display: flex;
+  align-items: center;
 }

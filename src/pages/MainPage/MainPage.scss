@@ -1,25 +1,5 @@
 @import '../../variables';
 
-.map {
-  margin-top: -308px;
-  height: 392px;
-  background: url('../../' + $imagesPath + 'map.svg') no-repeat center center;
-  background-size: cover;
-  position: relative;
-  z-index: -1;
-
-  &:before {
-    content: '';
-    position: absolute;
-    height: 108px;
-    width: 108px;
-    background: url('../../' + $imagesPath + 'ellipse.svg');
-    left: 242px;
-    top: 105px;
-    z-index: -1;
-  }
-}
-
 // adaptive
 
 @media screen and (max-width: 1420px) {
