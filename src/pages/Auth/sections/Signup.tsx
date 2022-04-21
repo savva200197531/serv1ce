@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react'
-import { Button, FormControl, FormHelperText, Input, InputLabel } from '@mui/material'
+import { Button } from '@mui/material'
 import useSignup from '../../../hooks/useSignup'
 import { Creds } from '../../../types/user'
 import { FormField } from '../../../types/form'
@@ -7,6 +7,7 @@ import useValidateEmail from '../../../hooks/useValidateEmail'
 import useValidatePassword from '../../../hooks/useValidatePassword'
 import Loader from 'react-ts-loaders'
 import useValidatePasswordConfirm from '../../../hooks/useValidatePasswordConfirm'
+import FormFields from '../../../components/FormFields'
 
 const Signup: React.FC = () => {
   // состояние компонента
@@ -98,27 +99,7 @@ const Signup: React.FC = () => {
   return <>
     <h2 className="auth-logo">Регистрация</h2>
     <form className="auth-form signup-form" onSubmit={handleSubmit}>
-      {fields.map((field: FormField) => (
-        <FormControl key={field.id}>
-          <InputLabel color="primary" htmlFor={field.id}>
-            {field.name}
-          </InputLabel>
-          <Input
-            color="primary"
-            id={field.id}
-            aria-describedby={field.id}
-            onChange={(event) => field.setState(event.target.value)}
-          />
-          <FormHelperText
-            id={field.id}
-            color="primary"
-          >
-            {field.errors.map((error: string, index: number) =>
-              <React.Fragment key={index}>{index !== 0 && ' '}{error}</React.Fragment>,
-            )}
-          </FormHelperText>
-        </FormControl>
-      ))}
+      <FormFields fields={fields} />
 
       <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
         {isLoading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Зарегистрироваться'}

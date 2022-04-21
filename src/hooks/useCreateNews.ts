@@ -35,7 +35,7 @@ const useCreateNews: UseCreateNews = (values, errors, handleClose) => {
         })
         .catch((error) => {
           console.log(error)
-          error.push('Не удалось создать продукт!')
+          error.push('Не удалось создать новость!')
           setLoading(false)
         })
 

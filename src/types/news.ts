@@ -1,12 +1,14 @@
 export interface NewsFields {
-  name: string
+  title: string
   description: string
   imgFile: File
 }
 
 export interface News {
   id: string
-  name: string
+  title: string
   description: string
   url: string
+  time: string
+  user: string
 }

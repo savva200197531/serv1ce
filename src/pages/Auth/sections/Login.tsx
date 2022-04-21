@@ -1,28 +1,31 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react'
-import { Button, FormControl, FormHelperText, Input, InputLabel } from '@mui/material'
+import React, { FormEvent, useEffect, useState } from 'react'
+import { Button } from '@mui/material'
 import { Creds } from '../../../types/user'
 import useValidateEmail from '../../../hooks/useValidateEmail'
 import useValidatePassword from '../../../hooks/useValidatePassword'
 import Loader from 'react-ts-loaders'
 import useLogin from '../../../hooks/useLogin'
 import { FormField } from '../../../types/form'
+import FormFields from '../../../components/FormFields'
 
 const Login: React.FC = () => {
   // состояние компонента
-  const [login, setLogin] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [login, setLogin] = useState<string>('kashin.savva@mail.ru')
+  const [password, setPassword] = useState<string>('123123')
   const [isLoading, setIsLoading] = useState(false)
   const [fields, setFields] = useState<FormField[]>([
     {
       id: 'login',
       name: 'Email',
       setState: setLogin,
+      defaultValue: login,
       errors: [],
     },
     {
       id: 'password',
       name: 'Пароль',
       setState: setPassword,
+      defaultValue: password,
       errors: [],
     },
   ])
@@ -83,27 +86,7 @@ const Login: React.FC = () => {
   return <>
     <h2 className="auth-logo">Вход</h2>
     <form className="auth-form login-form" onSubmit={handleSubmit}>
-      {fields.map((field: FormField) => (
-        <FormControl key={field.id}>
-          <InputLabel color="primary" htmlFor={field.id}>
-            {field.name}
-          </InputLabel>
-          <Input
-            color="primary"
-            id={field.id}
-            aria-describedby={field.id}
-            onChange={(event) => field.setState(event.target.value)}
-          />
-          <FormHelperText
-            id={field.id}
-            error
-          >
-            {field.errors.map((error: string, index: number) =>
-              <React.Fragment key={index}>{index !== 0 && ' '}{error}</React.Fragment>,
-            )}
-          </FormHelperText>
-        </FormControl>
-      ))}
+      <FormFields fields={fields} />
 
       <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
         {isLoading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Войти'}

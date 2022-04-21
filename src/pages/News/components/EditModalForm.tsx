@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react'
-import { Button, FormControl, FormHelperText, Input, InputLabel, TextareaAutosize } from '@mui/material'
+import { Button, TextareaAutosize } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import Loader from 'react-ts-loaders'
@@ -8,6 +8,7 @@ import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
 import useValidateRequired from '../../../hooks/useValidateRequired'
 import { NewsFields } from '../../../types/news'
 import useCreateNews from '../../../hooks/useCreateNews'
+import FormFields from '../../../components/FormFields'
 
 type Props = {
   open: boolean
@@ -15,7 +16,7 @@ type Props = {
 }
 
 const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
-  const [name, setName] = useState<string>('')
+  const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [imgFile, setImgFile] = useState<File>({} as File)
   const [imgFileErrors, setImgFileErrors] = useState<string[]>([])
@@ -26,7 +27,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { createNewsErrors, loading } = useCreateNews(values, hasErrors, handleClose)
-  const { lengthErrors: nameErrors } = useValidateStringMinMax(name, { min: 3 }, formSubmit)
+  const { lengthErrors: titleErrors } = useValidateStringMinMax(title, { min: 3 }, formSubmit)
   const { lengthErrors: descriptionErrors } = useValidateStringMinMax(description, { min: 10, max: 500 }, formSubmit)
   const { requiredErrors: fileErrors } = useValidateRequired(imgFile.name, formSubmit)
 
@@ -34,9 +35,9 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
 
   const [fields, setFields] = useState<FormField[]>([
     {
-      id: 'name',
-      name: 'Название',
-      setState: setName,
+      id: 'title',
+      name: 'Заголовок',
+      setState: setTitle,
       errors: [],
     },
     {
@@ -53,7 +54,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setValues({
-      name,
+      title,
       description,
       imgFile,
     })
@@ -75,7 +76,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
 
   // расставляю ошибки, если они есть
   useEffect(() => {
-    const messages: string[] = [...nameErrors, ...descriptionErrors, ...fileErrors]
+    const messages: string[] = [...titleErrors, ...descriptionErrors, ...fileErrors]
 
     if (!messages.length && formSubmit) {
       setHasErrors(false)
@@ -83,10 +84,10 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
 
     setFields(fields.map((field: FormField) => {
       switch (field.id) {
-        case 'name':
+        case 'title':
           return {
             ...field,
-            errors: nameErrors,
+            errors: titleErrors,
           }
         case 'description':
           return {
@@ -101,7 +102,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
     setImgFileErrors(fileErrors)
 
     setFormSubmit(false)
-  }, [nameErrors, descriptionErrors, fileErrors])
+  }, [titleErrors, descriptionErrors, fileErrors])
 
   useEffect(() => {
     setTimeout(() => {
@@ -119,29 +120,8 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
 
   return (
     <form ref={formRef} className="edit-news-form" onSubmit={handleSubmit}>
-      {fields.map(field => (
-        <FormControl key={field.id}>
-          <InputLabel color="primary" htmlFor={field.id}>
-            {field.name}
-          </InputLabel>
-          <Input
-            color="primary"
-            id={field.id}
-            defaultValue={field.defaultValue}
-            aria-describedby={field.id}
-            onChange={(event) => field.setState(event.target.value)}
-            inputComponent={field.inputComponent || undefined}
-          />
-          <FormHelperText
-            id={field.id}
-            error
-          >
-            {field.errors.map((error: string, index: number) =>
-              <React.Fragment key={index}>{index !== 0 && ' '}{error}</React.Fragment>,
-            )}
-          </FormHelperText>
-        </FormControl>
-      ))}
+      <FormFields fields={fields} />
+
       <input
         accept="image/*"
         id="icon-button-photo"
