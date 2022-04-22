@@ -9,6 +9,6 @@ export interface News {
   title: string
   description: string
   url: string
-  time: string
+  date: string
   user: string
 }

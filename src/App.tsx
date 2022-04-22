@@ -14,6 +14,7 @@ import About from './pages/About/About'
 import Contacts from './pages/Contacts/Contacts'
 import Account from './pages/Account/Account'
 import { NewsProvider } from './contexts/newsContext/NewsContext'
+import { CommentsProvider } from './contexts/commentsContext/CommentsContext'
 
 // корень приложения с роутером для навигации по сайту и провайдерами, для управления логикой сайта
 function App() {
@@ -21,23 +22,25 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <NewsProvider>
-          <Header/>
+          <CommentsProvider>
+            <Header/>
 
-          <Routes>
-            <Route path="/" element={<MainPage/>}>
-              <Route path="/" element={<News/>}/>
-              <Route path="/services" element={<Services/>}/>
-              <Route path="/about" element={<About/>}/>
-              <Route path="/contacts" element={<Contacts/>}/>
-              <Route path="/account" element={<Account/>}/>
-              {/*<Route path="/cart" element={<Cart />} />*/}
-            </Route>
-            <Route path="auth" element={<Auth/>}>
-              <Route path="login" element={<Login/>}/>
-              <Route path="signup" element={<Signup/>}/>
-            </Route>
-            <Route path="*" element={<NotFound/>}/>
-          </Routes>
+            <Routes>
+              <Route path="/" element={<MainPage/>}>
+                <Route path="/" element={<News/>}/>
+                <Route path="/services" element={<Services/>}/>
+                <Route path="/about" element={<About/>}/>
+                <Route path="/contacts" element={<Contacts/>}/>
+                <Route path="/account" element={<Account/>}/>
+                {/*<Route path="/cart" element={<Cart />} />*/}
+              </Route>
+              <Route path="auth" element={<Auth/>}>
+                <Route path="login" element={<Login/>}/>
+                <Route path="signup" element={<Signup/>}/>
+              </Route>
+              <Route path="*" element={<NotFound/>}/>
+            </Routes>
+          </CommentsProvider>
         </NewsProvider>
       </AuthProvider>
     </BrowserRouter>

@@ -1,24 +1,32 @@
 import React, { FormEvent, useState } from 'react'
-import { FormControl, FormHelperText, IconButton, Input, InputLabel, OutlinedInput } from '@mui/material'
+import { FormControl, IconButton, OutlinedInput } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComment, faHeart, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { News } from '../../../types/news'
 import { useFocus } from '../../../hooks/useFocus'
+import { useComments } from '../../../contexts/commentsContext/CommentsContext'
 
 type Props = {
   item: News
 }
 
-const NewsActions: React.FC<Props> = ({ item }) => {
+const NewsActions: React.FC<Props> = ({ item: { id } }) => {
   const [open, setOpen] = useState(false)
   const [comment, setComment] = useState<string>('')
 
   const [inputRef, setInputFocus] = useFocus()
-
+  const { uploadComment } = useComments()
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
+    if (!comment.length) return
     console.log(comment)
+    console.log(inputRef.current)
+    setComment('')
+    uploadComment({
+      comment,
+      id,
+    }).finally(() => {})
   }
 
   return (
@@ -38,6 +46,7 @@ const NewsActions: React.FC<Props> = ({ item }) => {
             placeholder="Написать комментарий..."
             id="comment"
             fullWidth
+            value={comment}
             onChange={(event) => setComment(event.target.value)}
           />
         </FormControl>

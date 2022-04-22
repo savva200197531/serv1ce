@@ -5,8 +5,8 @@ import useValidateEmail from '../../../hooks/useValidateEmail'
 import useValidatePassword from '../../../hooks/useValidatePassword'
 import Loader from 'react-ts-loaders'
 import useLogin from '../../../hooks/useLogin'
-import { FormField } from '../../../types/form'
-import FormFields from '../../../components/FormFields'
+import { FormField } from '../../../components/FormFields/types'
+import FormFields from '../../../components/FormFields/FormFields'
 
 const Login: React.FC = () => {
   // состояние компонента

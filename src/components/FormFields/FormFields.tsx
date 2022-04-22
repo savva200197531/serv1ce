@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormControl, FormHelperText, Input, InputLabel } from '@mui/material'
-import { FormField } from '../types/form'
+import { FormField } from './types'
 
 type Props = {
   fields: FormField[]

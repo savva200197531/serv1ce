@@ -2,12 +2,12 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import useSignup from '../../../hooks/useSignup'
 import { Creds } from '../../../types/user'
-import { FormField } from '../../../types/form'
 import useValidateEmail from '../../../hooks/useValidateEmail'
 import useValidatePassword from '../../../hooks/useValidatePassword'
 import Loader from 'react-ts-loaders'
 import useValidatePasswordConfirm from '../../../hooks/useValidatePasswordConfirm'
-import FormFields from '../../../components/FormFields'
+import { FormField } from '../../../components/FormFields/types'
+import FormFields from '../../../components/FormFields/FormFields'
 
 const Signup: React.FC = () => {
   // состояние компонента

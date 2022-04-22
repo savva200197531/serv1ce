@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { InputBaseComponentProps } from '@mui/material/InputBase/InputBase'
 
 export type FormField = {

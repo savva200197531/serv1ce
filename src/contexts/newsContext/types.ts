@@ -1,10 +1,8 @@
 import { News, NewsFields } from '../../types/news'
 
-export type UploadNews = (value: NewsFields) => Promise<any>
+export type UploadNews = (payload: NewsFields) => Promise<any>
 
-export type DeleteNews = (value: News) => Promise<any>
-
-export type UploadComment = (payload: any) => Promise<any>
+export type DeleteNews = (payload: News) => Promise<any>
 
 export interface NewsContextProps {
   uploadNews: UploadNews

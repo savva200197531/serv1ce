@@ -1,3 +1,5 @@
+import { User } from '../../types/user'
+
 export type AuthAction = (login: string, password: string) => Promise<any>
 
 export type AuthContextProps = {
@@ -7,9 +9,3 @@ export type AuthContextProps = {
   user: User
   loading: boolean
 };
-
-export type User = {
-  email: string | null
-  uid: string
-  admin: boolean
-}

@@ -3,12 +3,12 @@ import { Button, TextareaAutosize } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import Loader from 'react-ts-loaders'
-import { FormField } from '../../../types/form'
 import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
 import useValidateRequired from '../../../hooks/useValidateRequired'
 import { NewsFields } from '../../../types/news'
 import useCreateNews from '../../../hooks/useCreateNews'
-import FormFields from '../../../components/FormFields'
+import { FormField } from '../../../components/FormFields/types'
+import FormFields from '../../../components/FormFields/FormFields'
 
 type Props = {
   open: boolean
