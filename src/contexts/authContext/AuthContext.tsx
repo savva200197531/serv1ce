@@ -20,7 +20,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true)
 
   // забираю пользователя из бд при входе на сайт
-  const getUser = (uid: string, email: string | null) => {
+  const getUser = (uid: string, email: string) => {
     get(userRef(uid)).then(snapshot => {
       if (!snapshot.exists()) {
         console.log('No user data available')
@@ -72,7 +72,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         return
       }
 
-      getUser(currentUser.uid, currentUser.email)
+      getUser(currentUser.uid, currentUser.email as string)
     })
   }, [])
 

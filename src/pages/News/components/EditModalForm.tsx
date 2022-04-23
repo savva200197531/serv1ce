@@ -31,7 +31,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
   const { lengthErrors: descriptionErrors } = useValidateStringMinMax(description, { min: 10, max: 500 }, formSubmit)
   const { requiredErrors: fileErrors } = useValidateRequired(imgFile.name, formSubmit)
 
-  const [img, setImg] = useState<string | null>()
+  const [img, setImg] = useState<string>()
 
   const [fields, setFields] = useState<FormField[]>([
     {
@@ -70,7 +70,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
     const fileReader = new FileReader()
     fileReader.readAsDataURL(file)
     fileReader.onload = ({ target }: ProgressEvent<FileReader>) => {
-      setImg(target?.result as string || null)
+      setImg(target?.result as string)
     }
   }
 

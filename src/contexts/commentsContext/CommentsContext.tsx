@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CommentsContextProps, UploadComment } from './types'
-import { ref as databaseRef, set, push } from 'firebase/database'
+import { ref as databaseRef, set, push, onValue } from 'firebase/database'
 import { db } from '../../firebase-config'
 import { useAuth } from '../authContext/AuthContext'
 import { formatDate } from '../../helpers/formatDate'
+import { Comments, Comment } from '../../types/comments'
 
 const CommentsContext = React.createContext<CommentsContextProps>({} as CommentsContextProps)
 
@@ -11,6 +12,7 @@ export const useComments = () => useContext(CommentsContext)
 
 export const CommentsProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true)
+  const [comments, setComments] = useState<Comments>({} as Comments)
 
   const { user } = useAuth()
 
@@ -18,7 +20,7 @@ export const CommentsProvider: React.FC = ({ children }) => {
 
   const uploadComment: UploadComment = ({ comment, id }) => {
     return set(push(commentsRef(id)), {
-      comment,
+      text: comment,
       date: formatDate(new Date()),
       user,
     }).catch(error => {
@@ -26,9 +28,39 @@ export const CommentsProvider: React.FC = ({ children }) => {
     })
   }
 
+  const watchComments = () => {
+    setLoading(true)
+
+    onValue(commentsRef(), (snapshot) => {
+      if (!snapshot.exists()) {
+        setComments({})
+        return setLoading(false)
+      }
+      const value = snapshot.val()
+      setComments(Object.keys(value).map(key => {
+        const comments = value[key]
+        return ({
+          key,
+          value: Object.keys(comments).map(key => ({
+            id: key,
+            ...comments[key],
+          })),
+        })
+      }).reduce((obj, item) => ({ ...obj, [item.key]: item.value }), {}))
+
+      setLoading(false)
+    })
+  }
+
+  useEffect(() => {
+    watchComments()
+  }, [])
+
   const value = {
     loading,
     uploadComment,
+    comments,
+    // getNews,
   }
 
   return <CommentsContext.Provider value={value}>{children}</CommentsContext.Provider>

@@ -5,7 +5,7 @@ export type Creds = {
 }
 
 export type User = {
-  email: string | null
+  email: string
   uid: string
   admin: boolean
 }
