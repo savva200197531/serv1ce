@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Button, IconButton, Popover } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faComment, faEllipsis, faHeart, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsis, faUser } from '@fortawesome/free-solid-svg-icons'
 import Loader from 'react-ts-loaders'
 import { News } from '../../../types/news'
 import { useNews } from '../../../contexts/newsContext/NewsContext'
 import { useAuth } from '../../../contexts/authContext/AuthContext'
 import { useNavigate } from 'react-router-dom'
-import NewsActions from './NewsActions'
+import NewsBottom from './NewsBottom'
 
 type Props = {
   item: News
@@ -33,7 +33,7 @@ const NewsItem: React.FC<Props> = ({ item }) => {
     <div className="news-item" key={item.id}>
       <div className="news-header">
         <div className="news-header__left">
-          <p className="news-header__time">{item.date}</p>
+          <p className="time">{item.date}</p>
           <h4 className="news-header__title">{item.title}</h4>
         </div>
 
@@ -83,10 +83,10 @@ const NewsItem: React.FC<Props> = ({ item }) => {
 
       <Button className="news-author" color="inherit" variant="text">
         <FontAwesomeIcon icon={faUser as any} size="lg"/>
-        <span className="news-author__text">{item.user}</span>
+        <span className="news-author__text">{item.user.email}</span>
       </Button>
 
-      <NewsActions item={item} />
+      <NewsBottom item={item} />
     </div>
   )
 }

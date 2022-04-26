@@ -1,3 +1,5 @@
+import { User } from './user'
+
 export interface NewsFields {
   title: string
   description: string
@@ -10,5 +12,8 @@ export interface News {
   description: string
   url: string
   date: string
-  user: string
+  user: User
+  likes?: {
+    [key: string]: User
+  }
 }

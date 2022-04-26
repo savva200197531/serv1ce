@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { DeleteNews, NewsContextProps, UploadNews } from './types'
+import { DeleteNews, NewsContextProps, RateNewsAction, UploadNews } from './types'
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { ref as databaseRef, set, push, onValue, remove } from 'firebase/database'
+import { ref as databaseRef, set, push, onValue, remove, update } from 'firebase/database'
 import { db, storage } from '../../firebase-config'
 import { News } from '../../types/news'
 import { v4 } from 'uuid'
@@ -20,6 +20,7 @@ export const NewsProvider: React.FC = ({ children }) => {
 
   const imagesRef = (id = '') => storageRef(storage, `newsImages/${id}`)
   const newsRef = (id = '') => databaseRef(db, `news/${id}`)
+  const rateNewsRef = (id: string) => databaseRef(db, `news/${id}/likes/${user.uid}`)
 
   const uploadNews: UploadNews = (payload) => {
     const id = v4()
@@ -28,7 +29,7 @@ export const NewsProvider: React.FC = ({ children }) => {
         .then(() => getDownloadURL(imagesRef(id)))
         .then(url => set(push(newsRef()), {
           ...payload,
-          user: user.email,
+          user,
           date: formatDate(new Date()),
           url,
         }))
@@ -36,6 +37,22 @@ export const NewsProvider: React.FC = ({ children }) => {
 
   const deleteNews: DeleteNews = (news) => {
     return remove(newsRef(news.id)).catch(error => {
+      console.log(error)
+    })
+  }
+
+  const rateNews: RateNewsAction = (payload) => {
+    payload.likes && payload.likes[payload.user.uid] ? dislike(payload) : like(payload)
+  }
+
+  const like: RateNewsAction = (payload) => {
+    update(rateNewsRef(payload.id), payload.user).catch(error => {
+      console.log(error)
+    })
+  }
+
+  const dislike: RateNewsAction = (payload) => {
+    remove(rateNewsRef(payload.id)).catch(error => {
       console.log(error)
     })
   }
@@ -67,6 +84,7 @@ export const NewsProvider: React.FC = ({ children }) => {
     loading,
     news,
     deleteNews,
+    rateNews,
   }
 
   return <NewsContext.Provider value={value}>{children}</NewsContext.Provider>
