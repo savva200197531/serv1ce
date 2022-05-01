@@ -109,6 +109,10 @@
   //margin-top: 10px;
   display: flex;
   align-items: center;
+
+  > *:not(:first-child) {
+    margin-left: 8px;
+  }
 }
 
 .news-action-counter {

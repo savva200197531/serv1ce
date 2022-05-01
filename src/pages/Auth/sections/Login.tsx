@@ -5,8 +5,8 @@ import useValidateEmail from '../../../hooks/useValidateEmail'
 import useValidatePassword from '../../../hooks/useValidatePassword'
 import Loader from 'react-ts-loaders'
 import useLogin from '../../../hooks/useLogin'
-import { FormField } from '../../../components/FormFields/types'
-import FormFields from '../../../components/FormFields/FormFields'
+import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
+import { FormField } from '../../../components/FormFieldLayout/types'
 
 const Login: React.FC = () => {
   // состояние компонента
@@ -85,8 +85,8 @@ const Login: React.FC = () => {
   // верстка
   return <>
     <h2 className="auth-logo">Вход</h2>
-    <form className="auth-form login-form" onSubmit={handleSubmit}>
-      <FormFields fields={fields} />
+    <form className="auth-form login-form locomotive-list" onSubmit={handleSubmit}>
+      {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
       <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
         {isLoading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Войти'}

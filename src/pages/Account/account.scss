@@ -1,0 +1,13 @@
+.account {
+  padding-bottom: 50px;
+  min-height: calc(100vh - 90px);
+}
+
+.change-creds-form {
+  display: flex;
+  flex-direction: column;
+
+  > *:not(:first-child) {
+    margin-top: 10px;
+  }
+}

@@ -1,5 +1,6 @@
 export type Creds = {
   login: string
+  oldPassword?: string
   password: string
   passwordConfirm?: string
 }

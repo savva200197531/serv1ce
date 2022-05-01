@@ -7,8 +7,8 @@ import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
 import useValidateRequired from '../../../hooks/useValidateRequired'
 import { NewsFields } from '../../../types/news'
 import useCreateNews from '../../../hooks/useCreateNews'
-import { FormField } from '../../../components/FormFields/types'
-import FormFields from '../../../components/FormFields/FormFields'
+import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
+import { FormField } from '../../../components/FormFieldLayout/types'
 
 type Props = {
   open: boolean
@@ -120,7 +120,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
 
   return (
     <form ref={formRef} className="edit-news-form" onSubmit={handleSubmit}>
-      <FormFields fields={fields} />
+      {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
       <input
         accept="image/*"
