@@ -15,6 +15,9 @@ import Contacts from './pages/Contacts/Contacts'
 import Account from './pages/Account/Account'
 import { NewsProvider } from './contexts/newsContext/NewsContext'
 import { CommentsProvider } from './contexts/commentsContext/CommentsContext'
+import UserData from './pages/Account/components/UserData'
+import EditPassword from './pages/Account/components/EditPassword'
+import EditUserData from './pages/Account/components/EditUserData'
 
 // корень приложения с роутером для навигации по сайту и провайдерами, для управления логикой сайта
 function App() {
@@ -31,7 +34,11 @@ function App() {
                 <Route path="/services" element={<Services/>}/>
                 <Route path="/about" element={<About/>}/>
                 <Route path="/contacts" element={<Contacts/>}/>
-                <Route path="/account" element={<Account/>}/>
+                <Route path="/account" element={<Account/>}>
+                  <Route path="" element={<UserData />} />
+                  <Route path="user" element={<EditUserData />} />
+                  <Route path="password" element={<EditPassword />} />
+                </Route>
                 {/*<Route path="/cart" element={<Cart />} />*/}
               </Route>
               <Route path="auth" element={<Auth/>}>
