@@ -19,7 +19,7 @@ const useLogin: UseLogin = (creds, errors) => {
     if (errors) return
     setLoginErrors([])
     setLoading(true)
-    login(creds.login, creds.password)
+    login(creds)
         .finally(() => {
           setLoading(false)
         })

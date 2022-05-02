@@ -9,14 +9,28 @@ import useValidateEmail from '../../hooks/useValidateEmail'
 import useValidatePassword from '../../hooks/useValidatePassword'
 import useChangeCreds from '../../hooks/useChangeCreds'
 import useValidatePasswordConfirm from '../../hooks/useValidatePasswordConfirm'
+import { useAuth } from '../../contexts/authContext/AuthContext'
+import useValidateStringMinMax from '../../hooks/useValidateStringMinMax'
+import ImgInput from '../../components/ImgInput/ImgInput'
 
 const Account: React.FC = () => {
+  const { user } = useAuth()
+
+  const [name, setName] = useState<string>('')
   const [login, setLogin] = useState<string>('')
   const [oldPassword, setOldPassword] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [imgFile, setImgFile] = useState<File>({} as File)
+  const [imgFileErrors, setImgFileErrors] = useState<string[]>([])
+  // const [isLoading, setIsLoading] = useState(false)
   const [fields, setFields] = useState<FormField[]>([
+    {
+      id: 'name',
+      name: 'Имя пользователя',
+      setState: setName,
+      errors: [],
+    },
     {
       id: 'login',
       name: 'Email',
@@ -49,6 +63,7 @@ const Account: React.FC = () => {
   // валидации
   const { changeCredsErrors, loading } = useChangeCreds(creds, hasErrors)
   const { emailErrors } = useValidateEmail(creds.login, formSubmit)
+  const { lengthErrors: nameErrors } = useValidateStringMinMax(creds.name, { min: 2, max: 15 }, formSubmit)
   const { passwordErrors: oldPasswordErrors } = useValidatePassword(creds.oldPassword || '', formSubmit)
   const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
   const { passwordConfirmErrors } = useValidatePasswordConfirm(creds, formSubmit)
@@ -57,6 +72,7 @@ const Account: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setCreds({
+      name,
       login,
       oldPassword,
       password,
@@ -67,7 +83,7 @@ const Account: React.FC = () => {
 
   // расставляю ошибки, если они есть
   useEffect(() => {
-    const messages: string[] = [...passwordErrors, ...passwordConfirmErrors, ...emailErrors, ...oldPasswordErrors]
+    const messages: string[] = [...passwordErrors, ...passwordConfirmErrors, ...emailErrors, ...oldPasswordErrors, ...nameErrors]
 
     if (!messages.length && formSubmit) {
       setHasErrors(false)
@@ -75,6 +91,11 @@ const Account: React.FC = () => {
 
     setFields(fields.map((field: FormField) => {
       switch (field.id) {
+        case 'name':
+          return {
+            ...field,
+            errors: nameErrors,
+          }
         case 'login':
           return {
             ...field,
@@ -101,11 +122,10 @@ const Account: React.FC = () => {
     }))
 
     setFormSubmit(false)
-  }, [emailErrors, oldPasswordErrors, passwordErrors, passwordConfirmErrors, changeCredsErrors])
+  }, [nameErrors, emailErrors, oldPasswordErrors, passwordErrors, passwordConfirmErrors, changeCredsErrors])
 
   // выставляю загрузку
   useEffect(() => {
-    setIsLoading(loading)
     setHasErrors(true)
   }, [loading])
 
@@ -116,8 +136,10 @@ const Account: React.FC = () => {
           <form className="change-creds-form" onSubmit={handleSubmit}>
             {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
-            <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
-              {isLoading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Войти'}
+            <ImgInput label="Выберите фото профиля" errors={imgFileErrors} setImgFile={setImgFile} />
+
+            <Button variant="contained" color="primary" type="submit" disabled={loading}>
+              {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Войти'}
             </Button>
             <p className="form-submit-errors">{changeCredsErrors.map((error) => error)}</p>
           </form>

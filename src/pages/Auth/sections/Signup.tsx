@@ -8,14 +8,23 @@ import Loader from 'react-ts-loaders'
 import useValidatePasswordConfirm from '../../../hooks/useValidatePasswordConfirm'
 import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
 import { FormField } from '../../../components/FormFieldLayout/types'
+import useValidateRequired from '../../../hooks/useValidateRequired'
+import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
 
 const Signup: React.FC = () => {
   // состояние компонента
+  const [name, setName] = useState<string>('')
   const [login, setLogin] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
   const [fields, setFields] = useState<FormField[]>([
+    {
+      id: 'name',
+      name: 'Имя пользователя',
+      setState: setName,
+      errors: [],
+    },
     {
       id: 'login',
       name: 'Email',
@@ -41,6 +50,7 @@ const Signup: React.FC = () => {
 
   // валидации
   const { signupErrors, loading } = useSignup(creds, hasErrors)
+  const { lengthErrors: nameErrors } = useValidateStringMinMax(creds.name, { min: 2, max: 15 }, formSubmit)
   const { emailErrors } = useValidateEmail(creds.login, formSubmit)
   const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
   const { passwordConfirmErrors } = useValidatePasswordConfirm(creds, formSubmit)
@@ -49,6 +59,7 @@ const Signup: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setCreds({
+      name,
       login,
       password,
       passwordConfirm,
@@ -58,7 +69,7 @@ const Signup: React.FC = () => {
 
   // расставляю ошибки, если они есть
   useEffect(() => {
-    const messages: string[] = [...passwordErrors, ...passwordConfirmErrors, ...emailErrors]
+    const messages: string[] = [...passwordErrors, ...passwordConfirmErrors, ...emailErrors, ...nameErrors]
 
     if (!messages.length && formSubmit) {
       setHasErrors(false)
@@ -66,6 +77,11 @@ const Signup: React.FC = () => {
 
     setFields(fields.map((field: FormField) => {
       switch (field.id) {
+        case 'name':
+          return {
+            ...field,
+            errors: nameErrors,
+          }
         case 'login':
           return {
             ...field,
@@ -87,7 +103,7 @@ const Signup: React.FC = () => {
     }))
 
     setFormSubmit(false)
-  }, [emailErrors, passwordErrors, passwordConfirmErrors, signupErrors])
+  }, [nameErrors, emailErrors, passwordErrors, passwordConfirmErrors, signupErrors])
 
   // выставляю загрузку
   useEffect(() => {

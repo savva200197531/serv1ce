@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AuthAction, AuthContextProps } from './types'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
+import { AuthAction, AuthContextProps, GetUser } from './types'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from 'firebase/auth'
 import { ref, set, get, child } from 'firebase/database'
 import { auth, db } from '../../firebase-config'
 import { useNavigate } from 'react-router-dom'
@@ -20,16 +20,18 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true)
 
   // забираю пользователя из бд при входе на сайт
-  const getUser = (uid: string, email: string) => {
+  const getUser: GetUser = (payload) => {
+    const { uid, email, name } = payload
     get(userRef(uid)).then(snapshot => {
       if (!snapshot.exists()) {
         console.log('No user data available')
-        getUser(uid, email)
+        getUser(payload)
         return
       }
       setUser({
         uid,
         email,
+        name,
         admin: !!snapshot.val().admin,
       })
     }).finally(() => {
@@ -40,11 +42,17 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   // отправка данных при регистрации
-  const signup: AuthAction = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password)
+  const signup: AuthAction = ({ login, password, name }) => {
+    return createUserWithEmailAndPassword(auth, login, password)
         .then(value => {
+          updateProfile(value.user, {
+            displayName: name,
+          }).catch(error => {
+            console.log(error)
+          })
           set(userRef(value.user.uid), {
-            email,
+            email: login,
+            name,
           }).catch(error => {
             console.log(error)
           })
@@ -53,9 +61,14 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   // отправка данных при входе
-  const login: AuthAction = (login, password) =>
+  const login: AuthAction = ({ login, password, name }) =>
     signInWithEmailAndPassword(auth, login, password)
-        .then(() => {
+        .then(value => {
+          updateProfile(value.user, {
+            displayName: name,
+          }).catch(error => {
+            console.log(error)
+          })
           navigate('/')
         })
 
@@ -72,7 +85,11 @@ export const AuthProvider: React.FC = ({ children }) => {
         return
       }
 
-      getUser(currentUser.uid, currentUser.email as string)
+      getUser({
+        uid: currentUser.uid,
+        email: currentUser.email as string,
+        name: currentUser.displayName as string,
+      })
     })
   }, [])
 

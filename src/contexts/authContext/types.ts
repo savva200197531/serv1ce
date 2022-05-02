@@ -1,6 +1,12 @@
-import { User } from '../../types/user'
+import { Creds, User } from '../../types/user'
 
-export type AuthAction = (login: string, password: string) => Promise<any>
+export type AuthAction = (creds: Creds) => Promise<any>
+
+export type GetUser = (payload: {
+  uid: string,
+  email: string,
+  name: string
+}) => void
 
 export type AuthContextProps = {
   signup: AuthAction

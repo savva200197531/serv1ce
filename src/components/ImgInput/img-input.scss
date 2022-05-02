@@ -1,0 +1,21 @@
+@import '../../variables';
+
+.img-label__text {
+  margin-left: 8px;
+}
+
+.img-errors {
+  font-family: "Roboto", "Helvetica","Arial", sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+  text-align: left;
+  margin: 3px 14px 0;
+  color: $red-color;
+}
+
+.img-preview {
+  max-width: 200px;
+  padding-bottom: 10px;
+}

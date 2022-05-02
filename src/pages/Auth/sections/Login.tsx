@@ -7,13 +7,22 @@ import Loader from 'react-ts-loaders'
 import useLogin from '../../../hooks/useLogin'
 import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
 import { FormField } from '../../../components/FormFieldLayout/types'
+import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
 
 const Login: React.FC = () => {
   // состояние компонента
+  const [name, setName] = useState<string>('Savva')
   const [login, setLogin] = useState<string>('kashin.savva@mail.ru')
   const [password, setPassword] = useState<string>('123123')
   const [isLoading, setIsLoading] = useState(false)
   const [fields, setFields] = useState<FormField[]>([
+    {
+      id: 'name',
+      name: 'Имя пользователя',
+      setState: setName,
+      defaultValue: name,
+      errors: [],
+    },
     {
       id: 'login',
       name: 'Email',
@@ -35,6 +44,7 @@ const Login: React.FC = () => {
 
   // валидации
   const { loginErrors, loading } = useLogin(creds, hasErrors)
+  const { lengthErrors: nameErrors } = useValidateStringMinMax(creds.name, { min: 2, max: 15 }, formSubmit)
   const { emailErrors } = useValidateEmail(creds.login, formSubmit)
   const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
 
@@ -42,6 +52,7 @@ const Login: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setCreds({
+      name,
       login,
       password,
     })
@@ -50,7 +61,7 @@ const Login: React.FC = () => {
 
   // расставляю ошибки, если они есть
   useEffect(() => {
-    const messages: string[] = [...passwordErrors, ...emailErrors]
+    const messages: string[] = [...passwordErrors, ...emailErrors, ...nameErrors]
 
     if (!messages.length && formSubmit) {
       setHasErrors(false)
@@ -58,6 +69,11 @@ const Login: React.FC = () => {
 
     setFields(fields.map((field: FormField) => {
       switch (field.id) {
+        case 'name':
+          return {
+            ...field,
+            errors: nameErrors,
+          }
         case 'login':
           return {
             ...field,
@@ -74,7 +90,7 @@ const Login: React.FC = () => {
     }))
 
     setFormSubmit(false)
-  }, [emailErrors, passwordErrors, loginErrors])
+  }, [nameErrors, emailErrors, passwordErrors, loginErrors])
 
   // выставляю загрузку
   useEffect(() => {

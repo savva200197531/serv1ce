@@ -83,7 +83,7 @@ const NewsItem: React.FC<Props> = ({ item }) => {
 
       <Button className="news-author" color="inherit" variant="text">
         <FontAwesomeIcon icon={faUser as any} size="lg"/>
-        <span className="news-author__text">{item.user.email}</span>
+        <span className="news-author__text">{item.user.name}</span>
       </Button>
 
       <NewsBottom item={item} />

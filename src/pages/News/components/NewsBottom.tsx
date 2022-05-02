@@ -56,7 +56,7 @@ const NewsBottom: React.FC<Props> = ({ item }) => {
               <div className="news-comment" key={id}>
                 <Avatar></Avatar>
                 <div className="news-comment-right">
-                  <p className="news-comment-user">{user.email}</p>
+                  <p className="news-comment-user">{user.name}</p>
                   <p className="news-comment-text">{text}</p>
                   <p className="time">{date}</p>
                 </div>

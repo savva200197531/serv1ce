@@ -18,7 +18,7 @@ const useSignup: UseSignup = (creds, errors) => {
     if (errors) return
     setSignupErrors([])
     setLoading(true)
-    signup(creds.login, creds.password)
+    signup(creds)
         .finally(() => {
           setLoading(false)
         })

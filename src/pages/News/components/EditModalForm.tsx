@@ -9,6 +9,7 @@ import { NewsFields } from '../../../types/news'
 import useCreateNews from '../../../hooks/useCreateNews'
 import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
 import { FormField } from '../../../components/FormFieldLayout/types'
+import ImgInput from '../../../components/ImgInput/ImgInput'
 
 type Props = {
   open: boolean
@@ -30,8 +31,6 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
   const { lengthErrors: titleErrors } = useValidateStringMinMax(title, { min: 3 }, formSubmit)
   const { lengthErrors: descriptionErrors } = useValidateStringMinMax(description, { min: 10, max: 500 }, formSubmit)
   const { requiredErrors: fileErrors } = useValidateRequired(imgFile.name, formSubmit)
-
-  const [img, setImg] = useState<string>()
 
   const [fields, setFields] = useState<FormField[]>([
     {
@@ -59,19 +58,6 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
       imgFile,
     })
     setFormSubmit(true)
-  }
-
-  const handleCapture = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    if (!target.files) return
-
-    const file = target.files[0]
-    setImgFile(file)
-
-    const fileReader = new FileReader()
-    fileReader.readAsDataURL(file)
-    fileReader.onload = ({ target }: ProgressEvent<FileReader>) => {
-      setImg(target?.result as string)
-    }
   }
 
   // расставляю ошибки, если они есть
@@ -111,7 +97,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
         formRef.current.style.opacity = '1'
       }
     })
-  }, [open, formRef.current, img, description])
+  }, [open, formRef.current, imgFile, description])
 
   useEffect(() => {
     setIsLoading(loading)
@@ -122,25 +108,7 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
     <form ref={formRef} className="edit-news-form" onSubmit={handleSubmit}>
       {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
-      <input
-        accept="image/*"
-        id="icon-button-photo"
-        onChange={handleCapture}
-        type="file"
-        style={{
-          display: 'none',
-        }}
-      />
-      <div>
-        <label className="edit-news-img-label" htmlFor="icon-button-photo">
-          <Button color="primary" component="span">
-            <FontAwesomeIcon icon={faCamera as any} size="2x"/>
-            <span className="edit-news-img-label__text">Выберите изображение</span>
-          </Button>
-        </label>
-        <p className="edit-news-form-errors">{imgFileErrors.map((error) => error)}</p>
-      </div>
-      {img && <img className="edit-news-img-preview" src={img} alt="img"/>}
+      <ImgInput errors={imgFileErrors} setImgFile={setImgFile} />
       <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
         {isLoading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Сохранить'}
       </Button>
