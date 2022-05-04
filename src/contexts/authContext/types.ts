@@ -22,4 +22,5 @@ export type AuthContextProps = {
   loading: boolean
   changeUserData: ChangeUserData
   changePassword: ChangePassword
+  isAuth: boolean
 };

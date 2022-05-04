@@ -19,7 +19,7 @@ const NewsBottom: React.FC<Props> = ({ item }) => {
   const [inputRef, setInputFocus] = useFocus()
   const { uploadComment, comments: allComments, loading } = useComments()
   const { rateNews } = useNews()
-  const { user } = useAuth()
+  const { user, isAuth } = useAuth()
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -37,12 +37,12 @@ const NewsBottom: React.FC<Props> = ({ item }) => {
   return (
     <div className="news-bottom">
       <div className="news-actions">
-        <Button onClick={() => rateNews(item)} variant="contained" color="inherit">
-          <FontAwesomeIcon color={item.likes && item.likes[user.uid] ? '#d32f2f' : 'black'} className="news-actions__like" icon={faHeart as any} size="sm"/>
+        <Button disabled={!isAuth} onClick={() => rateNews(item)} variant="contained" color="inherit">
+          <FontAwesomeIcon color={item.likes && item.likes[user.uid] ? '#d32f2f' : ''} className="news-actions__like" icon={faHeart as any} size="sm"/>
           <span className="news-action-counter">{!!item.likes && Object.values(item.likes).length}</span>
         </Button>
 
-        <Button onClick={setInputFocus} variant="contained" color="inherit">
+        <Button disabled={!isAuth} onClick={setInputFocus} variant="contained" color="inherit">
           <FontAwesomeIcon className="news-actions__comment" icon={faComment as any} size="sm"/>
           <span className="news-action-counter">{!!comments.length && comments.length}</span>
         </Button>
@@ -73,6 +73,7 @@ const NewsBottom: React.FC<Props> = ({ item }) => {
             color="primary"
             placeholder="Написать комментарий..."
             id="comment"
+            disabled={!isAuth}
             value={comment}
             onChange={(event) => setComment(event.target.value)}
           />

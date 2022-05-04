@@ -10,7 +10,7 @@ const UserButton = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const navigate = useNavigate()
 
-  const { logout, loading, user } = useAuth()
+  const { logout, loading, user, isAuth } = useAuth()
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -27,6 +27,7 @@ const UserButton = () => {
         handleClose()
         navigate('/account')
       },
+      isHidden: !isAuth,
     },
     {
       text: 'Зарегистрироваться',

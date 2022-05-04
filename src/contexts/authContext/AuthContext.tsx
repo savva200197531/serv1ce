@@ -26,6 +26,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const userRef = (id: string) => databaseRef(db, `users/${id}`)
   const imagesRef = (id: string) => storageRef(storage, `avatar/${id}`)
 
+  const [isAuth, setIsAuth] = useState<boolean>(false)
   const [user, setUser] = useState({} as User)
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -38,6 +39,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         getUser(payload)
         return
       }
+      setIsAuth(true)
       setUser({
         uid,
         email,
@@ -118,6 +120,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     onAuthStateChanged(auth, (currentUser) => {
       setLoading(true)
       if (!currentUser) {
+        setIsAuth(false)
         setUser({} as User)
         setLoading(false)
         return
@@ -145,6 +148,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     loading,
     changeUserData,
     changePassword,
+    isAuth,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
