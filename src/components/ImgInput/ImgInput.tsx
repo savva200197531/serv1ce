@@ -5,7 +5,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import './img-input.scss'
 
 type Props = {
-  errors: string[]
+  errors?: string[]
   setImgFile: (value: File) => void
   label?: string
 }
@@ -44,7 +44,7 @@ const ImgInput: React.FC<Props> = ({ errors, setImgFile, label = 'Выберит
             <span className="img-label__text">{label}</span>
           </Button>
         </label>
-        <p className="img-errors">{errors.map((error) => error)}</p>
+        <p className="img-errors">{errors?.map((error) => error)}</p>
       </div>
       {img && <img className="img-preview" src={img} alt="img"/>}
     </>

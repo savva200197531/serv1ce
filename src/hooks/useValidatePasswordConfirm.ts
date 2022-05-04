@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Creds } from '../types/user'
 
-type UseValidatePassword = (creds: Creds, formSubmit: boolean) => ({
+type UseValidatePassword = (password: string, passwordConfirm: string, formSubmit: boolean) => ({
   passwordConfirmErrors: string[]
 })
 
 // валидация подтверждения пароля
-const useValidatePassword: UseValidatePassword = ({ password, passwordConfirm }, formSubmit) => {
+const useValidatePasswordConfirm: UseValidatePassword = (password, passwordConfirm, formSubmit) => {
   const [passwordConfirmErrors, setPasswordConfirmErrors] = useState<string[]>([])
 
   useEffect(() => {
@@ -27,4 +27,4 @@ const useValidatePassword: UseValidatePassword = ({ password, passwordConfirm },
   return { passwordConfirmErrors }
 }
 
-export default useValidatePassword
+export default useValidatePasswordConfirm

@@ -2,11 +2,15 @@ import React from 'react'
 import './account.scss'
 import { Tab, Tabs } from '@mui/material'
 import { Link, Outlet, useLocation } from 'react-router-dom'
+import { useAuth } from '../../contexts/authContext/AuthContext'
+import Loader from 'react-ts-loaders'
 
 const Account: React.FC = () => {
   const location = useLocation()
 
   const tabs = ['/account', '/account/user', '/account/password']
+
+  const { user, loading } = useAuth()
 
   return (
     <section className="account">
@@ -28,7 +32,10 @@ const Account: React.FC = () => {
             />
             <Tab label="Смена пароля" value={tabs[2]} component={Link} to={tabs[2]} />
           </Tabs>
-          <Outlet />
+          {loading ?
+            <Loader type="dualring" size={50} /> :
+            <Outlet context={{ user }} />
+          }
         </div>
       </div>
     </section>

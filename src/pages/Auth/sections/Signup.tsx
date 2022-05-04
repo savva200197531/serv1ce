@@ -53,7 +53,7 @@ const Signup: React.FC = () => {
   const { lengthErrors: nameErrors } = useValidateStringMinMax(creds.name, { min: 2, max: 15 }, formSubmit)
   const { emailErrors } = useValidateEmail(creds.login, formSubmit)
   const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
-  const { passwordConfirmErrors } = useValidatePasswordConfirm(creds, formSubmit)
+  const { passwordConfirmErrors } = useValidatePasswordConfirm(creds.password, creds.passwordConfirm || '', formSubmit)
 
   // сабмит формы
   const handleSubmit = (event: FormEvent) => {
@@ -103,7 +103,7 @@ const Signup: React.FC = () => {
     }))
 
     setFormSubmit(false)
-  }, [nameErrors, emailErrors, passwordErrors, passwordConfirmErrors, signupErrors])
+  }, [nameErrors, emailErrors, passwordErrors, passwordConfirmErrors])
 
   // выставляю загрузку
   useEffect(() => {

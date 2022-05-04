@@ -1,36 +1,35 @@
 import { useState, useEffect } from 'react'
-import { Creds } from '../types/user'
+import { Creds, PasswordData } from '../types/user'
 import { useAuth } from '../contexts/authContext/AuthContext'
 
-type UseChangeCreds = (creds: Creds, errors: boolean) => ({
-  changeCredsErrors: string[]
+type UseChangePassword = (data: PasswordData, errors: boolean) => ({
+  changePasswordErrors: string[]
   loading: boolean
 })
 
 // отпрвляю данные в контекст и если есть ошибка, выставляю ее
-const useChangeCreds: UseChangeCreds = (creds, errors) => {
+const useChangePassword: UseChangePassword = (data, errors) => {
   // state
-  const [changeCredsErrors, setChangeCredsErrors] = useState<string[]>([])
+  const [changePasswordErrors, setChangePasswordErrors] = useState<string[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   // other
   // const { login } = useAuth()
 
   useEffect(() => {
     if (errors) return
-    setChangeCredsErrors([])
+    setChangePasswordErrors([])
     // setLoading(true)
-    console.log(creds)
     // login(creds.login, creds.password)
     //     .finally(() => {
     //       setLoading(false)
     //     })
     //     .catch((error) => {
     //       console.log(error)
-    //       setChangeCredsErrors(['Не удалось войти в аккаунт!'])
+    //       setChangePasswordErrors(['Не удалось войти в аккаунт!'])
     //     })
-  }, [creds, errors])
+  }, [data, errors])
 
-  return { changeCredsErrors, loading }
+  return { changePasswordErrors, loading }
 }
 
-export default useChangeCreds
+export default useChangePassword

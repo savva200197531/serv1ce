@@ -90,7 +90,7 @@ const Login: React.FC = () => {
     }))
 
     setFormSubmit(false)
-  }, [nameErrors, emailErrors, passwordErrors, loginErrors])
+  }, [nameErrors, emailErrors, passwordErrors])
 
   // выставляю загрузку
   useEffect(() => {

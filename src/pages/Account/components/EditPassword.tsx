@@ -1,11 +1,12 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 import { FormField } from '../../../components/FormFieldLayout/types'
-import useChangeCreds from '../../../hooks/useChangeCreds'
 import useValidatePassword from '../../../hooks/useValidatePassword'
 import useValidatePasswordConfirm from '../../../hooks/useValidatePasswordConfirm'
 import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
 import { Button } from '@mui/material'
 import Loader from 'react-ts-loaders'
+import { PasswordData } from '../../../types/user'
+import useChangePassword from '../../../hooks/useChangePassword'
 
 const EditPassword: React.FC = () => {
   const [oldPassword, setOldPassword] = useState<string>('')
@@ -31,20 +32,20 @@ const EditPassword: React.FC = () => {
       errors: [],
     },
   ])
-  const [creds, setCreds] = useState<any>({} as any)
+  const [data, setData] = useState<PasswordData>({} as PasswordData)
   const [formSubmit, setFormSubmit] = useState<boolean>(false)
   const [hasErrors, setHasErrors] = useState<boolean>(true)
 
   // валидации
-  const { changeCredsErrors, loading } = useChangeCreds(creds, hasErrors)
-  const { passwordErrors: oldPasswordErrors } = useValidatePassword(creds.oldPassword || '', formSubmit)
-  const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
-  const { passwordConfirmErrors } = useValidatePasswordConfirm(creds, formSubmit)
+  const { changePasswordErrors, loading } = useChangePassword(data, hasErrors)
+  const { passwordErrors: oldPasswordErrors } = useValidatePassword(data.oldPassword || '', formSubmit)
+  const { passwordErrors } = useValidatePassword(data.password, formSubmit)
+  const { passwordConfirmErrors } = useValidatePasswordConfirm(data.password, data.passwordConfirm, formSubmit)
 
   // сабмит формы
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-    setCreds({
+    setData({
       oldPassword,
       password,
       passwordConfirm,
@@ -83,7 +84,7 @@ const EditPassword: React.FC = () => {
     }))
 
     setFormSubmit(false)
-  }, [oldPasswordErrors, passwordErrors, passwordConfirmErrors, changeCredsErrors])
+  }, [oldPasswordErrors, passwordErrors, passwordConfirmErrors])
 
   return (
     <form className="change-creds-form" onSubmit={handleSubmit}>
@@ -92,7 +93,7 @@ const EditPassword: React.FC = () => {
       <Button variant="contained" color="primary" type="submit" disabled={loading}>
         {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Войти'}
       </Button>
-      <p className="form-submit-errors">{changeCredsErrors.map((error) => error)}</p>
+      <p className="form-submit-errors">{changePasswordErrors.map((error) => error)}</p>
     </form>
   )
 }

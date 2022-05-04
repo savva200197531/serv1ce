@@ -1,10 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AuthAction, AuthContextProps, GetUser } from './types'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from 'firebase/auth'
-import { ref, set, get, child } from 'firebase/database'
-import { auth, db } from '../../firebase-config'
+import { AuthAction, AuthContextProps, ChangePassword, ChangeUserData, GetUser, UpdateProfile } from './types'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
+  updatePassword,
+  User as FirebaseUser,
+} from 'firebase/auth'
+import { ref as databaseRef, set, get } from 'firebase/database'
+import { auth, db, storage } from '../../firebase-config'
 import { useNavigate } from 'react-router-dom'
 import { User } from '../../types/user'
+import { getDownloadURL, uploadBytes, ref as storageRef } from 'firebase/storage'
 
 const AuthContext = React.createContext<AuthContextProps>({} as AuthContextProps)
 
@@ -14,14 +23,15 @@ export const AuthProvider: React.FC = ({ children }) => {
   const navigate = useNavigate()
 
   // ссылка на базу данных
-  const userRef = (id: string) => ref(db, `users/${id}`)
+  const userRef = (id: string) => databaseRef(db, `users/${id}`)
+  const imagesRef = (id: string) => storageRef(storage, `avatar/${id}`)
 
   const [user, setUser] = useState({} as User)
   const [loading, setLoading] = useState<boolean>(true)
 
   // забираю пользователя из бд при входе на сайт
   const getUser: GetUser = (payload) => {
-    const { uid, email, name } = payload
+    const { uid, email, name, avatar } = payload
     get(userRef(uid)).then(snapshot => {
       if (!snapshot.exists()) {
         console.log('No user data available')
@@ -32,6 +42,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         uid,
         email,
         name,
+        avatar,
         admin: !!snapshot.val().admin,
       })
     }).finally(() => {
@@ -45,7 +56,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const signup: AuthAction = ({ login, password, name }) => {
     return createUserWithEmailAndPassword(auth, login, password)
         .then(value => {
-          updateProfile(value.user, {
+          updateUserData(value.user, {
             displayName: name,
           }).catch(error => {
             console.log(error)
@@ -64,16 +75,43 @@ export const AuthProvider: React.FC = ({ children }) => {
   const login: AuthAction = ({ login, password, name }) =>
     signInWithEmailAndPassword(auth, login, password)
         .then(value => {
-          updateProfile(value.user, {
+          updateUserData(value.user, {
             displayName: name,
-          }).catch(error => {
-            console.log(error)
-          })
-          navigate('/')
+          }).then(() => navigate('/'))
         })
 
   // выход с аккаунта
   const logout = () => signOut(auth).then(() => navigate('/auth/login')).catch((error) => console.log(error))
+
+  const updateUserData: UpdateProfile = (user, { displayName, photoURL }) => {
+    return updateProfile(user, {
+      displayName,
+      photoURL,
+    })
+  }
+
+  const changeUserData: ChangeUserData = ({ name, imgFile }) => {
+    const user = auth.currentUser as FirebaseUser
+    if (imgFile) {
+      return uploadBytes(imagesRef(user.uid), imgFile)
+          .then(() => getDownloadURL(imagesRef(user.uid)))
+          .then(url => {
+            console.log(url)
+            return updateUserData(user, {
+              displayName: name,
+              photoURL: url,
+            })
+          })
+    }
+
+    return updateUserData(user, {
+      displayName: name,
+    })
+  }
+
+  const changePassword: ChangePassword = (password) => {
+    return updatePassword(auth.currentUser as FirebaseUser, password)
+  }
 
   // слежу за состоянием пользователя (вышел/вошел/зарегистрировался)
   useEffect(() => {
@@ -89,9 +127,14 @@ export const AuthProvider: React.FC = ({ children }) => {
         uid: currentUser.uid,
         email: currentUser.email as string,
         name: currentUser.displayName as string,
+        avatar: currentUser.photoURL,
       })
     })
   }, [])
+
+  useEffect(() => {
+    console.log(user)
+  }, [user])
 
   // вывожу состояние и функции для использования по всему приложению
   const value = {
@@ -100,6 +143,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     logout,
     user,
     loading,
+    changeUserData,
+    changePassword,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
