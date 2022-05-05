@@ -9,16 +9,16 @@ import { PasswordData } from '../../../types/user'
 import useChangePassword from '../../../hooks/useChangePassword'
 
 const EditPassword: React.FC = () => {
-  const [oldPassword, setOldPassword] = useState<string>('')
+  // const [oldPassword, setOldPassword] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
   const [fields, setFields] = useState<FormField[]>([
-    {
-      id: 'old-password',
-      name: 'Старый пароль',
-      setState: setOldPassword,
-      errors: [],
-    },
+    // {
+    //   id: 'old-password',
+    //   name: 'Старый пароль',
+    //   setState: setOldPassword,
+    //   errors: [],
+    // },
     {
       id: 'password',
       name: 'Новый пароль',
@@ -38,7 +38,8 @@ const EditPassword: React.FC = () => {
 
   // валидации
   const { changePasswordErrors, loading } = useChangePassword(data, hasErrors)
-  const { passwordErrors: oldPasswordErrors } = useValidatePassword(data.oldPassword || '', formSubmit)
+  // const { passwordErrors: oldPasswordErrors } = useValidatePassword(data.oldPassword || '', formSubmit)
+  // const { passwordConfirmErrors: oldPasswordConfirmErrors } = useValidatePasswordConfirm(data.oldPassword, user., formSubmit)
   const { passwordErrors } = useValidatePassword(data.password, formSubmit)
   const { passwordConfirmErrors } = useValidatePasswordConfirm(data.password, data.passwordConfirm, formSubmit)
 
@@ -46,7 +47,7 @@ const EditPassword: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setData({
-      oldPassword,
+      // oldPassword,
       password,
       passwordConfirm,
     })
@@ -55,7 +56,7 @@ const EditPassword: React.FC = () => {
 
   // расставляю ошибки, если они есть
   useEffect(() => {
-    const messages: string[] = [...oldPasswordErrors, ...passwordErrors, ...passwordConfirmErrors]
+    const messages: string[] = [...passwordErrors, ...passwordConfirmErrors]
 
     if (!messages.length && formSubmit) {
       setHasErrors(false)
@@ -63,11 +64,11 @@ const EditPassword: React.FC = () => {
 
     setFields(fields.map((field: FormField) => {
       switch (field.id) {
-        case 'old-password':
-          return {
-            ...field,
-            errors: oldPasswordErrors,
-          }
+        // case 'old-password':
+        //   return {
+        //     ...field,
+        //     errors: oldPasswordErrors,
+        //   }
         case 'password':
           return {
             ...field,
@@ -84,16 +85,16 @@ const EditPassword: React.FC = () => {
     }))
 
     setFormSubmit(false)
-  }, [oldPasswordErrors, passwordErrors, passwordConfirmErrors])
+  }, [passwordErrors, passwordConfirmErrors])
 
   return (
     <form className="change-creds-form" onSubmit={handleSubmit}>
       {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
       <Button variant="contained" color="primary" type="submit" disabled={loading}>
-        {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Войти'}
+        {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Сохранить'}
       </Button>
-      <p className="form-submit-errors">{changePasswordErrors.map((error) => error)}</p>
+      <p className="form-submit-errors">{changePasswordErrors.map((error, index) => <p key={index}>error</p>)}</p>
     </form>
   )
 }

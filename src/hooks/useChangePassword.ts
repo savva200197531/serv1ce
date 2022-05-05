@@ -13,20 +13,24 @@ const useChangePassword: UseChangePassword = (data, errors) => {
   const [changePasswordErrors, setChangePasswordErrors] = useState<string[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   // other
-  // const { login } = useAuth()
+  const { changePassword } = useAuth()
 
   useEffect(() => {
     if (errors) return
     setChangePasswordErrors([])
-    // setLoading(true)
-    // login(creds.login, creds.password)
-    //     .finally(() => {
-    //       setLoading(false)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //       setChangePasswordErrors(['Не удалось войти в аккаунт!'])
-    //     })
+    setLoading(true)
+    const messages: string[] = []
+    changePassword(data.password)
+        .finally(() => {
+          setLoading(false)
+        })
+        .catch((error) => {
+          if (error.message.includes('auth/requires-recent-login')) {
+            messages.push('Вы авторизированы слишком долго!')
+          }
+          messages.push('Не удалось сменить пароль!')
+          setChangePasswordErrors(messages)
+        })
   }, [data, errors])
 
   return { changePasswordErrors, loading }

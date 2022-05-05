@@ -1,5 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AuthAction, AuthContextProps, ChangePassword, ChangeUserData, GetUser, UpdateProfile } from './types'
+import {
+  AuthAction,
+  AuthContextProps,
+  ChangePassword,
+  ChangeUserData,
+  GetUser,
+  UpdateProfile,
+} from './types'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -24,7 +31,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   // ссылка на базу данных
   const userRef = (id: string) => databaseRef(db, `users/${id}`)
-  const imagesRef = (id: string) => storageRef(storage, `avatar/${id}`)
+  const imagesRef = (id = '') => storageRef(storage, `avatar/${id}`)
 
   const [isAuth, setIsAuth] = useState<boolean>(false)
   const [user, setUser] = useState({} as User)
@@ -65,7 +72,6 @@ export const AuthProvider: React.FC = ({ children }) => {
           })
           set(userRef(value.user.uid), {
             email: login,
-            name,
           }).catch(error => {
             console.log(error)
           })
@@ -85,28 +91,23 @@ export const AuthProvider: React.FC = ({ children }) => {
   // выход с аккаунта
   const logout = () => signOut(auth).then(() => navigate('/auth/login')).catch((error) => console.log(error))
 
-  const updateUserData: UpdateProfile = (user, { displayName, photoURL }) => {
-    return updateProfile(user, {
-      displayName,
-      photoURL,
-    })
-  }
+  const updateUserData: UpdateProfile = (user, { displayName, photoURL }) => updateProfile(user, {
+    displayName,
+    photoURL,
+  })
 
   const changeUserData: ChangeUserData = ({ name, imgFile }) => {
-    const user = auth.currentUser as FirebaseUser
+    const firebaseUser = auth.currentUser as FirebaseUser
     if (imgFile) {
-      return uploadBytes(imagesRef(user.uid), imgFile)
-          .then(() => getDownloadURL(imagesRef(user.uid)))
-          .then(url => {
-            console.log(url)
-            return updateUserData(user, {
-              displayName: name,
-              photoURL: url,
-            })
-          })
+      return uploadBytes(imagesRef(firebaseUser.uid), imgFile)
+          .then(() => getDownloadURL(imagesRef(firebaseUser.uid)))
+          .then(url => updateUserData(firebaseUser, {
+            displayName: name,
+            photoURL: url,
+          }))
     }
 
-    return updateUserData(user, {
+    return updateUserData(firebaseUser, {
       displayName: name,
     })
   }
@@ -130,14 +131,10 @@ export const AuthProvider: React.FC = ({ children }) => {
         uid: currentUser.uid,
         email: currentUser.email as string,
         name: currentUser.displayName as string,
-        avatar: currentUser.photoURL,
+        avatar: currentUser.photoURL as string,
       })
     })
   }, [])
-
-  useEffect(() => {
-    console.log(user)
-  }, [user])
 
   // вывожу состояние и функции для использования по всему приложению
   const value = {

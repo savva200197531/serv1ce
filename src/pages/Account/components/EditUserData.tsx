@@ -5,16 +5,15 @@ import ImgInput from '../../../components/ImgInput/ImgInput'
 import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
 import { Button } from '@mui/material'
 import Loader from 'react-ts-loaders'
-import { User, UserData } from '../../../types/user'
+import { UserData } from '../../../types/user'
 import useChangeUserData from '../../../hooks/useChangeUserData'
-import { useOutletContext } from 'react-router-dom'
+import useAccountOutletContext from '../useAccountOutletContext'
 
 const EditUserData: React.FC = () => {
-  const { user } = useOutletContext<{ user: User }>()
+  const { user } = useAccountOutletContext()
 
   const [name, setName] = useState<string>(user.name)
   const [imgFile, setImgFile] = useState<File>({} as File)
-  // const [isLoading, setIsLoading] = useState(false)
   const [fields, setFields] = useState<FormField[]>([
     {
       id: 'name',
@@ -69,10 +68,10 @@ const EditUserData: React.FC = () => {
     <form className="change-creds-form" onSubmit={handleSubmit}>
       {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
-      <ImgInput label="Выберите фото профиля" setImgFile={setImgFile} />
+      <ImgInput initialImg={user.avatar} label="Выберите фото профиля" setImgFile={setImgFile} />
 
       <Button variant="contained" color="primary" type="submit" disabled={loading}>
-        {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Войти'}
+        {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Сохранить'}
       </Button>
       <p className="form-submit-errors">{changeUserDataErrors.map((error) => error)}</p>
     </form>

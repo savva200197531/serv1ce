@@ -26,7 +26,7 @@ const useChangeUserData: UseChangeUserData = (data, errors) => {
         })
         .catch((error) => {
           console.log(error)
-          setChangeUserDataErrors(['Не удалось войти в аккаунт!'])
+          setChangeUserDataErrors(['Не обновить данные!'])
         })
   }, [data, errors])
 

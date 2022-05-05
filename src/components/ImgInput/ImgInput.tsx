@@ -8,10 +8,11 @@ type Props = {
   errors?: string[]
   setImgFile: (value: File) => void
   label?: string
+  initialImg?: string
 }
 
-const ImgInput: React.FC<Props> = ({ errors, setImgFile, label = 'Выберите изображение' }) => {
-  const [img, setImg] = useState<string>()
+const ImgInput: React.FC<Props> = ({ errors, setImgFile, label = 'Выберите изображение', initialImg = '' }) => {
+  const [img, setImg] = useState<string>(initialImg)
 
   const handleCapture = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (!target.files) return

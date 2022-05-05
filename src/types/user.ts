@@ -10,7 +10,7 @@ export type User = {
   email: string
   uid: string
   admin?: boolean
-  avatar: string | null
+  avatar?: string
 }
 
 export type UserData = {
@@ -19,7 +19,7 @@ export type UserData = {
 }
 
 export type PasswordData = {
-  oldPassword: string
+  // oldPassword: string
   password: string
   passwordConfirm: string
 }

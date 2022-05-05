@@ -1,17 +1,15 @@
 import React from 'react'
-import { useAuth } from '../../../contexts/authContext/AuthContext'
-import Loader from 'react-ts-loaders'
+import useAccountOutletContext from '../useAccountOutletContext'
 
 const UserData: React.FC = ({}) => {
-  const { user, loading } = useAuth()
+  const { user } = useAccountOutletContext()
 
   return (
-    loading ?
-      <Loader type="dualring" size={50} /> :
-      <div>
-        {user.name}
-        {user.email}
-      </div>
+    <div>
+      <img src={user.avatar} alt="" />
+      {user.name}
+      {user.email}
+    </div>
   )
 }
 
