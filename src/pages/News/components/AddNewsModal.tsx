@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import EditModalForm from './EditModalForm'
+import ModalForm from './ModalForm'
 import { Button, Modal } from '@mui/material'
 
-const EditNewsModal: React.FC = ({}) => {
+const AddNewsModal: React.FC = ({}) => {
   const [open, setOpen] = useState<boolean>(false)
 
   const handleOpen = () => setOpen(true)
@@ -18,11 +18,11 @@ const EditNewsModal: React.FC = ({}) => {
         onClose={handleClose}
       >
         <>
-          <EditModalForm open={open} handleClose={handleClose} />
+          <ModalForm open={open} handleClose={handleClose} />
         </>
       </Modal>
     </>
   )
 }
 
-export default EditNewsModal
+export default AddNewsModal

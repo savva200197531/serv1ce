@@ -16,7 +16,7 @@ type Props = {
   handleClose: () => void
 }
 
-const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
+const AddServiceForm: React.FC<Props> = ({ open, handleClose }) => {
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [imgFile, setImgFile] = useState<File>({} as File)
@@ -117,4 +117,4 @@ const EditModalForm: React.FC<Props> = ({ open, handleClose }) => {
   )
 }
 
-export default EditModalForm
+export default AddServiceForm

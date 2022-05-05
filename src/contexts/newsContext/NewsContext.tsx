@@ -35,14 +35,14 @@ export const NewsProvider: React.FC = ({ children }) => {
         }))
   }
 
-  const deleteNews: DeleteNews = (news) => {
-    return remove(newsRef(news.id)).catch(error => {
+  const deleteNews: DeleteNews = (id) => {
+    return remove(newsRef(id)).catch(error => {
       console.log(error)
     })
   }
 
   const rateNews: RateNewsAction = (payload) => {
-    payload.likes && payload.likes[payload.user.uid] ? dislike(payload) : like(payload)
+    payload.likes && payload.likes[user.uid] ? dislike(payload) : like(payload)
   }
 
   const like: RateNewsAction = (payload) => {

@@ -2,7 +2,7 @@ import React from 'react'
 import './news.scss'
 import { useNews } from '../../contexts/newsContext/NewsContext'
 import Loader from 'react-ts-loaders'
-import EditNewsModal from './components/EditNewsModal'
+import AddNewsModal from './components/AddNewsModal'
 import { useAuth } from '../../contexts/authContext/AuthContext'
 import NewsItem from './components/NewsItem'
 
@@ -14,7 +14,7 @@ const News = () => {
     <section className="news">
       <div className="container">
         <div className="news-content">
-          {userLoading ? <Loader type="dualring" size={20} /> : user.admin && <EditNewsModal />}
+          {userLoading ? <Loader type="dualring" size={20} /> : user.admin && <AddNewsModal />}
           <div className="news-items">
             {newsLoading ? <Loader type="dualring" size={50} /> : news.length ? news.map((item) => (
               <NewsItem key={item.id} item={item} />

@@ -7,13 +7,12 @@ import { News } from '../../../types/news'
 import { useNews } from '../../../contexts/newsContext/NewsContext'
 import { useAuth } from '../../../contexts/authContext/AuthContext'
 import { useNavigate } from 'react-router-dom'
-import NewsBottom from './NewsBottom'
 
 type Props = {
   item: News
 }
 
-const NewsItem: React.FC<Props> = ({ item }) => {
+const ServiceItem: React.FC<Props> = ({ item }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -85,10 +84,8 @@ const NewsItem: React.FC<Props> = ({ item }) => {
         <FontAwesomeIcon icon={faUser as any} size="lg"/>
         <span className="news-author__text">{item.user.name}</span>
       </Button>
-
-      <NewsBottom item={item} />
     </div>
   )
 }
 
-export default NewsItem
+export default ServiceItem
