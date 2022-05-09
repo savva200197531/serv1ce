@@ -2,6 +2,10 @@
 
 .header {
   border-bottom: 1px solid $primary-color;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #EDEEF0FF;
 }
 
 .header-content {

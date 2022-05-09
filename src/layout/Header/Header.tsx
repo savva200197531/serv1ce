@@ -32,7 +32,7 @@ const Header: React.FC = () => {
 
   // верстка
   return (
-    <footer className="header">
+    <header className="header">
       <div className="container">
         <div className="header-content">
           <Button color="primary" onClick={() => navigate('/')}>
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </header>
   )
 }
 

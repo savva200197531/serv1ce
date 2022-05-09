@@ -10,6 +10,16 @@
 body {
   background: $background-color;
   overflow-x: hidden;
+  position: relative;
+
+  &:before {
+    position: fixed;
+    content: url($imagesPath + 'gasoil-bg.png');
+    right: 40px;
+    top: 100px;
+    opacity: 0.8;
+    z-index: -1;
+  }
 }
 
 .container {

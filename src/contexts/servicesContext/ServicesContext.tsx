@@ -65,10 +65,6 @@ export const ServicesProvider: React.FC = ({ children }) => {
     watchServices()
   }, [])
 
-  useEffect(() => {
-    console.log(services)
-  }, [services])
-
   const value = {
     services,
     loading,
