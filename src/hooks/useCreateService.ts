@@ -29,17 +29,16 @@ const useCreateService: UseCreateService = (values, errors, handleClose) => {
     setCreateServiceErrors([])
     setLoading(true)
 
-    console.log(values)
-    // uploadService(values)
-    //     .then(() => {
-    //       handleClose()
-    //       setLoading(false)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //       error.push('Не удалось создать услугу!')
-    //       setLoading(false)
-    //     })
+    uploadService(values)
+        .then(() => {
+          handleClose()
+          setLoading(false)
+        })
+        .catch((error) => {
+          console.log(error)
+          error.push('Не удалось создать услугу!')
+          setLoading(false)
+        })
 
     setCreateServiceErrors(errors)
   }

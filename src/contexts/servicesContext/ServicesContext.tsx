@@ -17,23 +17,29 @@ export const ServicesProvider: React.FC = ({ children }) => {
   const imagesRef = (id = '') => storageRef(storage, `servicesImages/${id}`)
   const servicesRef = (id = '') => databaseRef(db, `services/${id}`)
 
-  const uploadService: UploadService = (payload) => {
-    if (payload.imgFile) {
+  const uploadService: UploadService = ({ title, description, cost, imgFile }) => {
+    if (imgFile) {
       const id = v4()
 
-      return uploadBytes(imagesRef(id), payload.imgFile)
+      return uploadBytes(imagesRef(id), imgFile)
           .then(() => getDownloadURL(imagesRef(id)))
           .then(url => set(push(servicesRef()), {
-            ...payload,
+            title,
+            description,
+            cost,
             url,
           }))
     }
 
-    return set(push(servicesRef()), payload)
+    return set(push(servicesRef()), {
+      title,
+      description,
+      cost,
+    })
   }
 
-  const deleteService: DeleteService = (service) => {
-    return remove(servicesRef(service.id)).catch(error => {
+  const deleteService: DeleteService = (id) => {
+    return remove(servicesRef(id)).catch(error => {
       console.log(error)
     })
   }

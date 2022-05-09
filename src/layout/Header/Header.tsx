@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './Header.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Button } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
 import { useAuth } from '../../contexts/authContext/AuthContext'
 import UserButton from './UserButton'
+import logo from '../../assets/images/logo.png'
 
 type PageType = 'signup' | 'login' | 'other'
 
@@ -35,7 +36,7 @@ const Header: React.FC = () => {
       <div className="container">
         <div className="header-content">
           <Button color="primary" onClick={() => navigate('/')}>
-            Serv1ce
+            <img className="logo" src={logo} alt="лого"/>
           </Button>
 
           <div className="header-right">

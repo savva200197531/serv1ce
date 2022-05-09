@@ -1,0 +1,38 @@
+.services {
+  padding-bottom: 50px;
+  min-height: calc(100vh - 105px);
+}
+
+.service-items {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(0, 300px));
+  justify-content: center;
+  grid-auto-flow: row;
+  grid-gap: 30px;
+  margin: 0 auto;
+}
+
+.service-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-title {
+  font-size: 18px;
+}
+
+.service-field {
+  font-size: 15px;
+  word-wrap: break-word;
+
+  span:first-child {
+    font-weight: bold;
+  }
+}
+
+.service-info {
+  > *:not(:first-child) {
+    margin-top: 10px;
+  }
+}

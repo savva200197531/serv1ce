@@ -2,7 +2,7 @@ import { Service, ServiceFields } from '../../types/service'
 
 export type UploadService = (payload: ServiceFields) => Promise<any>
 
-export type DeleteService = (payload: any) => Promise<any>
+export type DeleteService = (id: string) => Promise<any>
 
 export interface ServicesContextProps {
   services: Service[]

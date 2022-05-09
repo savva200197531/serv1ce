@@ -14,12 +14,19 @@ const Services = () => {
     <section className="services">
       <div className="container">
         <div className="services-content">
-          {userLoading ? <Loader type="dualring" size={20} /> : user.admin && <ServiceModal />}
-          <div className="services-items">
-            {servicesLoading ? <Loader type="dualring" size={50} /> : services.length ? services.map((item) => (
-              <ServiceItem key={item.id} item={item} />
-            )) : <div className="tea-c">Услуг нет</div>}
-          </div>
+          {user.admin && <ServiceModal/>}
+
+          {
+            servicesLoading ?
+              <Loader type="dualring" size={50}/> :
+              services.length ?
+                <div className="service-items">
+                  {services.map((item) => (
+                    <ServiceItem key={item.id} item={item}/>
+                  ))}
+                </div> :
+                <div className="tea-c">Услуг нет</div>
+          }
         </div>
       </div>
     </section>
