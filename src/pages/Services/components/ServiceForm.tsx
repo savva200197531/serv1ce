@@ -5,7 +5,7 @@ import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
 import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
 import { FormField } from '../../../components/FormFieldLayout/types'
 import ImgInput from '../../../components/ImgInput/ImgInput'
-import { NumberFormatCustom } from '../../../components/NumberFormatCustom'
+import { CurrencyMask } from '../../../components/СurrencyMask'
 import useValidateNumberMinMax from '../../../hooks/useValidateNumberMinMax'
 import useMoveModal from '../../../hooks/useMoveModal'
 import useCreateService from '../../../hooks/useCreateService'
@@ -50,7 +50,7 @@ const ServiceForm: React.FC<Props> = ({ open, handleClose }) => {
       name: 'Цена',
       defaultValue: cost,
       setState: setCost,
-      inputComponent: NumberFormatCustom as any,
+      inputComponent: CurrencyMask as any,
       errors: [],
     },
   ])

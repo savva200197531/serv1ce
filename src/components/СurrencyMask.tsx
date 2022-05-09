@@ -6,8 +6,8 @@ interface Props {
   name: string;
 }
 
-export const NumberFormatCustom = forwardRef<NumberFormat<any>, Props>(
-    function NumberFormatCustom(props, ref) {
+export const CurrencyMask = forwardRef<NumberFormat<any>, Props>(
+    function CurrencyMask(props, ref) {
       const { onChange, ...other } = props
 
       return (

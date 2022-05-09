@@ -12,3 +12,17 @@ export type ServiceFields = {
   cost: string
   imgFile?: File
 }
+
+export type ServiceFormFields = {
+  lastName: string
+  phone: string
+  name: string
+  email: string
+  middleName: string
+  skype: string
+  address: string
+  terms: string
+  material: string
+  description: string
+  time: string
+}
