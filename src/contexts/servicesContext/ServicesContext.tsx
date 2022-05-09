@@ -18,14 +18,18 @@ export const ServicesProvider: React.FC = ({ children }) => {
   const servicesRef = (id = '') => databaseRef(db, `services/${id}`)
 
   const uploadService: UploadService = (payload) => {
-    const id = v4()
+    if (payload.imgFile) {
+      const id = v4()
 
-    return uploadBytes(imagesRef(id), payload.imgFile)
-        .then(() => getDownloadURL(imagesRef(id)))
-        .then(url => set(push(servicesRef()), {
-          ...payload,
-          url,
-        }))
+      return uploadBytes(imagesRef(id), payload.imgFile)
+          .then(() => getDownloadURL(imagesRef(id)))
+          .then(url => set(push(servicesRef()), {
+            ...payload,
+            url,
+          }))
+    }
+
+    return set(push(servicesRef()), payload)
   }
 
   const deleteService: DeleteService = (service) => {
@@ -55,6 +59,9 @@ export const ServicesProvider: React.FC = ({ children }) => {
     watchServices()
   }, [])
 
+  useEffect(() => {
+    console.log(services)
+  }, [services])
 
   const value = {
     services,

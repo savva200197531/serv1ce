@@ -1,6 +1,6 @@
-import { Service } from '../../types/service'
+import { Service, ServiceFields } from '../../types/service'
 
-export type UploadService = (payload: any) => Promise<any>
+export type UploadService = (payload: ServiceFields) => Promise<any>
 
 export type DeleteService = (payload: any) => Promise<any>
 

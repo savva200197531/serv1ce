@@ -133,6 +133,29 @@ button {
   font-size: 12px;
 }
 
+.add-form-modal {
+  margin-top: 20px;
+}
+
+.form {
+  max-width: 400px;
+  background: white;
+  margin: 0 auto;
+  opacity: 0;
+  transition: 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  padding: 20px 20px 0 20px;
+  outline: none;
+  max-height: 700px;
+  overflow: auto;
+
+  > *:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+
 // adaptive
 
 @media screen and (max-width: 1390px) {

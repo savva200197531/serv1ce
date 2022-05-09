@@ -14,7 +14,6 @@ const Login: React.FC = () => {
   const [name, setName] = useState<string>('Savva')
   const [login, setLogin] = useState<string>('kashin.savva@mail.ru')
   const [password, setPassword] = useState<string>('123123')
-  const [isLoading, setIsLoading] = useState(false)
   const [fields, setFields] = useState<FormField[]>([
     {
       id: 'name',
@@ -92,9 +91,7 @@ const Login: React.FC = () => {
     setFormSubmit(false)
   }, [nameErrors, emailErrors, passwordErrors])
 
-  // выставляю загрузку
   useEffect(() => {
-    setIsLoading(loading)
     setHasErrors(true)
   }, [loading])
 
@@ -104,8 +101,8 @@ const Login: React.FC = () => {
     <form className="auth-form login-form locomotive-list" onSubmit={handleSubmit}>
       {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
-      <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
-        {isLoading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Войти'}
+      <Button variant="contained" color="primary" type="submit" disabled={loading}>
+        {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Войти'}
       </Button>
       <p className="form-submit-errors">{loginErrors.map((error) => error)}</p>
     </form>

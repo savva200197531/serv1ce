@@ -10,13 +10,14 @@ import useCreateNews from '../../../hooks/useCreateNews'
 import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
 import { FormField } from '../../../components/FormFieldLayout/types'
 import ImgInput from '../../../components/ImgInput/ImgInput'
+import useMoveModal from '../../../hooks/useMoveModal'
 
 type Props = {
   open: boolean
   handleClose: () => void
 }
 
-const ModalForm: React.FC<Props> = ({ open, handleClose }) => {
+const NewsForm: React.FC<Props> = ({ open, handleClose }) => {
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [imgFile, setImgFile] = useState<File>({} as File)
@@ -25,7 +26,6 @@ const ModalForm: React.FC<Props> = ({ open, handleClose }) => {
   const [values, setValues] = useState({} as NewsFields)
   const [formSubmit, setFormSubmit] = useState<boolean>(false)
   const [hasErrors, setHasErrors] = useState<boolean>(true)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { createNewsErrors, loading } = useCreateNews(values, hasErrors, handleClose)
   const { lengthErrors: titleErrors } = useValidateStringMinMax(title, { min: 3 }, formSubmit)
@@ -49,6 +49,7 @@ const ModalForm: React.FC<Props> = ({ open, handleClose }) => {
   ])
 
   const formRef = useRef<HTMLFormElement>(null)
+  useMoveModal(open, formRef, [imgFile, description])
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -91,30 +92,20 @@ const ModalForm: React.FC<Props> = ({ open, handleClose }) => {
   }, [titleErrors, descriptionErrors, fileErrors])
 
   useEffect(() => {
-    setTimeout(() => {
-      if (open && formRef.current) {
-        formRef.current.style.marginTop = `calc(50vh - (${formRef.current.clientHeight}px / 2))`
-        formRef.current.style.opacity = '1'
-      }
-    })
-  }, [open, formRef.current, imgFile, description])
-
-  useEffect(() => {
-    setIsLoading(loading)
     setHasErrors(true)
   }, [loading])
 
   return (
-    <form ref={formRef} className="edit-news-form" onSubmit={handleSubmit}>
+    <form ref={formRef} className="form" onSubmit={handleSubmit}>
       {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
       <ImgInput errors={imgFileErrors} setImgFile={setImgFile} />
-      <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
-        {isLoading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Сохранить'}
+      <Button variant="contained" color="primary" type="submit" disabled={loading}>
+        {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Сохранить'}
       </Button>
       <p className="form-submit-errors">{createNewsErrors.map((error) => error)}</p>
     </form>
   )
 }
 
-export default ModalForm
+export default NewsForm

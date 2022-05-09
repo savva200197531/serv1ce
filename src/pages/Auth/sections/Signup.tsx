@@ -8,7 +8,6 @@ import Loader from 'react-ts-loaders'
 import useValidatePasswordConfirm from '../../../hooks/useValidatePasswordConfirm'
 import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
 import { FormField } from '../../../components/FormFieldLayout/types'
-import useValidateRequired from '../../../hooks/useValidateRequired'
 import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
 
 const Signup: React.FC = () => {
@@ -17,7 +16,6 @@ const Signup: React.FC = () => {
   const [login, setLogin] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
-  const [isLoading, setIsLoading] = useState(false)
   const [fields, setFields] = useState<FormField[]>([
     {
       id: 'name',
@@ -107,7 +105,6 @@ const Signup: React.FC = () => {
 
   // выставляю загрузку
   useEffect(() => {
-    setIsLoading(loading)
     setHasErrors(true)
   }, [loading])
 
@@ -117,8 +114,8 @@ const Signup: React.FC = () => {
     <form className="auth-form signup-form" onSubmit={handleSubmit}>
       {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
-      <Button variant="contained" color="primary" type="submit" disabled={isLoading}>
-        {isLoading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Зарегистрироваться'}
+      <Button variant="contained" color="primary" type="submit" disabled={loading}>
+        {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Зарегистрироваться'}
       </Button>
       <p className="form-submit-errors">{signupErrors.map((error) => error)}</p>
     </form>

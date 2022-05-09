@@ -65,7 +65,7 @@ const NewsBottom: React.FC<Props> = ({ item }) => {
         }
       </div>
 
-      <form className="news-form" onSubmit={handleSubmit}>
+      <form className="news-comments-form" onSubmit={handleSubmit}>
         <FormControl fullWidth>
           <OutlinedInput
             sx={{ height: 40 }}

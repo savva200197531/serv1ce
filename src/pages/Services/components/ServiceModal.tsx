@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AddServiceForm from './AddServiceForm'
+import ServiceForm from './ServiceForm'
 import { Button, Modal } from '@mui/material'
 
 const ServiceModal: React.FC = ({}) => {
@@ -9,19 +9,19 @@ const ServiceModal: React.FC = ({}) => {
   const handleClose = () => setOpen(false)
 
   return (
-    <>
-      <Button variant="contained" color="primary" className="edit-news-btn" onClick={handleOpen}>
-        Добавить новость
+    <div className="add-form-modal">
+      <Button variant="contained" color="primary" className="add-btn" onClick={handleOpen}>
+        Добавить услугу
       </Button>
       <Modal
         open={open}
         onClose={handleClose}
       >
         <>
-          <AddServiceForm open={open} handleClose={handleClose} />
+          <ServiceForm open={open} handleClose={handleClose} />
         </>
       </Modal>
-    </>
+    </div>
   )
 }
 
