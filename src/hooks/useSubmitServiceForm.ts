@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { NewsFields } from '../types/news'
-import { useNews } from '../contexts/newsContext/NewsContext'
 import { ServiceFormFields } from '../types/service'
+import { push, set } from 'firebase/database'
+import { ref as databaseRef } from '@firebase/database'
+import { db } from '../firebase-config'
 
 type UseSubmitServiceForm = (
   values: ServiceFormFields,
@@ -9,14 +10,14 @@ type UseSubmitServiceForm = (
 ) => ({
   submitServiceFormErrors: string[]
   loading: boolean
+  success: boolean
 })
 
 const useSubmitServiceForm: UseSubmitServiceForm = (values, errors) => {
   // state
   const [submitServiceFormErrors, setSubmitServiceFormErrors] = useState<string[]>([])
   const [loading, setLoading] = useState<boolean>(false)
-  // other
-  const { uploadNews } = useNews()
+  const [success, setSuccess] = useState<boolean>(false)
 
   useEffect(() => {
     if (errors) return
@@ -28,21 +29,19 @@ const useSubmitServiceForm: UseSubmitServiceForm = (values, errors) => {
     setSubmitServiceFormErrors([])
     setLoading(true)
 
-    uploadNews(values)
-        .then(() => {
-          handleClose()
-          setLoading(false)
-        })
-        .catch((error) => {
-          console.log(error)
-          error.push('Не удалось создать новость!')
-          setLoading(false)
-        })
+    set(push(databaseRef(db, 'sales')), values).then(() => {
+      setLoading(false)
+      setSuccess(true)
+    }).catch((error) => {
+      console.log(error)
+      error.push('Не удалось оформить заявку!')
+      setLoading(false)
+    })
 
     setSubmitServiceFormErrors(errors)
   }
 
-  return { submitServiceFormErrors, loading }
+  return { submitServiceFormErrors, loading, success }
 }
 
 export default useSubmitServiceForm

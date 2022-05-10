@@ -7,7 +7,7 @@ export type Service = {
 }
 
 export type ServiceFields = {
-  title: string
+  name: string
   description: string
   cost: string
   imgFile?: File

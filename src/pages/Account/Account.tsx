@@ -34,7 +34,7 @@ const Account: React.FC = () => {
           </Tabs>
           {loading ?
             <Loader type="dualring" size={50} /> :
-            <Outlet context={{ user }} />
+            <Outlet key={user.name} context={{ user }} />
           }
         </div>
       </div>

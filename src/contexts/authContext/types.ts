@@ -7,7 +7,7 @@ export type ChangeUserData = (payload: UserData) => Promise<any>
 
 export type ChangePassword = (password: string) => Promise<any>
 
-export type UpdateProfile = (user: FirebaseUser, payload: {
+export type UpdateProfile = (firebaseUser: FirebaseUser, payload: {
   displayName?: string
   photoURL?: string
 }) => Promise<any>

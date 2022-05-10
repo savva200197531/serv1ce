@@ -9,8 +9,8 @@ const useMoveModal: UseMoveModal = (open, ref, deps) => {
         ref.current.style.marginTop = `calc(50vh - (${ref.current.clientHeight}px / 2))`
         ref.current.style.opacity = '1'
       }
-    })
-  }, [open, ref.current, deps])
+    }, 20)
+  }, [open, ref.current, ...deps])
 }
 
 export default useMoveModal

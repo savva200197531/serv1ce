@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import './Header.scss'
+import './header.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Button, IconButton } from '@mui/material'
-import { useAuth } from '../../contexts/authContext/AuthContext'
+import { Button } from '@mui/material'
 import UserButton from './UserButton'
 import logo from '../../assets/images/logo.png'
 

@@ -6,9 +6,19 @@ type Props = {
   field: FormField
 }
 
-const FormFieldLayout: React.FC<Props> = ({ field: { id, name, errors, setState, fullWidth, ...props } }) => {
+const FormFieldLayout: React.FC<Props> = ({
+  field: {
+    id,
+    name,
+    errors,
+    setState,
+    fullWidth,
+    style,
+    ...props
+  },
+}) => {
   return (
-    <FormControl fullWidth={fullWidth} key={id}>
+    <FormControl style={style} fullWidth={fullWidth} key={id}>
       <InputLabel color="primary" htmlFor={id}>
         {name}
       </InputLabel>

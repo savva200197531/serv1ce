@@ -4,7 +4,7 @@ import { ref as databaseRef, set, push, onValue } from 'firebase/database'
 import { db } from '../../firebase-config'
 import { useAuth } from '../authContext/AuthContext'
 import { formatDate } from '../../helpers/formatDate'
-import { Comments, Comment } from '../../types/comments'
+import { Comments } from '../../types/comments'
 
 const CommentsContext = React.createContext<CommentsContextProps>({} as CommentsContextProps)
 
@@ -22,7 +22,7 @@ export const CommentsProvider: React.FC = ({ children }) => {
     return set(push(commentsRef(id)), {
       text: comment,
       date: formatDate(new Date()),
-      user,
+      uid: user.uid,
     }).catch(error => {
       console.log(error)
     })
@@ -41,10 +41,15 @@ export const CommentsProvider: React.FC = ({ children }) => {
         const comments = value[key]
         return ({
           key,
-          value: Object.keys(comments).map(key => ({
-            id: key,
-            ...comments[key],
-          })),
+          value: Object.keys(comments).map(key => {
+            const comment = comments[key]
+
+            return {
+              id: key,
+              // user: user
+              ...comment,
+            }
+          }),
         })
       }).reduce((obj, item) => ({ ...obj, [item.key]: item.value }), {}))
 

@@ -9,28 +9,21 @@
   color: white;
 }
 
-.footer-content, .socials-list {
+.footer-content, .footer-socials {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.footer-info-wrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  height: 120px;
 }
 
 .copyright {
   font-size: 13px;
 }
 
-.footer-info {
-  display: flex;
+.footer-socials {
+  max-width: 200px;
+  width: 100%;
+}
 
-  div {
-    margin-left: 10px;
-    font-size: 12px;
-  }
+.footer-social {
+  color: white;
 }

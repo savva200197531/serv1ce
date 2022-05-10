@@ -62,21 +62,26 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   // отправка данных при регистрации
-  const signup: AuthAction = ({ login, password, name }) => {
-    return createUserWithEmailAndPassword(auth, login, password)
-        .then(value => {
-          updateUserData(value.user, {
+  const signup: AuthAction = ({ login, password, name }) =>
+    createUserWithEmailAndPassword(auth, login, password)
+        .then(({ user }) => {
+          updateUserData(user, {
             displayName: name,
           }).catch(error => {
             console.log(error)
           })
-          set(userRef(value.user.uid), {
+          set(userRef(user.uid), {
             email: login,
+            name,
+            uid: user.uid,
           }).catch(error => {
             console.log(error)
           })
           navigate('/')
         })
+
+  const setUserToDb = () => {
+
   }
 
   // отправка данных при входе
@@ -91,13 +96,21 @@ export const AuthProvider: React.FC = ({ children }) => {
   // выход с аккаунта
   const logout = () => signOut(auth).then(() => navigate('/auth/login')).catch((error) => console.log(error))
 
-  const updateUserData: UpdateProfile = (user, { displayName, photoURL }) => updateProfile(user, {
-    displayName,
-    photoURL,
-  })
+  const updateUserData: UpdateProfile = (firebaseUser, { displayName, photoURL }) =>
+    updateProfile(firebaseUser, {
+      displayName,
+      photoURL,
+    }).finally(() => {
+      getUser({
+        ...user,
+        name: displayName as string,
+        avatar: photoURL ? photoURL : user.avatar,
+      })
+    })
 
   const changeUserData: ChangeUserData = ({ name, imgFile }) => {
     const firebaseUser = auth.currentUser as FirebaseUser
+
     if (imgFile) {
       return uploadBytes(imagesRef(firebaseUser.uid), imgFile)
           .then(() => getDownloadURL(imagesRef(firebaseUser.uid)))
@@ -112,9 +125,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     })
   }
 
-  const changePassword: ChangePassword = (password) => {
-    return updatePassword(auth.currentUser as FirebaseUser, password)
-  }
+  const changePassword: ChangePassword = (password) => updatePassword(auth.currentUser as FirebaseUser, password)
 
   // слежу за состоянием пользователя (вышел/вошел/зарегистрировался)
   useEffect(() => {

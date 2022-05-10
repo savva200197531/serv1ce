@@ -7,35 +7,35 @@ import photo3 from '../../assets/images/photo3.jpg'
 import photo4 from '../../assets/images/photo4.jpg'
 
 const mapData = {
-  center: [53.3291, 83.80422],
+  center: [53.3741746448565, 83.74993629840466],
   zoom: 15,
 }
 
 const addressData = [
-  'ООО “Русьтелетех”',
-  'пл. им. В. Н. Баварина, д. 2, офис 11/01',
-  'Барнаул, 656056',
-  'Телефон: +7 (923) 561-2109',
-  'факс: +7 (923) 561-2109',
-  'E-mail: info@rusteletech.ru',
+  'ООО “Газойл”',
+  'ул. Северо-Западная, д. 20',
+  'Барнаул, 656037',
+  // 'Телефон: +7 (923) 561-2109',
+  // 'факс: +7 (923) 561-2109',
+  // 'E-mail: info@rusteletech.ru',
 ]
 
 const imgData = [
   {
     img: photo1,
-    text: 'Рисунок 1 – Выручка компании с 2015-2021гг. По данному графику видно, что рост компании был до 2020 г., он состовлял выше 60млн.руб. С 2020г. по 2021г. выручка упала до 40млн.руб.',
+    text: 'Выручка компании с 2015-2021гг. По данному графику видно, что рост компании был до 2020 г., он состовлял выше 60млн.руб. С 2020г. по 2021г. выручка упала до 40млн.руб.',
   },
   {
     img: photo2,
-    text: 'Рисунок 2 – График чистой прибыли с 2015-2021гг. На графике видно, что чистая прибыль повышалась с 2015 г. по 2018г. и с 2019г. по 2020г. Спад происходил с 2018г. по 2019г. и с 2020г. по 2021г.',
+    text: 'График чистой прибыли с 2015-2021гг. На графике видно, что чистая прибыль повышалась с 2015 г. по 2018г. и с 2019г. по 2020г. Спад происходил с 2018г. по 2019г. и с 2020г. по 2021г.',
   },
   {
     img: photo3,
-    text: 'Рисунок 3 – Финансовые показатели за 2021г.',
+    text: 'Финансовые показатели за 2021г.',
   },
   {
     img: photo4,
-    text: 'Рисунок 4 – Налоги и сборы за 2020г.',
+    text: 'Налоги и сборы за 2020г.',
   },
 ]
 
@@ -44,7 +44,8 @@ const About = () => {
     <section className="about">
       <div className="container">
         <div className="about-content">
-          <div>
+          <div className="about-section">
+            <h1 className="about-title">О нас</h1>
             <p>
               Компания ООО «ТЕХНОГАЗСЕРВИС», адрес: Алтайский край, улица Северо-Западная, д 20.
               Зарегестрирована 15 июля 2015 года. Основной деятельностья компании является. Директор данной организации
@@ -69,23 +70,28 @@ const About = () => {
               <li>— На Фредресурсе не найдено ни одного сообщения о предстоящем банкроствстве компании;</li>
             </ul>
           </div>
-          <h1>КОНТАКТНАЯ ИНФОРМАЦИЯ</h1>
-          {addressData.map((item, index) => <p key={index}>{item}</p>)}
-          <div className="contacts-map">
-            <Map width="100%" height={400} defaultState={mapData}>
-              <Placemark geometry={[53.3291, 83.80422]}/>
-            </Map>
+
+          <div className="about-section">
+            <h3 className="about-title">КОНТАКТНАЯ ИНФОРМАЦИЯ</h3>
+            {addressData.map((item, index) => <p key={index}>{item}</p>)}
+            <div className="contacts-map">
+              <Map width="100%" height={400} defaultState={mapData}>
+                <Placemark geometry={[53.3741746448565, 83.74993629840466]}/>
+              </Map>
+            </div>
           </div>
-          <div>
+
+          <div className="about-section">
+            <h3 className="about-title">Информация</h3>
             {imgData.map((item, index) => (
-              <div key={index}>
+              <div className="about-photo-wrapper" key={index}>
                 <img src={item.img} alt="photo"/>
-                <p>{item.text}</p>
+                <p><span>Рисунок {index + 1}</span> – {item.text}</p>
               </div>
             ))}
           </div>
-          <div>телефон</div>
-          <div>email</div>
+          {/*<div>телефон</div>*/}
+          {/*<div>email</div>*/}
         </div>
       </div>
     </section>

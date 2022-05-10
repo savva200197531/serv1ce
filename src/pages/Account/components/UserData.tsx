@@ -5,10 +5,10 @@ const UserData: React.FC = ({}) => {
   const { user } = useAccountOutletContext()
 
   return (
-    <div>
+    <div className="user-data">
       <img src={user.avatar} alt="" />
-      {user.name}
-      {user.email}
+      <p>{user.name}</p>
+      <p>{user.email}</p>
     </div>
   )
 }

@@ -3,9 +3,13 @@ import './contacts.scss'
 
 const Contacts = () => {
   return (
-    <div>
-      contacts
-    </div>
+    <section className="contacts">
+      <div className="container">
+        <div className="contacts-content">
+          <h1 className="tea-c">Контакты</h1>
+        </div>
+      </div>
+    </section>
   )
 }
 

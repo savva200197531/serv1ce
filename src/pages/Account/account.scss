@@ -1,17 +1,26 @@
-.account {
-  padding-bottom: 50px;
-  min-height: calc(100vh - 105px);
-}
-
-.change-creds-form {
-  display: flex;
-  flex-direction: column;
-
-  > *:not(:first-child) {
-    margin-top: 10px;
-  }
-}
+.account {}
 
 .account-content {
   display: flex;
+}
+
+.change-creds-form, .user-data {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-left: 50px;
+  max-width: 400px;
+  width: 100%;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 0 #dce1e6, 0 0 0 1px #e7e8ec;
+  padding: 15px 20px 0 20px;
+
+  > *:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+
+.user-data {
+  padding-bottom: 20px;
 }

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { DeleteService, ServicesContextProps, UploadService } from './types'
+import { DeleteService, GetService, ServicesContextProps, UploadService } from './types'
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { ref as databaseRef, set, push, onValue, remove } from 'firebase/database'
 import { db, storage } from '../../firebase-config'
@@ -17,14 +17,14 @@ export const ServicesProvider: React.FC = ({ children }) => {
   const imagesRef = (id = '') => storageRef(storage, `servicesImages/${id}`)
   const servicesRef = (id = '') => databaseRef(db, `services/${id}`)
 
-  const uploadService: UploadService = ({ title, description, cost, imgFile }) => {
+  const uploadService: UploadService = ({ name, description, cost, imgFile }) => {
     if (imgFile) {
       const id = v4()
 
       return uploadBytes(imagesRef(id), imgFile)
           .then(() => getDownloadURL(imagesRef(id)))
           .then(url => set(push(servicesRef()), {
-            title,
+            name,
             description,
             cost,
             url,
@@ -32,7 +32,7 @@ export const ServicesProvider: React.FC = ({ children }) => {
     }
 
     return set(push(servicesRef()), {
-      title,
+      name,
       description,
       cost,
     })
@@ -61,6 +61,8 @@ export const ServicesProvider: React.FC = ({ children }) => {
     })
   }
 
+  const getService: GetService = (id) => services.find(service => service.id === id) as Service
+
   useEffect(() => {
     watchServices()
   }, [])
@@ -70,6 +72,7 @@ export const ServicesProvider: React.FC = ({ children }) => {
     loading,
     uploadService,
     deleteService,
+    getService,
   }
 
   return <ServicesContext.Provider value={value}>{children}</ServicesContext.Provider>

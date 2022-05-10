@@ -17,7 +17,7 @@ type Props = {
 }
 
 const ServiceForm: React.FC<Props> = ({ open, handleClose }) => {
-  const [title, setTitle] = useState<string>('')
+  const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [imgFile, setImgFile] = useState<File>()
   const [cost, setCost] = useState<string>('')
@@ -27,15 +27,15 @@ const ServiceForm: React.FC<Props> = ({ open, handleClose }) => {
   const [hasErrors, setHasErrors] = useState<boolean>(true)
 
   const { createServiceErrors, loading } = useCreateService(values, hasErrors, handleClose)
-  const { lengthErrors: titleErrors } = useValidateStringMinMax(title, { min: 3 }, formSubmit)
+  const { lengthErrors: nameErrors } = useValidateStringMinMax(name, { min: 3 }, formSubmit)
   const { lengthErrors: descriptionErrors } = useValidateStringMinMax(description, { min: 10, max: 500 }, formSubmit)
   const { numberErrors: costErrors } = useValidateNumberMinMax(Number(cost), { min: 10 }, formSubmit)
 
   const [fields, setFields] = useState<FormField[]>([
     {
-      id: 'title',
-      name: 'Заголовок',
-      setState: setTitle,
+      id: 'name',
+      name: 'Название услуги',
+      setState: setName,
       errors: [],
     },
     {
@@ -61,7 +61,7 @@ const ServiceForm: React.FC<Props> = ({ open, handleClose }) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setValues({
-      title,
+      name,
       description,
       cost,
       imgFile,
@@ -71,7 +71,7 @@ const ServiceForm: React.FC<Props> = ({ open, handleClose }) => {
 
   // расставляю ошибки, если они есть
   useEffect(() => {
-    const messages: string[] = [...titleErrors, ...descriptionErrors, ...costErrors]
+    const messages: string[] = [...nameErrors, ...descriptionErrors, ...costErrors]
 
     if (!messages.length && formSubmit) {
       setHasErrors(false)
@@ -82,7 +82,7 @@ const ServiceForm: React.FC<Props> = ({ open, handleClose }) => {
         case 'title':
           return {
             ...field,
-            errors: titleErrors,
+            errors: nameErrors,
           }
         case 'description':
           return {
@@ -100,7 +100,7 @@ const ServiceForm: React.FC<Props> = ({ open, handleClose }) => {
     }))
 
     setFormSubmit(false)
-  }, [titleErrors, descriptionErrors, costErrors])
+  }, [nameErrors, descriptionErrors, costErrors])
 
   useEffect(() => {
     setHasErrors(true)

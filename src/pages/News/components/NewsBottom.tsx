@@ -54,7 +54,7 @@ const NewsBottom: React.FC<Props> = ({ item }) => {
             <Loader type="dualring" size={20}/> :
             comments.map(({ text, id, user, date }) => (
               <div className="news-comment" key={id}>
-                <Avatar></Avatar>
+                <Avatar src={user.avatar}></Avatar>
                 <div className="news-comment-right">
                   <p className="news-comment-user">{user.name}</p>
                   <p className="news-comment-text">{text}</p>

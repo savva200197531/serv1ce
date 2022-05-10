@@ -15,7 +15,7 @@ export type User = {
 
 export type UserData = {
   name: string
-  imgFile: File
+  imgFile?: File
 }
 
 export type PasswordData = {
