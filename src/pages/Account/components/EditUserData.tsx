@@ -29,7 +29,7 @@ const EditUserData: React.FC = () => {
 
   // валидации
   const { changeUserDataErrors, loading } = useChangeUserData(data, hasErrors)
-  const { lengthErrors: nameErrors } = useValidateStringMinMax(data.name, { min: 2, max: 15 }, formSubmit)
+  const { lengthErrors: nameErrors } = useValidateStringMinMax(data.name, { min: 2, max: 50 }, formSubmit)
 
   // сабмит формы
   const handleSubmit = (event: FormEvent) => {

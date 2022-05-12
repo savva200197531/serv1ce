@@ -1,24 +1,9 @@
 import React from 'react'
 import './about.scss'
-import { Placemark, Map } from 'react-yandex-maps'
 import photo1 from '../../assets/images/photo1.jpg'
 import photo2 from '../../assets/images/photo2.jpg'
 import photo3 from '../../assets/images/photo3.jpg'
 import photo4 from '../../assets/images/photo4.jpg'
-
-const mapData = {
-  center: [53.3741746448565, 83.74993629840466],
-  zoom: 15,
-}
-
-const addressData = [
-  'ООО “Газойл”',
-  'ул. Северо-Западная, д. 20',
-  'Барнаул, 656037',
-  // 'Телефон: +7 (923) 561-2109',
-  // 'факс: +7 (923) 561-2109',
-  // 'E-mail: info@rusteletech.ru',
-]
 
 const imgData = [
   {
@@ -45,7 +30,7 @@ const About = () => {
       <div className="container">
         <div className="about-content">
           <div className="about-section">
-            <h1 className="about-title">О нас</h1>
+            <h3 className="about-title">О нас</h3>
             <p>
               Компания ООО «ТЕХНОГАЗСЕРВИС», адрес: Алтайский край, улица Северо-Западная, д 20.
               Зарегестрирована 15 июля 2015 года. Основной деятельностья компании является. Директор данной организации
@@ -72,16 +57,6 @@ const About = () => {
           </div>
 
           <div className="about-section">
-            <h3 className="about-title">КОНТАКТНАЯ ИНФОРМАЦИЯ</h3>
-            {addressData.map((item, index) => <p key={index}>{item}</p>)}
-            <div className="contacts-map">
-              <Map width="100%" height={400} defaultState={mapData}>
-                <Placemark geometry={[53.3741746448565, 83.74993629840466]}/>
-              </Map>
-            </div>
-          </div>
-
-          <div className="about-section">
             <h3 className="about-title">Информация</h3>
             {imgData.map((item, index) => (
               <div className="about-photo-wrapper" key={index}>
@@ -90,8 +65,6 @@ const About = () => {
               </div>
             ))}
           </div>
-          {/*<div>телефон</div>*/}
-          {/*<div>email</div>*/}
         </div>
       </div>
     </section>

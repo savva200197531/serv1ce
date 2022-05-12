@@ -48,7 +48,7 @@ const Signup: React.FC = () => {
 
   // валидации
   const { signupErrors, loading } = useSignup(creds, hasErrors)
-  const { lengthErrors: nameErrors } = useValidateStringMinMax(creds.name, { min: 2, max: 15 }, formSubmit)
+  const { lengthErrors: nameErrors } = useValidateStringMinMax(creds.name, { min: 2, max: 40 }, formSubmit)
   const { emailErrors } = useValidateEmail(creds.login, formSubmit)
   const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
   const { passwordConfirmErrors } = useValidatePasswordConfirm(creds.password, creds.passwordConfirm || '', formSubmit)

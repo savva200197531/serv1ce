@@ -1,5 +1,6 @@
 .about {
   padding-bottom: 50px;
+  padding-top: 20px;
 }
 
 .about-content {
@@ -11,10 +12,13 @@
 }
 
 .about-section {
-  margin-top: 100px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 5px 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 0 #dce1e6, 0 0 0 1px #e7e8ec;
 
-  &:first-child {
-    margin-top: 20px;
+  &:not(:first-child) {
+    margin-top: 50px;
   }
 }
 

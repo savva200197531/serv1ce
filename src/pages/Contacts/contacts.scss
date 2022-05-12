@@ -1,3 +1,26 @@
 .contacts {
-  padding-top: 20px;
+  padding-top: 80px;
+}
+
+.contacts-content {
+
+}
+
+.contacts-text {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 5px 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 0 #dce1e6, 0 0 0 1px #e7e8ec;
+}
+
+.contacts-title {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contacts-map {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 0 #dce1e6, 0 0 0 1px #e7e8ec;
 }

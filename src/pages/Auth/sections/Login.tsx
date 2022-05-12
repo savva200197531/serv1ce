@@ -11,9 +11,9 @@ import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
 
 const Login: React.FC = () => {
   // состояние компонента
-  const [name, setName] = useState<string>('Savva')
-  const [login, setLogin] = useState<string>('kashin.savva@mail.ru')
-  const [password, setPassword] = useState<string>('123123')
+  const [name, setName] = useState<string>('')
+  const [login, setLogin] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const [fields, setFields] = useState<FormField[]>([
     {
       id: 'name',
@@ -43,7 +43,7 @@ const Login: React.FC = () => {
 
   // валидации
   const { loginErrors, loading } = useLogin(creds, hasErrors)
-  const { lengthErrors: nameErrors } = useValidateStringMinMax(creds.name, { min: 2, max: 15 }, formSubmit)
+  const { lengthErrors: nameErrors } = useValidateStringMinMax(creds.name, { min: 2, max: 40 }, formSubmit)
   const { emailErrors } = useValidateEmail(creds.login, formSubmit)
   const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
 
