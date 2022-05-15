@@ -19,7 +19,7 @@ const ServiceItem: React.FC<Props> = ({ item: { id, name, cost, url, description
   const navigate = useNavigate()
 
   return (
-    <div className="service-item" key={id}>
+    <div className="service-item white-box" key={id}>
       <div className="img-wrapper">
         <div>
           {url ? <img src={url} alt="фото услуги"/> : <div />}

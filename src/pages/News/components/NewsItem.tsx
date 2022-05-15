@@ -32,7 +32,7 @@ const NewsItem: React.FC<Props> = ({ item }) => {
   }
 
   return (
-    <div className="news-item" key={item.id}>
+    <div className="news-item white-box" key={item.id}>
       <div className="news-header">
         <div className="news-header__left">
           <p className="time">{item.date}</p>
