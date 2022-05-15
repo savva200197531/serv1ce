@@ -27,3 +27,27 @@
 .footer-social {
   color: white;
 }
+
+@media screen and (max-width: 760px) {
+  .copyright {
+    font-size: 12px;
+  }
+
+  .footer-socials {
+    max-width: 90px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .copyright {
+    font-size: 10px;
+  }
+
+  .footer-socials {
+    max-width: 70px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+
+}

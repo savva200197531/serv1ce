@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
-import { Button, Popover } from '@mui/material'
+import { Button, Popover, useMediaQuery } from '@mui/material'
 import Loader from 'react-ts-loaders'
 import { useAuth } from '../../contexts/authContext/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-const UserButton = () => {
+const BurgerMenu = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const navigate = useNavigate()
+
+  const isTablet = useMediaQuery('(max-width:760px)')
 
   const { logout, loading, user, isAuth } = useAuth()
 
@@ -21,6 +23,30 @@ const UserButton = () => {
   }
 
   const buttons = [
+    {
+      text: 'Услуги',
+      onClick: () => {
+        handleClose()
+        navigate('/services')
+      },
+      isHidden: !isTablet,
+    },
+    {
+      text: 'О нас',
+      onClick: () => {
+        handleClose()
+        navigate('/about')
+      },
+      isHidden: !isTablet,
+    },
+    {
+      text: 'Контакты',
+      onClick: () => {
+        handleClose()
+        navigate('/contacts')
+      },
+      isHidden: !isTablet,
+    },
     {
       text: 'Личный кабинет',
       onClick: () => {
@@ -64,7 +90,8 @@ const UserButton = () => {
   ]
 
   return (
-    loading ?
+    <div className="burger-menu">
+      {loading ?
         <Loader type="dualring" size={50} /> :
         <>
           <Button color="primary" onClick={handleClick}>
@@ -93,8 +120,9 @@ const UserButton = () => {
             </div>
           </Popover>
         </>
-
+      }
+    </div>
   )
 }
 
-export default UserButton
+export default BurgerMenu

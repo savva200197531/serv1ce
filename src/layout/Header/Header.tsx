@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './header.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Button } from '@mui/material'
-import UserButton from './UserButton'
+import { Button, useMediaQuery } from '@mui/material'
+import BurgerMenu from './BurgerMenu'
 import logo from '../../assets/images/logo.png'
+import logoCut from '../../assets/images/logo-cut.png'
 
 type PageType = 'signup' | 'login' | 'other'
 
@@ -11,6 +12,9 @@ type PageType = 'signup' | 'login' | 'other'
 const Header: React.FC = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
+
+  const isTablet = useMediaQuery('(max-width:760px)')
+  const isMobile = useMediaQuery('(max-width:480px)')
 
   const [pageType, setPageType] = useState<PageType>()
 
@@ -35,7 +39,7 @@ const Header: React.FC = () => {
       <div className="container">
         <div className="header-content">
           <Button color="primary" onClick={() => navigate('/')}>
-            <img className="logo" src={logo} alt="лого"/>
+            <img className="logo" src={isMobile ? logoCut : logo} alt="лого"/>
           </Button>
 
           <div className="header-right">
@@ -49,19 +53,23 @@ const Header: React.FC = () => {
 
             {pageType === 'other' && (
               <>
-                <Button color="primary" onClick={() => navigate('/services')}>
-                  Услуги
-                </Button>
+                {!isTablet && (
+                  <>
+                    <Button color="primary" onClick={() => navigate('/services')}>
+                      Услуги
+                    </Button>
 
-                <Button color="primary" onClick={() => navigate('/about')}>
-                  О нас
-                </Button>
+                    <Button color="primary" onClick={() => navigate('/about')}>
+                      О нас
+                    </Button>
 
-                <Button color="primary" onClick={() => navigate('/contacts')}>
-                  Контакты
-                </Button>
+                    <Button color="primary" onClick={() => navigate('/contacts')}>
+                      Контакты
+                    </Button>
+                  </>
+                )}
 
-                <UserButton />
+                <BurgerMenu />
                 {/*<CartButton />*/}
               </>
             )}

@@ -65,7 +65,7 @@ const EditUserData: React.FC = () => {
   }, [nameErrors, changeUserDataErrors])
 
   return (
-    <form className="change-creds-form" onSubmit={handleSubmit}>
+    <form className="change-creds-form account-content__item" onSubmit={handleSubmit}>
       {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
       <ImgInput initialImg={user.avatar} label="Выберите фото профиля" setImgFile={setImgFile} />

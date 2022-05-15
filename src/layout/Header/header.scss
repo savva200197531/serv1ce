@@ -30,3 +30,15 @@
   max-width: 50%;
   width: 100%;
 }
+
+@media screen and (max-width: 760px) {
+  .burger-menu {
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logo {
+    max-width: 48px;
+  }
+}

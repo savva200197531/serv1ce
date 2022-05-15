@@ -88,7 +88,7 @@ const EditPassword: React.FC = () => {
   }, [passwordErrors, passwordConfirmErrors])
 
   return (
-    <form className="change-creds-form" onSubmit={handleSubmit}>
+    <form className="change-creds-form account-content__item" onSubmit={handleSubmit}>
       {fields.map(field => <FormFieldLayout key={field.id} field={field} />)}
 
       <Button variant="contained" color="primary" type="submit" disabled={loading}>

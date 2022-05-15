@@ -30,3 +30,10 @@
     font-weight: bold;
   }
 }
+
+@media screen and (max-width: 760px) {
+  .service-form-fields {
+    display: flex;
+    flex-direction: column;
+  }
+}

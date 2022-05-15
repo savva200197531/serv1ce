@@ -6,7 +6,7 @@
   display: flex;
 }
 
-.change-creds-form, .user-data {
+.account-content__item {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
@@ -25,4 +25,25 @@
 
 .user-data {
   padding-bottom: 20px;
+}
+
+.account-tabs {
+  .MuiTabs-flexContainer {
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .account-content {
+    flex-direction: column;
+  }
+
+  .account-content__item {
+    margin: 20px auto;
+    //max-width: 200px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+
 }

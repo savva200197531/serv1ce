@@ -14,7 +14,7 @@ body {
 
   &:before {
     position: fixed;
-    content: url($imagesPath + 'gasoil-bg.png');
+    content: url($imagesPath + 'gasoil-bg-l.png');
     right: 40px;
     top: 100px;
     opacity: 0.8;
@@ -173,13 +173,50 @@ button {
 
 .white-box {
   background: rgba(255, 255, 255, 0.8);
-  //padding: 5px 10px;
   border-radius: $border-radius;
   box-shadow: $page-block-shadow;
 }
 
 // adaptive
 
-@media screen and (max-width: 1390px) {
+@media screen and (max-width: 1200px) {
+  .container {
+    padding: 0 150px;
+  }
+}
 
+@media screen and (max-width: 960px) {
+  body {
+    &:before {
+      content: url($imagesPath + 'gasoil-bg-m.png');
+    }
+  }
+
+  .container {
+    padding: 0 100px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .container {
+    padding: 0 70px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    &:before {
+      content: url($imagesPath + 'gasoil-bg-s.png');
+    }
+  }
+
+  .container {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .container {
+    padding: 0 20px;
+  }
 }

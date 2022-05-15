@@ -13,7 +13,7 @@
 .news-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  //align-items: center;
 }
 
 .news-header__title {
@@ -94,6 +94,7 @@
 .news-comment-text {
   font-size: 14px;
   margin-top: 5px;
+  word-break: break-word;
 }
 
 .news-comment-right {

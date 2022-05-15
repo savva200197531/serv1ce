@@ -42,7 +42,7 @@ const Orders = () => {
       setValues(Object.keys(value).map(key => ({
         id: key,
         ...value[key],
-      })))
+      })).reverse())
 
       setLoading(false)
     })
