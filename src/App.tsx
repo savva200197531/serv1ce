@@ -22,6 +22,7 @@ import { ServicesProvider } from './contexts/servicesContext/ServicesContext'
 import { YMaps } from 'react-yandex-maps'
 import Service from './pages/Service/Service'
 import { UsersProvider } from './contexts/usersContext/UsersContext'
+import Orders from './pages/Orders/Orders'
 
 // корень приложения с роутером для навигации по сайту и провайдерами, для управления логикой сайта
 function App() {
@@ -47,7 +48,7 @@ function App() {
                         <Route path="user" element={<EditUserData/>}/>
                         <Route path="password" element={<EditPassword/>}/>
                       </Route>
-                      {/*<Route path="/cart" element={<Cart />} />*/}
+                      <Route path="/orders" element={<Orders/>}/>
                     </Route>
                     <Route path="auth" element={<Auth/>}>
                       <Route path="login" element={<Login/>}/>

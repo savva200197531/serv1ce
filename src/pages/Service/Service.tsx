@@ -60,7 +60,7 @@ const Service = () => {
     },
     {
       id: 'email',
-      name: 'email',
+      name: 'Email',
       setState: setEmail,
       errors: [],
     },
