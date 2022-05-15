@@ -18,7 +18,7 @@ const Contacts = () => {
     <section className="contacts">
       <div className="container">
         <div className="contacts-content">
-          <div className="contacts-text">
+          <div className="contacts-text white-box">
             <h3 className="contacts-title">КОНТАКТНАЯ ИНФОРМАЦИЯ</h3>
             {addressData.map((item, index) => <p key={index}>{item}</p>)}
           </div>

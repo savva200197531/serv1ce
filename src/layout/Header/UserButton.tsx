@@ -30,6 +30,14 @@ const UserButton = () => {
       isHidden: !isAuth,
     },
     {
+      text: 'Заказы',
+      onClick: () => {
+        handleClose()
+        navigate('/orders')
+      },
+      isHidden: !isAuth,
+    },
+    {
       text: 'Зарегистрироваться',
       onClick: () => {
         handleClose()

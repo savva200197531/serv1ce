@@ -29,7 +29,7 @@ const About = () => {
     <section className="about">
       <div className="container">
         <div className="about-content">
-          <div className="about-section">
+          <div className="about-section white-box">
             <h3 className="about-title">О нас</h3>
             <p>
               Компания ООО «ТЕХНОГАЗСЕРВИС», адрес: Алтайский край, улица Северо-Западная, д 20.
@@ -56,7 +56,7 @@ const About = () => {
             </ul>
           </div>
 
-          <div className="about-section">
+          <div className="about-section white-box">
             <h3 className="about-title">Информация</h3>
             {imgData.map((item, index) => (
               <div className="about-photo-wrapper" key={index}>

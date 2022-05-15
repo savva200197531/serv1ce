@@ -1,3 +1,11 @@
+.service {
+  padding-top: 20px;
+}
+
+.service-content {
+  padding: 15px 10px 5px 10px;
+}
+
 .service-form {
   margin-top: 20px;
 }
@@ -12,7 +20,11 @@
 
 .service-form-info {
   text-align: center;
-  padding-top: 20px;
+  //padding-top: 20px;
+
+  p {
+    margin-top: 5px;
+  }
 
   span {
     font-weight: bold;

@@ -12,7 +12,7 @@ const ServiceInfo: React.FC = () => {
 
   return (
     <div className="service-form-info">
-      <h1>Форма заявки</h1>
+      <h1>Оформить заявку</h1>
       {loading ?
         <Loader type="dualring" size={20}/> :
         <p>Услуга: <span>{service.name}</span></p>

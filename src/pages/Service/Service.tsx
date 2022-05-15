@@ -1,7 +1,16 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 import './service.scss'
 import FormFieldLayout from '../../components/FormFieldLayout/FormFieldLayout'
-import { Button, FormControl, FormHelperText, Input, InputLabel, TextareaAutosize } from '@mui/material'
+import {
+  Button, Dialog, DialogActions, DialogContent, DialogContentText,
+  DialogTitle,
+  FormControl,
+  FormHelperText,
+  Input,
+  InputLabel,
+  Modal,
+  TextareaAutosize,
+} from '@mui/material'
 import Loader from 'react-ts-loaders'
 import useValidateStringMinMax from '../../hooks/useValidateStringMinMax'
 import useValidateRequired from '../../hooks/useValidateRequired'
@@ -11,9 +20,9 @@ import { PhoneMask } from '../../components/PhoneMask'
 import useValidateEmail from '../../hooks/useValidateEmail'
 import ServiceInfo from './components/ServiceInfo'
 import { useNavigate } from 'react-router-dom'
+import ServiceDialog from './components/ServiceDialog'
 
 const Service = () => {
-  const [open, setOpen] = useState<boolean>(false)
   const [lastName, setLastName] = useState<string>('')
   const [phone, setPhone] = useState<string>('')
   const [phoneErrors, setPhoneErrors] = useState<string[]>([])
@@ -49,13 +58,6 @@ const Service = () => {
       setState: setLastName,
       errors: [],
     },
-    // {
-    //   id: 'phone',
-    //   name: 'Телефон',
-    //   inputComponent: PhoneMask as any,
-    //   setState: setPhone,
-    //   errors: [],
-    // },
     {
       id: 'email',
       name: 'email',
@@ -121,8 +123,6 @@ const Service = () => {
     },
   ])
 
-  const navigate = useNavigate()
-
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setValues({
@@ -166,11 +166,6 @@ const Service = () => {
             ...field,
             errors: lastNameErrors,
           }
-        // case 'phone':
-        //   return {
-        //     ...field,
-        //     errors: phoneErrors,
-        //   }
         case 'email':
           return {
             ...field,
@@ -230,18 +225,10 @@ const Service = () => {
     setHasErrors(true)
   }, [loading])
 
-  useEffect(() => {
-    if (success) {
-      setOpen(true)
-      navigate('/')
-    }
-  }, [success])
-
-
   return (
     <section className="service">
       <div className="container">
-        <div className="service-content">
+        <div className="service-content white-box">
           <ServiceInfo />
           <form className="service-form" onSubmit={handleSubmit}>
             <div className="service-form-fields">
@@ -272,6 +259,8 @@ const Service = () => {
             </Button>
             <p className="form-submit-errors">{submitServiceFormErrors.map((error) => error)}</p>
           </form>
+
+          <ServiceDialog success={success} />
         </div>
       </div>
     </section>

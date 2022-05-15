@@ -28,8 +28,9 @@ const useSubmitServiceForm: UseSubmitServiceForm = (values, errors) => {
     const errors: string[] = []
     setSubmitServiceFormErrors([])
     setLoading(true)
+    setSuccess(false)
 
-    set(push(databaseRef(db, 'sales')), values).then(() => {
+    set(push(databaseRef(db, 'orders')), values).then(() => {
       setLoading(false)
       setSuccess(true)
     }).catch((error) => {
