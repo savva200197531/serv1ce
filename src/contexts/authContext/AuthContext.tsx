@@ -4,7 +4,7 @@ import {
   AuthContextProps,
   ChangePassword,
   ChangeUserData,
-  GetUser,
+  GetUser, SetUserToDb,
   UpdateProfile,
 } from './types'
 import {
@@ -62,35 +62,27 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   // отправка данных при регистрации
-  const signup: AuthAction = ({ login, password, name }) =>
+  const signup: AuthAction = ({ login, password }) =>
     createUserWithEmailAndPassword(auth, login, password)
         .then(({ user }) => {
-          updateUserData(user, {
-            displayName: name,
-          }).catch(error => {
-            console.log(error)
-          })
-          set(userRef(user.uid), {
-            email: login,
-            name,
+          setUserToDb({
             uid: user.uid,
-          }).catch(error => {
-            console.log(error)
+            email: login,
           })
           navigate('/')
         })
 
-  const setUserToDb = () => {
-
+  const setUserToDb: SetUserToDb = (user) => {
+    set(userRef(user.uid), user).catch(error => {
+      console.log(error)
+    })
   }
 
   // отправка данных при входе
-  const login: AuthAction = ({ login, password, name }) =>
+  const login: AuthAction = ({ login, password }) =>
     signInWithEmailAndPassword(auth, login, password)
-        .then(value => {
-          updateUserData(value.user, {
-            displayName: name,
-          }).then(() => navigate('/'))
+        .then(() => {
+          navigate('/')
         })
 
   // выход с аккаунта
@@ -101,10 +93,10 @@ export const AuthProvider: React.FC = ({ children }) => {
       displayName,
       photoURL,
     }).finally(() => {
-      getUser({
+      setUser({
         ...user,
-        name: displayName as string,
-        avatar: photoURL ? photoURL : user.avatar,
+        name: displayName,
+        avatar: photoURL || user.avatar,
       })
     })
 
@@ -146,6 +138,12 @@ export const AuthProvider: React.FC = ({ children }) => {
       })
     })
   }, [])
+
+  useEffect(() => {
+    if (Object.values(user).length) {
+      setUserToDb(user)
+    }
+  }, [user])
 
   // вывожу состояние и функции для использования по всему приложению
   const value = {

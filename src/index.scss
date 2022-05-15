@@ -44,7 +44,7 @@ h1, h2, h3 {
   font-family: 'Geometria', sans-serif;
 }
 
-.service, .services, .account, .news, .contacts {
+.service, .services, .account, .news, .contacts, .about {
   padding-bottom: 50px;
   min-height: calc(100vh - 106px);
 }
@@ -53,6 +53,15 @@ section {
 
   &:not(:first-child) {
     //padding-top: 200px;
+  }
+}
+
+.info-field {
+  font-size: 15px;
+  word-wrap: break-word;
+
+  span:first-child {
+    font-weight: bold;
   }
 }
 

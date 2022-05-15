@@ -8,6 +8,7 @@ import { useNews } from '../../../contexts/newsContext/NewsContext'
 import { useAuth } from '../../../contexts/authContext/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import NewsBottom from './NewsBottom'
+import { useUsers } from '../../../contexts/usersContext/UsersContext'
 
 type Props = {
   item: News
@@ -19,6 +20,7 @@ const NewsItem: React.FC<Props> = ({ item }) => {
 
   const { deleteNews } = useNews()
   const { user } = useAuth()
+  const { users } = useUsers()
   const navigate = useNavigate()
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -83,7 +85,7 @@ const NewsItem: React.FC<Props> = ({ item }) => {
 
       <Button className="news-author" color="inherit" variant="text">
         <FontAwesomeIcon icon={faUser as any} size="lg"/>
-        <span className="news-author__text">{item.user.name}</span>
+        <span className="news-author__text">{users[item.uid]?.name}</span>
       </Button>
 
       <NewsBottom item={item} />

@@ -26,8 +26,8 @@ const ServiceItem: React.FC<Props> = ({ item: { id, name, cost, url, description
       </div>
       <div className="service-info">
         <h5 className="service-title">{name}</h5>
-        <p className="service-field"><span>Стоимость:</span> {cost}<span>₽</span></p>
-        <p className="service-field"><span>Описание:</span> {description}</p>
+        <p className="info-field"><span>Стоимость:</span> {cost}<span>₽</span></p>
+        <p className="info-field"><span>Описание:</span> {description}</p>
       </div>
       <div className="service-actions">
         <Button onClick={() => navigate(`/service/${id}`)} variant="contained" color="primary" className="add-btn">

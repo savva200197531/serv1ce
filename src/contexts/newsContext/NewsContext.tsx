@@ -29,7 +29,7 @@ export const NewsProvider: React.FC = ({ children }) => {
         .then(() => getDownloadURL(imagesRef(id)))
         .then(url => set(push(newsRef()), {
           ...payload,
-          user,
+          uid: user.uid,
           date: formatDate(new Date()),
           url,
         }))
@@ -46,7 +46,7 @@ export const NewsProvider: React.FC = ({ children }) => {
   }
 
   const like: RateNewsAction = (payload) => {
-    update(rateNewsRef(payload.id), payload.user).catch(error => {
+    update(rateNewsRef(payload.id), user).catch(error => {
       console.log(error)
     })
   }
@@ -77,7 +77,6 @@ export const NewsProvider: React.FC = ({ children }) => {
   useEffect(() => {
     watchNews()
   }, [])
-
 
   const value = {
     uploadNews,

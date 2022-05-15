@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
     <footer className="footer">
       <div className="container">
         <div className="footer-content">
-          <p className="copyright">© ООО «Газойл», 2019</p>
+          <p className="copyright">© ООО «Техногазсервис», 2019</p>
 
           <div className="footer-socials">
             {links.map((link, index) => (

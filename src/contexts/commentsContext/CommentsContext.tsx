@@ -46,7 +46,6 @@ export const CommentsProvider: React.FC = ({ children }) => {
 
             return {
               id: key,
-              // user: user
               ...comment,
             }
           }),
@@ -65,7 +64,6 @@ export const CommentsProvider: React.FC = ({ children }) => {
     loading,
     uploadComment,
     comments,
-    // getNews,
   }
 
   return <CommentsContext.Provider value={value}>{children}</CommentsContext.Provider>

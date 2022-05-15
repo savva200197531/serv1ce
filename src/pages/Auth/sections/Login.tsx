@@ -11,17 +11,9 @@ import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
 
 const Login: React.FC = () => {
   // состояние компонента
-  const [name, setName] = useState<string>('')
   const [login, setLogin] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [fields, setFields] = useState<FormField[]>([
-    {
-      id: 'name',
-      name: 'Имя пользователя',
-      setState: setName,
-      defaultValue: name,
-      errors: [],
-    },
     {
       id: 'login',
       name: 'Email',
@@ -43,7 +35,6 @@ const Login: React.FC = () => {
 
   // валидации
   const { loginErrors, loading } = useLogin(creds, hasErrors)
-  const { lengthErrors: nameErrors } = useValidateStringMinMax(creds.name, { min: 2, max: 40 }, formSubmit)
   const { emailErrors } = useValidateEmail(creds.login, formSubmit)
   const { passwordErrors } = useValidatePassword(creds.password, formSubmit)
 
@@ -51,7 +42,6 @@ const Login: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setCreds({
-      name,
       login,
       password,
     })
@@ -60,7 +50,7 @@ const Login: React.FC = () => {
 
   // расставляю ошибки, если они есть
   useEffect(() => {
-    const messages: string[] = [...passwordErrors, ...emailErrors, ...nameErrors]
+    const messages: string[] = [...passwordErrors, ...emailErrors]
 
     if (!messages.length && formSubmit) {
       setHasErrors(false)
@@ -68,11 +58,6 @@ const Login: React.FC = () => {
 
     setFields(fields.map((field: FormField) => {
       switch (field.id) {
-        case 'name':
-          return {
-            ...field,
-            errors: nameErrors,
-          }
         case 'login':
           return {
             ...field,
@@ -89,7 +74,7 @@ const Login: React.FC = () => {
     }))
 
     setFormSubmit(false)
-  }, [nameErrors, emailErrors, passwordErrors])
+  }, [emailErrors, passwordErrors])
 
   useEffect(() => {
     setHasErrors(true)

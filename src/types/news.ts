@@ -12,7 +12,7 @@ export interface News {
   description: string
   url: string
   date: string
-  user: User
+  uid: string
   likes?: {
     [key: string]: User
   }

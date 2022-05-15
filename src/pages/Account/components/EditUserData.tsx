@@ -12,7 +12,7 @@ import useAccountOutletContext from '../useAccountOutletContext'
 const EditUserData: React.FC = () => {
   const { user } = useAccountOutletContext()
 
-  const [name, setName] = useState<string>(user.name)
+  const [name, setName] = useState<string>(user.name || '')
   const [imgFile, setImgFile] = useState<File>()
   const [fields, setFields] = useState<FormField[]>([
     {

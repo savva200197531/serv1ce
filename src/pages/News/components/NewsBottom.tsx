@@ -8,6 +8,7 @@ import { useComments } from '../../../contexts/commentsContext/CommentsContext'
 import Loader from 'react-ts-loaders'
 import { useAuth } from '../../../contexts/authContext/AuthContext'
 import { useNews } from '../../../contexts/newsContext/NewsContext'
+import { useUsers } from '../../../contexts/usersContext/UsersContext'
 
 type Props = {
   item: News
@@ -20,6 +21,7 @@ const NewsBottom: React.FC<Props> = ({ item }) => {
   const { uploadComment, comments: allComments, loading } = useComments()
   const { rateNews } = useNews()
   const { user, isAuth } = useAuth()
+  const { users } = useUsers()
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -52,11 +54,11 @@ const NewsBottom: React.FC<Props> = ({ item }) => {
         {
           loading ?
             <Loader type="dualring" size={20}/> :
-            comments.map(({ text, id, user, date }) => (
+            comments.map(({ text, id, date, uid }) => (
               <div className="news-comment" key={id}>
-                <Avatar src={user.avatar}></Avatar>
+                <Avatar src={users[uid]?.avatar}></Avatar>
                 <div className="news-comment-right">
-                  <p className="news-comment-user">{user.name}</p>
+                  <p className="news-comment-user">{users[uid]?.name || 'Аноним'}</p>
                   <p className="news-comment-text">{text}</p>
                   <p className="time">{date}</p>
                 </div>

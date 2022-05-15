@@ -1,15 +1,14 @@
 export type Creds = {
-  name: string
   login: string
   password: string
   passwordConfirm?: string
 }
 
-export type User = {
-  name: string
+export interface User {
   email: string
   uid: string
   admin?: boolean
+  name?: string
   avatar?: string
 }
 
@@ -22,4 +21,8 @@ export type PasswordData = {
   // oldPassword: string
   password: string
   passwordConfirm: string
+}
+
+export type Users = {
+  [key: string]: User
 }

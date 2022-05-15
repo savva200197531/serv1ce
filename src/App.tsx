@@ -21,6 +21,7 @@ import EditUserData from './pages/Account/components/EditUserData'
 import { ServicesProvider } from './contexts/servicesContext/ServicesContext'
 import { YMaps } from 'react-yandex-maps'
 import Service from './pages/Service/Service'
+import { UsersProvider } from './contexts/usersContext/UsersContext'
 
 // корень приложения с роутером для навигации по сайту и провайдерами, для управления логикой сайта
 function App() {
@@ -28,34 +29,36 @@ function App() {
     <BrowserRouter>
       <YMaps>
         <AuthProvider>
-          <ServicesProvider>
-            <NewsProvider>
-              <CommentsProvider>
-                <Header/>
+          <UsersProvider>
+            <ServicesProvider>
+              <NewsProvider>
+                <CommentsProvider>
+                  <Header/>
 
-                <Routes>
-                  <Route path="/" element={<MainPage/>}>
-                    <Route path="/" element={<News/>}/>
-                    <Route path="/services" element={<Services/>}/>
-                    <Route path="/service/:id" element={<Service/>}/>
-                    <Route path="/about" element={<About/>}/>
-                    <Route path="/contacts" element={<Contacts/>}/>
-                    <Route path="/account" element={<Account/>}>
-                      <Route path="" element={<UserData/>}/>
-                      <Route path="user" element={<EditUserData/>}/>
-                      <Route path="password" element={<EditPassword/>}/>
+                  <Routes>
+                    <Route path="/" element={<MainPage/>}>
+                      <Route path="/" element={<News/>}/>
+                      <Route path="/services" element={<Services/>}/>
+                      <Route path="/service/:id" element={<Service/>}/>
+                      <Route path="/about" element={<About/>}/>
+                      <Route path="/contacts" element={<Contacts/>}/>
+                      <Route path="/account" element={<Account/>}>
+                        <Route path="" element={<UserData/>}/>
+                        <Route path="user" element={<EditUserData/>}/>
+                        <Route path="password" element={<EditPassword/>}/>
+                      </Route>
+                      {/*<Route path="/cart" element={<Cart />} />*/}
                     </Route>
-                    {/*<Route path="/cart" element={<Cart />} />*/}
-                  </Route>
-                  <Route path="auth" element={<Auth/>}>
-                    <Route path="login" element={<Login/>}/>
-                    <Route path="signup" element={<Signup/>}/>
-                  </Route>
-                  <Route path="*" element={<NotFound/>}/>
-                </Routes>
-              </CommentsProvider>
-            </NewsProvider>
-          </ServicesProvider>
+                    <Route path="auth" element={<Auth/>}>
+                      <Route path="login" element={<Login/>}/>
+                      <Route path="signup" element={<Signup/>}/>
+                    </Route>
+                    <Route path="*" element={<NotFound/>}/>
+                  </Routes>
+                </CommentsProvider>
+              </NewsProvider>
+            </ServicesProvider>
+          </UsersProvider>
         </AuthProvider>
       </YMaps>
     </BrowserRouter>
