@@ -2,13 +2,11 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import './service.scss'
 import FormFieldLayout from '../../components/FormFieldLayout/FormFieldLayout'
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText,
-  DialogTitle,
+  Button,
   FormControl,
   FormHelperText,
   Input,
   InputLabel,
-  Modal,
   TextareaAutosize,
 } from '@mui/material'
 import Loader from 'react-ts-loaders'
@@ -19,8 +17,8 @@ import useSubmitServiceForm from '../../hooks/useSubmitServiceForm'
 import { PhoneMask } from '../../components/PhoneMask'
 import useValidateEmail from '../../hooks/useValidateEmail'
 import ServiceInfo from './components/ServiceInfo'
-import { useNavigate } from 'react-router-dom'
 import ServiceDialog from './components/ServiceDialog'
+import PersonalDataText from '../../components/PersonalDataText'
 
 const Service = () => {
   const [lastName, setLastName] = useState<string>('')
@@ -255,9 +253,10 @@ const Service = () => {
             </div>
 
             <Button variant="contained" color="primary" type="submit" disabled={loading}>
-              {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Сохранить'}
+              {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Оформить'}
             </Button>
             <p className="form-submit-errors">{submitServiceFormErrors.map((error) => error)}</p>
+            <PersonalDataText text="Оформить заявку" />
           </form>
 
           <ServiceDialog success={success} />

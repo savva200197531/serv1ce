@@ -8,7 +8,7 @@ import Loader from 'react-ts-loaders'
 import useValidatePasswordConfirm from '../../../hooks/useValidatePasswordConfirm'
 import FormFieldLayout from '../../../components/FormFieldLayout/FormFieldLayout'
 import { FormField } from '../../../components/FormFieldLayout/types'
-import useValidateStringMinMax from '../../../hooks/useValidateStringMinMax'
+import PersonalDataText from '../../../components/PersonalDataText'
 
 const Signup: React.FC = () => {
   // состояние компонента
@@ -104,6 +104,7 @@ const Signup: React.FC = () => {
         {loading ? <Loader className="auth-spinner" type="dualring" size={20} /> : 'Зарегистрироваться'}
       </Button>
       <p className="form-submit-errors">{signupErrors.map((error) => error)}</p>
+      <PersonalDataText text="Зарегистрироваться" />
     </form>
   </>
 }
